@@ -14,10 +14,27 @@ namespace Amdl.Maml.Converter
     /// </summary>
     public class TopicConverter
     {
+        enum TopicState
+        {
+            None,
+            Summary,
+            Introduction,
+            Content,
+        }
+
+        enum SectionState
+        {
+            None,
+            Content,
+            Sections,
+        }
+
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> topics;
 
-        private int sectionLevel;
+        private TopicState topicState;
+        private Stack<SectionState> sectionStates;
+
         private bool isMarkupInline;
         private bool isInSeeAlso;
 
@@ -75,14 +92,18 @@ namespace Amdl.Maml.Converter
             writer.WriteAttributeString("id", Id.ToString());
             writer.WriteAttributeString("revisionNumber", "1");
 
-            sectionLevel = 1;
+            sectionStates = new Stack<SectionState>();
+            sectionStates.Push(SectionState.None);
 
             writer.WriteStartElement("developerConceptualDocument", "http://ddue.schemas.microsoft.com/authoring/2003/5");
+
+            WriteStartSummary(writer);
 
             WriteChildBlocks(block, writer);
 
             WriteEndSections(2, writer);
-
+            WriteEndSummary(writer);
+            WriteEndIntroduction(writer);
             WriteRelatedTopics(block, writer);
 
             writer.WriteEndElement(); //developerConceptualDocument
@@ -275,9 +296,11 @@ namespace Amdl.Maml.Converter
 
         private void WriteConceptualLink(Inline inline, XmlWriter writer)
         {
-            var id = topics[inline.TargetUrl].Id;
+            string href = inline.TargetUrl.StartsWith("#")
+                ? inline.TargetUrl
+                : topics[inline.TargetUrl].Id.ToString();
             writer.WriteStartElement("link");
-            writer.WriteAttributeString("href", "http://www.w3.org/1999/xlink", id.ToString());
+            writer.WriteAttributeString("href", "http://www.w3.org/1999/xlink", href);
             //writer.WriteString(inline.LiteralContent);
             WriteChildInlines(inline, writer);
             writer.WriteEndElement(); //link
@@ -326,40 +349,104 @@ namespace Amdl.Maml.Converter
 
         private void WriteStartSection(Block block, XmlWriter writer)
         {
+            WriteEndSummary(writer);
+
             if (block.HeaderLevel == 1)
             {
-                SetTopicTitle(block);
+                WriteStartIntroduction(block, writer);
                 return;
             }
+
+            WriteEndIntroduction(writer);
 
             if (isInSeeAlso)
                 return;
 
-            if (block.InlineContent.LiteralContent == "See Also")
+            var title = block.InlineContent.LiteralContent;
+            if (title.Equals(Properties.Resources.SeeAlsoTitle))
             {
-                WriteEndSections(2, writer);
-                writer.WriteStartElement("relatedTopics");
-                isInSeeAlso = true;
+                WriteStartSeeAlso(writer);
                 return;
             }
 
-            WriteEndSections(block.HeaderLevel, writer);
-            if (block.HeaderLevel > sectionLevel)
+            DoWriteStartSection(block, writer);
+        }
+
+        private void WriteStartSummary(XmlWriter writer)
+        {
+            writer.WriteStartElement("summary");
+            topicState = TopicState.Summary;
+        }
+
+        private void WriteEndSummary(XmlWriter writer)
+        {
+            if (topicState == TopicState.Summary)
             {
-                ++sectionLevel;
-                writer.WriteStartElement("section");
+                writer.WriteEndElement(); //summary
+                topicState = TopicState.Content;
             }
-            writer.WriteElementString("title", block.InlineContent.LiteralContent);
+        }
+
+        private void WriteStartIntroduction(Block block, XmlWriter writer)
+        {
+            SetTopicTitle(block);
+            writer.WriteStartElement("introduction");
+            if (block.Tag == BlockTag.SETextHeader)
+            {
+                writer.WriteElementString("autoOutline", null);
+                //writer.WriteStartElement("sections");
+            }
+            topicState = TopicState.Introduction;
+        }
+
+        private void WriteEndIntroduction(XmlWriter writer)
+        {
+            if (topicState == TopicState.Introduction)
+            {
+                writer.WriteEndElement(); //introduction
+                topicState = TopicState.Content;
+            }
+        }
+
+        private void WriteStartSeeAlso(XmlWriter writer)
+        {
+            WriteEndSections(2, writer);
+            writer.WriteStartElement("relatedTopics");
+            isInSeeAlso = true;
+        }
+
+        private void DoWriteStartSection(Block block, XmlWriter writer)
+        {
+            WriteEndSections(block.HeaderLevel, writer);
+
+            var state = sectionStates.Peek();
+            if (state == SectionState.Content)
+            {
+                writer.WriteEndElement(); //content
+                writer.WriteStartElement("sections");
+                sectionStates.Pop();
+                sectionStates.Push(SectionState.Sections);
+            }
+
+            var title = block.InlineContent.LiteralContent;
+            writer.WriteStartElement("section");
+            writer.WriteAttributeString("address", title);
+            writer.WriteElementString("title", title);
             writer.WriteStartElement("content");
+
+            if (block.Tag == BlockTag.SETextHeader)
+                writer.WriteElementString("autoOutline", null);
+
+            sectionStates.Push(SectionState.Content);
         }
 
         private void WriteEndSections(int level, XmlWriter writer)
         {
-            while (sectionLevel >= level)
+            while (sectionStates.Count() >= level)
             {
-                writer.WriteEndElement(); //content
+                var state = sectionStates.Pop();
+                writer.WriteEndElement(); //content | sections
                 writer.WriteEndElement(); //section
-                --sectionLevel;
             }
         }
 
