@@ -42,7 +42,8 @@ namespace Amdl.Maml.Converter
             var settings = CommonMarkSettings.Default.Clone();
             settings.OutputFormat = OutputFormat.CustomDelegate;
             settings.OutputDelegate = WriteDocument;
-            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.SubscriptTilde | CommonMarkAdditionalFeatures.SuperscriptCaret;
+            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde
+                | CommonMarkAdditionalFeatures.SubscriptTilde | CommonMarkAdditionalFeatures.SuperscriptCaret;
             CommonMarkConverter.Convert(reader, writer, settings);
         }
 
@@ -193,11 +194,7 @@ namespace Amdl.Maml.Converter
                     break;
 
                 case InlineTag.RawHtml:
-                    if (!isMarkupInline)
-                    {
-                        writer.WriteStartElement("markup");
-                        isMarkupInline = true;
-                    }
+                    WriteStartMarkupInline(writer);
                     writer.WriteRaw(inline.LiteralContent);
                     WriteChildInlines(inline, writer);
                     break;
@@ -233,8 +230,23 @@ namespace Amdl.Maml.Converter
                     throw new NotImplementedException();
 
                 case InlineTag.Strikethrough:
+                    WriteStartMarkupInline(writer);
+                    writer.WriteStartElement("s");
+                    WriteChildInlines(inline, writer);
+                    writer.WriteEndElement(); //s
+                    break;
+
                 default:
                     throw new InvalidOperationException("Unexpected inline tag: " + inline.Tag);
+            }
+        }
+
+        private void WriteStartMarkupInline(XmlWriter writer)
+        {
+            if (!isMarkupInline)
+            {
+                writer.WriteStartElement("markup");
+                isMarkupInline = true;
             }
         }
 
