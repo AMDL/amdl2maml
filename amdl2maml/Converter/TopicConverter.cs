@@ -14,6 +14,20 @@ namespace Amdl.Maml.Converter
     /// </summary>
     public class TopicConverter
     {
+        private static readonly string[] Languages =
+        {
+            "C#", "CSharp",
+            "C++", "cpp",
+            "C",
+            "F#", "FSharp",
+            "JavaScript", "js",
+            "VB.NET",
+            "HTML", "XML", "XSL",
+            "PowerShell",
+            "Python",
+            "SQL",
+        };
+
         enum TopicState
         {
             None,
@@ -148,7 +162,7 @@ namespace Amdl.Maml.Converter
                     writer.WriteStartElement("code");
                     if (!string.IsNullOrEmpty(block.FencedCodeData.Info))
                     {
-                        if (new[] { "CSharp", "VisualBasic", "PowerShell"}.Contains(block.FencedCodeData.Info))
+                        if (Languages.Contains(block.FencedCodeData.Info))
                             writer.WriteAttributeString("language", block.FencedCodeData.Info);
                         else
                             writer.WriteAttributeString("title", block.FencedCodeData.Info);
