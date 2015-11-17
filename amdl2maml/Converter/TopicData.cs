@@ -22,11 +22,17 @@ namespace Amdl.Maml.Converter
         /// <value>Topic ID.</value>
         public Guid Id { get; private set; }
 
+        ///// <summary>
+        ///// Gets the name.
+        ///// </summary>
+        ///// <value>Topic Name.</value>
+        //public string Name { get; private set; }
+
         /// <summary>
-        /// Gets the name.
+        /// Gets or sets the type.
         /// </summary>
-        /// <value>Topic Name.</value>
-        public string Name { get; private set; }
+        /// <value>Topic Type.</value>
+        public TopicType Type { get; set; }
 
         /// <summary>
         /// Gets the title.

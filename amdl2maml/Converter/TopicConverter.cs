@@ -109,7 +109,7 @@ namespace Amdl.Maml.Converter
             sectionStates = new Stack<SectionState>();
             sectionStates.Push(SectionState.None);
 
-            writer.WriteStartElement("developerConceptualDocument", "http://ddue.schemas.microsoft.com/authoring/2003/5");
+            writer.WriteStartElement(GetRootElementName(), "http://ddue.schemas.microsoft.com/authoring/2003/5");
 
             WriteStartSummary(writer);
 
@@ -123,6 +123,11 @@ namespace Amdl.Maml.Converter
             writer.WriteEndElement(); //developerConceptualDocument
             writer.WriteEndElement(); //topic
             writer.WriteEndDocument();
+        }
+
+        private string GetRootElementName()
+        {
+            return string.Format("developer{0}Document", Topic.Type);
         }
 
         private void WriteBlock(Block block, XmlWriter writer)
