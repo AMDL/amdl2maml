@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="FileConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
+    <Compile Include="LayoutIndexer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -48,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TopicData.cs" />
     <Compile Include="TopicType.cs" />
+    <Compile Include="TopicUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonMark">
@@ -70,6 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Maml\Maml.csproj">
+      <Project>{4a1574bf-dd28-4a82-b88d-f27e040eeaca}</Project>
+      <Name>Maml</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

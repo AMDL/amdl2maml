@@ -1,8 +1,6 @@
 ﻿using PCLStorage;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,40 +12,63 @@ namespace Amdl.Maml.Converter
     public class FileConverter
     {
         /// <summary>
-        /// Converts the topic file to MAML.
+        /// Converts the topic to MAML.
         /// </summary>
-        /// <param name="srcFilePath">Source file path.</param>
+        /// <param name="topics">Topics data.</param>
+        /// <param name="srcPath">Source base path.</param>
         /// <param name="destPath">Destination base path.</param>
-        /// <param name="getTopicFromName">Gets the topic data for the specified topic name.</param>
+        /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task ConvertAsync(string srcFilePath, string destPath, Func<string, TopicData> getTopicFromName, CancellationToken cancellationToken)
+        public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken)
         {
+            foreach (var topic in topics)
+            {
+                await ConvertAsync(topic, srcPath, destPath, name2topic, cancellationToken);
+            }
+        }
+
+        /// <summary>
+        /// Converts the topic to MAML.
+        /// </summary>
+        /// <param name="topic">Topic data.</param>
+        /// <param name="srcPath">Source base path.</param>
+        /// <param name="destPath">Destination base path.</param>
+        /// <param name="name2topic">Mapping from topic name to data.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>Asynchronous task.</returns>
+        public static async Task ConvertAsync(TopicData topic, string srcPath, string destPath, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken)
+        {
+            var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
             var name = Path.GetFileNameWithoutExtension(srcFilePath);
-            var topic = getTopicFromName(name);
             var destDir = Path.Combine(destPath, topic.RelativePath);
             var fileName = Path.GetFileName(srcFilePath);
             var destName = Path.ChangeExtension(fileName, ".aml");
 
             var srcFile = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken);
-            var destFolder = await Storage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);
+            var destFolder = await FileSystem.Current.LocalStorage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);
             var destFile = await destFolder.CreateFileAsync(destName, CreationCollisionOption.ReplaceExisting, cancellationToken);
 
+            await ConvertAsync(topic, name2topic, cancellationToken, srcFile, destFile);
+        }
+
+        private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken, IFile srcFile, IFile destFile)
+        {
             using (var srcStream = await srcFile.OpenAsync(FileAccess.Read, cancellationToken))
-            using (var reader = new StreamReader(srcStream))
+            using (var destStream = await destFile.OpenAsync(FileAccess.ReadAndWrite, cancellationToken))
             {
-                using (var destStream = await destFile.OpenAsync(FileAccess.ReadAndWrite, cancellationToken))
-                using (var writer = new StreamWriter(destStream))
-                {
-                    var converter = new TopicConverter(topic, getTopicFromName);
-                    converter.ConvertAsync(reader, writer).GetAwaiter().GetResult(); //TODO
-                }
+                await ConvertAsync(topic, srcStream, destStream, name2topic);
             }
         }
 
-        private static IFolder Storage
+        private static async Task ConvertAsync(TopicData topic, Stream srcStream, Stream destStream, IDictionary<string, TopicData> name2topic)
         {
-            get { return PCLStorage.FileSystem.Current.LocalStorage; }
+            using (var reader = new StreamReader(srcStream))
+            using (var writer = new StreamWriter(destStream))
+            {
+                var converter = new TopicConverter(topic, name2topic);
+                await converter.ConvertAsync(reader, writer);
+            }
         }
     }
 }
