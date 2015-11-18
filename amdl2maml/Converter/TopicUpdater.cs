@@ -32,7 +32,8 @@ namespace Amdl.Maml.Converter
         private static async Task<Block> GetHeaderBlockAsync(TopicData topic, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken)
         {
             var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
-            var file = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken);
+            var file = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken)
+                .ConfigureAwait(false);
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))
             {

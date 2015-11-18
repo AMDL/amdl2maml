@@ -24,7 +24,8 @@ namespace Amdl.Maml.Converter
         public static async Task<IDictionary<string, Guid>> IndexAsync(string layoutPath, CancellationToken cancellationToken)
         {
             ContentLayout layout;
-            var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken);
+            var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken)
+                .ConfigureAwait(false);
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))
             {

@@ -45,7 +45,8 @@ namespace Amdl.Maml.Converter
             var fileName = Path.GetFileName(srcFilePath);
             var destName = Path.ChangeExtension(fileName, ".aml");
 
-            var srcFile = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken);
+            var srcFile = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken)
+                .ConfigureAwait(false);
             var destFolder = await FileSystem.Current.LocalStorage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);
             var destFile = await destFolder.CreateFileAsync(destName, CreationCollisionOption.ReplaceExisting, cancellationToken);
 

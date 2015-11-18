@@ -63,7 +63,8 @@ namespace Amdl.Maml.Converter
 
         private async Task<IEnumerable<TopicData>> IndexAsync(CancellationToken cancellationToken)
         {
-            var folder = await FileSystem.Current.GetFolderFromPathAsync(this.path, cancellationToken);
+            var folder = await FileSystem.Current.GetFolderFromPathAsync(this.path, cancellationToken)
+                .ConfigureAwait(false);
             var topics = await IndexFilesAsync(folder, cancellationToken);
             var subfolderTopics = await IndexFoldersAsync(folder, cancellationToken);
             return topics.Concat(subfolderTopics);
