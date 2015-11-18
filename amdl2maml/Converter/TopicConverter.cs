@@ -78,7 +78,6 @@ namespace Amdl.Maml.Converter
         public void Convert(TextReader reader, TextWriter writer)
         {
             var settings = CommonMarkSettings.Default.Clone();
-            settings.OutputFormat = OutputFormat.CustomDelegate;
             settings.OutputDelegate = WriteDocument;
             settings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde
                 | CommonMarkAdditionalFeatures.SubscriptTilde | CommonMarkAdditionalFeatures.SuperscriptCaret;
@@ -155,7 +154,6 @@ namespace Amdl.Maml.Converter
             writer.WriteStartElement("introduction");
             if (block.Tag == BlockTag.SETextHeader)
                 writer.WriteElementString("autoOutline", null);
-
             topicState = TopicState.Introduction;
         }
 
