@@ -28,7 +28,6 @@
     </Topic>
   </Topic>
   <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" isExpanded="true" title="Markdown">
-    <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
     <Topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" visible="True" isExpanded="true" title="Headers">
       <Topic id="49c9ae98-e954-41f8-b6e9-ad62637de12d" visible="True" title="ATX-Style Headers">
         <Topic id="a3e870f6-5589-477a-8505-95c641025855" visible="True" title="ATX-Style Topic Header" />
@@ -38,6 +37,9 @@
         <Topic id="50005a18-8c9a-405b-82e7-efc76bb4eed1" visible="True" title="Setext-Style Topic Header" />
         <Topic id="131f2864-f2bc-4170-a1a8-053bf3b83491" visible="True" title="Setext-Style Section Header" />
       </Topic>
+    </Topic>
+    <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" isExpanded="true" isSelected="true" title="Block Elements">
+      <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
     </Topic>
     <Topic id="48782fa5-7847-4c47-9c54-ddb2731da049" visible="True" isExpanded="true" title="Images">
       <Topic id="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" visible="True" title="Block Image" />
@@ -49,7 +51,7 @@
       <Topic id="52e90a26-9d60-4e91-b5f2-b8137b59a137" visible="True" title="Superscript" />
       <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Strong Emphasis" />
     </Topic>
-    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" isSelected="true" title="PM Elements Not Present in AMDL" tocTitle="Removed Elements" linkText="PM Elements Not Present in AMDL">
+    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" title="PM Elements Not Present in AMDL" tocTitle="Removed Elements" linkText="PM Elements Not Present in AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikethrough" />
     </Topic>
   </Topic>

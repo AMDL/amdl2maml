@@ -85,6 +85,7 @@
     <Folder Include="Content\Markdown\Images" />
     <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
+    <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Removed-Elements" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
@@ -110,9 +111,10 @@
     <None Include="Content\MAML\MAML-Media-Elements\MAML-MediaLink.aml" />
     <None Include="Content\MAML\MAML-Media-Elements\MAML-MediaLinkInline.aml" />
     <None Include="Content\MAML\MAML-Media-Elements\MAML-Media-Elements.aml" />
+    <None Include="Content\Markdown\Block-Elements\Block-Elements.aml" />
+    <None Include="Content\Markdown\Block-Elements\Definition-List.aml" />
     <None Include="Content\Markdown\Removed-Elements\Removed-Elements.aml" />
     <None Include="Content\Markdown\Removed-Elements\Strikethrough.aml" />
-    <None Include="Content\Markdown\Definition-List.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Headers.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Section-Header.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Topic-Header.aml" />
@@ -129,7 +131,6 @@
     <None Include="Content\Markdown\Inline-Elements\Subscript.aml" />
     <None Include="Content\Markdown\Inline-Elements\Superscript.aml" />
     <None Include="Content\Markdown\Markdown.aml" />
-    <None Include="Content\Markdown\Strikethrough.aml" />
     <None Include="Content\Tools\amdl2maml.aml" />
     <None Include="Content\Tools\maml2amdl.aml" />
     <None Include="Content\Tools\Tools.aml" />
