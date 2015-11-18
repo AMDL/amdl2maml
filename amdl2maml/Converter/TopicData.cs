@@ -7,26 +7,35 @@ namespace Amdl.Maml.Converter
     /// </summary>
     public class TopicData
     {
+        ///// <summary>
+        ///// Creates a new instance of the <see cref="TopicData"/> class.
+        ///// </summary>
+        ///// <param name="id">Topic ID.</param>
+        //public TopicData(Guid id)
+        //{
+        //    Id = id;
+        //}
+
         /// <summary>
         /// Creates a new instance of the <see cref="TopicData"/> class.
         /// </summary>
-        /// <param name="id">Topic ID.</param>
-        public TopicData(Guid id)
+        /// <param name="name">Topic name.</param>
+        public TopicData(string name)
         {
-            Id = id;
+            Name = name;
         }
 
         /// <summary>
-        /// Gets the ID.
+        /// Gets or sets the ID.
         /// </summary>
         /// <value>Topic ID.</value>
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
-        ///// <summary>
-        ///// Gets the name.
-        ///// </summary>
-        ///// <value>Topic Name.</value>
-        //public string Name { get; private set; }
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>Topic Name.</value>
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets or sets the type.
