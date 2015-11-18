@@ -1,6 +1,8 @@
 ﻿using PCLStorage;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +26,8 @@ namespace Amdl.Maml.Converter
             var name = Path.GetFileNameWithoutExtension(srcFilePath);
             var topic = getTopicFromName(name);
             var destDir = Path.Combine(destPath, topic.RelativePath);
-            var destName = name + ".aml";
+            var fileName = Path.GetFileName(srcFilePath);
+            var destName = Path.ChangeExtension(fileName, ".aml");
 
             var srcFile = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken);
             var destFolder = await Storage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);

@@ -93,13 +93,13 @@ namespace Amdl.Maml.Converter
 
         private TopicData CreateTopicData(IFile file)
         {
-            var name = Path.GetFileNameWithoutExtension(file.Name);
-            var type = GetTopicType(name);
-            return new TopicData(name, type, relativePath);
+            var type = GetTopicType(file);
+            return new TopicData(type, file.Name, relativePath);
         }
 
-        private TopicType GetTopicType(string name)
+        private TopicType GetTopicType(IFile file)
         {
+            var name = Path.GetFileNameWithoutExtension(file.Name);
             if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase))
                 return TopicType.Orientation;
             return TopicType.Conceptual;

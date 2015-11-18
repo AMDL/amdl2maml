@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Amdl.Maml.Converter
 {
@@ -7,24 +8,15 @@ namespace Amdl.Maml.Converter
     /// </summary>
     public class TopicData
     {
-        ///// <summary>
-        ///// Creates a new instance of the <see cref="TopicData"/> class.
-        ///// </summary>
-        ///// <param name="id">Topic ID.</param>
-        //public TopicData(Guid id)
-        //{
-        //    Id = id;
-        //}
-
         /// <summary>
         /// Creates a new instance of the <see cref="TopicData"/> class.
         /// </summary>
-        /// <param name="name">Topic name.</param>
         /// <param name="type">Topic type.</param>
+        /// <param name="fileName">Topic name.</param>
         /// <param name="relativePath">Relative path to the topic file.</param>
-        public TopicData(string name, TopicType type, string relativePath)
+        public TopicData(TopicType type, string fileName, string relativePath)
         {
-            Name = name;
+            FileName = fileName;
             Type = type;
             RelativePath = relativePath;
         }
@@ -39,7 +31,13 @@ namespace Amdl.Maml.Converter
         /// Gets the name.
         /// </summary>
         /// <value>Topic Name.</value>
-        public string Name { get; private set; }
+        public string Name
+        {
+            get
+            {
+                return Path.GetFileNameWithoutExtension(FileName);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the type.
@@ -52,6 +50,12 @@ namespace Amdl.Maml.Converter
         /// </summary>
         /// <value>Topic title.</value>
         public string Title { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the topic's file name.
+        /// </summary>
+        /// <value>File name.</value>
+        public string FileName { get; private set; }
 
         /// <summary>
         /// Gets or sets the relative path.
