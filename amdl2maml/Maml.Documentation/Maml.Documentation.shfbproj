@@ -85,6 +85,7 @@
     <Folder Include="Content\Markdown\Images" />
     <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
+    <Folder Include="Content\Markdown\Removed-Elements" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
@@ -109,6 +110,8 @@
     <None Include="Content\MAML\MAML-Media-Elements\MAML-MediaLink.aml" />
     <None Include="Content\MAML\MAML-Media-Elements\MAML-MediaLinkInline.aml" />
     <None Include="Content\MAML\MAML-Media-Elements\MAML-Media-Elements.aml" />
+    <None Include="Content\Markdown\Removed-Elements\Removed-Elements.aml" />
+    <None Include="Content\Markdown\Removed-Elements\Strikethrough.aml" />
     <None Include="Content\Markdown\Definition-List.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Headers.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Section-Header.aml" />
