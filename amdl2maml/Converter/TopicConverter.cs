@@ -50,7 +50,7 @@ namespace Amdl.Maml.Converter
         }
 
         private readonly TopicData topic;
-        private readonly IDictionary<string, TopicData> topics;
+        private readonly Func<string, TopicData> getTopicFromName;
 
         private TopicState topicState;
         private Stack<SectionState> sectionStates;
@@ -63,11 +63,11 @@ namespace Amdl.Maml.Converter
         /// Initializes a new instance of the <see cref="TopicConverter"/> class.
         /// </summary>
         /// <param name="topic">Current topic.</param>
-        /// <param name="topics">Known topics.</param>
-        public TopicConverter(TopicData topic, IDictionary<string, TopicData> topics)
+        /// <param name="getTopicFromName">Gets the topic data for the specified topic name.</param>
+        public TopicConverter(TopicData topic, Func<string, TopicData> getTopicFromName)
         {
             this.topic = topic;
-            this.topics = topics;
+            this.getTopicFromName = getTopicFromName;
         }
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Amdl.Maml.Converter
         {
             string href = inline.TargetUrl.StartsWith("#")
                 ? inline.TargetUrl
-                : topics[inline.TargetUrl].Id.ToString();
+                : getTopicFromName(inline.TargetUrl).Id.ToString();
             writer.WriteStartElement("link");
             writer.WriteAttributeString("href", "http://www.w3.org/1999/xlink", href);
             //writer.WriteString(inline.LiteralContent);
