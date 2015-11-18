@@ -43,11 +43,18 @@ namespace Amdl.Maml.Converter
             Sections,
         }
 
+        enum InlineState
+        {
+            None,
+            Start,
+        }
+
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> topics;
 
         private TopicState topicState;
         private Stack<SectionState> sectionStates;
+        private InlineState inlineState;
 
         private bool isMarkupInline;
         private bool isInSeeAlso;
@@ -78,6 +85,8 @@ namespace Amdl.Maml.Converter
             CommonMarkConverter.Convert(reader, writer, settings);
         }
 
+        #region Document
+
         private void WriteDocument(Block doc, TextWriter writer, CommonMarkSettings settings)
         {
             if (doc.Tag != BlockTag.Document)
@@ -90,11 +99,11 @@ namespace Amdl.Maml.Converter
 
             using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
             {
-                WriteDocument(doc, xmlWriter);
+                DoWriteDocument(doc, xmlWriter);
             }
         }
 
-        private void WriteDocument(Block block, XmlWriter writer)
+        private void DoWriteDocument(Block block, XmlWriter writer)
         {
             writer.WriteStartDocument();
 
@@ -125,10 +134,62 @@ namespace Amdl.Maml.Converter
             writer.WriteEndDocument();
         }
 
+        private void WriteStartSummary(XmlWriter writer)
+        {
+            writer.WriteStartElement("summary");
+            topicState = TopicState.Summary;
+        }
+
+        private void WriteEndSummary(XmlWriter writer)
+        {
+            if (topicState == TopicState.Summary)
+            {
+                writer.WriteEndElement(); //summary
+                topicState = TopicState.Content;
+            }
+        }
+
+        private void WriteStartIntroduction(Block block, XmlWriter writer)
+        {
+            SetTopicTitle(block);
+            writer.WriteStartElement("introduction");
+            if (block.Tag == BlockTag.SETextHeader)
+                writer.WriteElementString("autoOutline", null);
+
+            topicState = TopicState.Introduction;
+        }
+
+        private void WriteEndIntroduction(XmlWriter writer)
+        {
+            if (topicState == TopicState.Introduction)
+            {
+                writer.WriteEndElement(); //introduction
+                topicState = TopicState.Content;
+            }
+        }
+
+        private void WriteStartSeeAlso(XmlWriter writer)
+        {
+            WriteEndSections(2, writer);
+            writer.WriteStartElement("relatedTopics");
+            isInSeeAlso = true;
+        }
+
         private string GetRootElementName()
         {
             return string.Format("developer{0}Document", Topic.Type);
         }
+
+        private void SetTopicTitle(Block block)
+        {
+            if (Title != null)
+                throw new InvalidOperationException("Topic title is already set");
+            Title = block.InlineContent.LiteralContent;
+        }
+
+        #endregion
+
+        #region Block
 
         private void WriteBlock(Block block, XmlWriter writer)
         {
@@ -207,11 +268,19 @@ namespace Amdl.Maml.Converter
             if (!isInSeeAlso)
                 writer.WriteStartElement("para");
             for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
+            {
                 WriteInline(inline, writer);
+                inlineState = InlineState.Start;
+            }
+            inlineState = InlineState.None;
             WriteEndMarkupInline(writer);
             if (!isInSeeAlso)
                 writer.WriteEndElement(); //para
         }
+
+        #endregion Block
+
+        #region Inline
 
         private void WriteInline(Inline inline, XmlWriter writer)
         {
@@ -266,6 +335,9 @@ namespace Amdl.Maml.Converter
                     break;
 
                 case InlineTag.Image:
+                    WriteImage(inline, writer);
+                    break;
+
                 case InlineTag.LineBreak:
                     throw new NotImplementedException();
 
@@ -304,6 +376,74 @@ namespace Amdl.Maml.Converter
             for (var child = inline.FirstChild; child != null; child = child.NextSibling)
                 WriteInline(child, writer);
         }
+
+        #endregion Inline
+
+        #region Section
+
+        private void WriteStartSection(Block block, XmlWriter writer)
+        {
+            WriteEndSummary(writer);
+
+            if (block.HeaderLevel == 1)
+            {
+                WriteStartIntroduction(block, writer);
+                return;
+            }
+
+            WriteEndIntroduction(writer);
+
+            if (isInSeeAlso)
+                return;
+
+            var title = block.InlineContent.LiteralContent;
+            if (title.Equals(Properties.Resources.SeeAlsoTitle))
+            {
+                WriteStartSeeAlso(writer);
+                return;
+            }
+
+            DoWriteStartSection(block, writer);
+        }
+
+        private void DoWriteStartSection(Block block, XmlWriter writer)
+        {
+            WriteEndSections(block.HeaderLevel, writer);
+
+            var state = sectionStates.Peek();
+            if (state == SectionState.Content)
+            {
+                writer.WriteEndElement(); //content
+                writer.WriteStartElement("sections");
+                sectionStates.Pop();
+                sectionStates.Push(SectionState.Sections);
+            }
+
+            var title = block.InlineContent.LiteralContent;
+            writer.WriteStartElement("section");
+            writer.WriteAttributeString("address", title);
+            writer.WriteElementString("title", title);
+            writer.WriteStartElement("content");
+
+            if (block.Tag == BlockTag.SETextHeader)
+                writer.WriteElementString("autoOutline", null);
+
+            sectionStates.Push(SectionState.Content);
+        }
+
+        private void WriteEndSections(int level, XmlWriter writer)
+        {
+            while (sectionStates.Count() >= level)
+            {
+                var state = sectionStates.Pop();
+                writer.WriteEndElement(); //content | sections
+                writer.WriteEndElement(); //section
+            }
+        }
+
+        #endregion Section
+
+        #region Link
 
         private void WriteLink(Inline inline, XmlWriter writer)
         {
@@ -366,108 +506,49 @@ namespace Amdl.Maml.Converter
             writer.WriteEndElement(); //externalLink
         }
 
-        private void WriteStartSection(Block block, XmlWriter writer)
+        #endregion
+
+        #region Image
+
+        private void WriteImage(Inline inline, XmlWriter writer)
         {
-            WriteEndSummary(writer);
-
-            if (block.HeaderLevel == 1)
-            {
-                WriteStartIntroduction(block, writer);
-                return;
-            }
-
-            WriteEndIntroduction(writer);
-
-            if (isInSeeAlso)
-                return;
-
-            var title = block.InlineContent.LiteralContent;
-            if (title.Equals(Properties.Resources.SeeAlsoTitle))
-            {
-                WriteStartSeeAlso(writer);
-                return;
-            }
-
-            DoWriteStartSection(block, writer);
+            if (inlineState == InlineState.Start)
+                WriteInlineImage(inline, writer);
+            else
+                WriteBlockImage(inline, writer);
         }
 
-        private void WriteStartSummary(XmlWriter writer)
+        private void WriteInlineImage(Inline inline, XmlWriter writer)
         {
-            writer.WriteStartElement("summary");
-            topicState = TopicState.Summary;
+            writer.WriteStartElement("mediaLinkInline");
+            writer.WriteStartElement("image");
+            writer.WriteAttributeString("href", "http://www.w3.org/1999/xlink", inline.TargetUrl);
+            writer.WriteEndElement(); //image
+            writer.WriteEndElement(); //mediaLinkInline
         }
 
-        private void WriteEndSummary(XmlWriter writer)
+        private void WriteBlockImage(Inline inline, XmlWriter writer)
         {
-            if (topicState == TopicState.Summary)
-            {
-                writer.WriteEndElement(); //summary
-                topicState = TopicState.Content;
-            }
+            writer.WriteStartElement("mediaLink");
+            writer.WriteStartElement("image");
+            writer.WriteAttributeString("href", "http://www.w3.org/1999/xlink", inline.TargetUrl);
+            writer.WriteEndElement(); //image
+            if (inline.FirstChild != null)
+                WriteCaption(inline, writer);
+            writer.WriteEndElement(); //mediaLink
         }
 
-        private void WriteStartIntroduction(Block block, XmlWriter writer)
+        private void WriteCaption(Inline inline, XmlWriter writer)
         {
-            SetTopicTitle(block);
-            writer.WriteStartElement("introduction");
-            if (block.Tag == BlockTag.SETextHeader)
-            {
-                writer.WriteElementString("autoOutline", null);
-                //writer.WriteStartElement("sections");
-            }
-            topicState = TopicState.Introduction;
+            writer.WriteStartElement("caption");
+            writer.WriteAttributeString("placement", "after");
+            WriteChildInlines(inline, writer);
+            writer.WriteEndElement(); //caption
         }
 
-        private void WriteEndIntroduction(XmlWriter writer)
-        {
-            if (topicState == TopicState.Introduction)
-            {
-                writer.WriteEndElement(); //introduction
-                topicState = TopicState.Content;
-            }
-        }
+        #endregion Image
 
-        private void WriteStartSeeAlso(XmlWriter writer)
-        {
-            WriteEndSections(2, writer);
-            writer.WriteStartElement("relatedTopics");
-            isInSeeAlso = true;
-        }
-
-        private void DoWriteStartSection(Block block, XmlWriter writer)
-        {
-            WriteEndSections(block.HeaderLevel, writer);
-
-            var state = sectionStates.Peek();
-            if (state == SectionState.Content)
-            {
-                writer.WriteEndElement(); //content
-                writer.WriteStartElement("sections");
-                sectionStates.Pop();
-                sectionStates.Push(SectionState.Sections);
-            }
-
-            var title = block.InlineContent.LiteralContent;
-            writer.WriteStartElement("section");
-            writer.WriteAttributeString("address", title);
-            writer.WriteElementString("title", title);
-            writer.WriteStartElement("content");
-
-            if (block.Tag == BlockTag.SETextHeader)
-                writer.WriteElementString("autoOutline", null);
-
-            sectionStates.Push(SectionState.Content);
-        }
-
-        private void WriteEndSections(int level, XmlWriter writer)
-        {
-            while (sectionStates.Count() >= level)
-            {
-                var state = sectionStates.Pop();
-                writer.WriteEndElement(); //content | sections
-                writer.WriteEndElement(); //section
-            }
-        }
+        #region List
 
         private void WriteList(Block block, XmlWriter writer)
         {
@@ -503,12 +584,9 @@ namespace Amdl.Maml.Converter
             }
         }
 
-        private void SetTopicTitle(Block block)
-        {
-            if (Title != null)
-                throw new InvalidOperationException("Topic title is already set");
-            Title = block.InlineContent.LiteralContent;
-        }
+        #endregion
+
+        #region Properties
 
         private TopicData Topic
         {
@@ -525,5 +603,7 @@ namespace Amdl.Maml.Converter
             get { return Topic.Title; }
             set { Topic.Title = value; }
         }
+
+        #endregion
     }
 }
