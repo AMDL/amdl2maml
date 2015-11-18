@@ -83,7 +83,8 @@ namespace Amdl.Maml.Converter
                 | CommonMarkAdditionalFeatures.StrikethroughTilde
                 | CommonMarkAdditionalFeatures.SubscriptTilde
                 | CommonMarkAdditionalFeatures.SuperscriptCaret;
-            CommonMarkConverter.Convert(reader, writer, settings);
+            var doc = CommonMarkConverter.Parse(reader, settings);
+            WriteDocument(doc, writer, settings);
         }
 
         #region Document
