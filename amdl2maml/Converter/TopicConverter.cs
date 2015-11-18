@@ -80,7 +80,8 @@ namespace Amdl.Maml.Converter
             var settings = CommonMarkSettings.Default.Clone();
             settings.OutputDelegate = WriteDocument;
             settings.AdditionalFeatures = CommonMarkAdditionalFeatures.StrikethroughTilde
-                | CommonMarkAdditionalFeatures.SubscriptTilde | CommonMarkAdditionalFeatures.SuperscriptCaret;
+                | CommonMarkAdditionalFeatures.SubscriptTilde
+                | CommonMarkAdditionalFeatures.SuperscriptCaret;
             CommonMarkConverter.Convert(reader, writer, settings);
         }
 
