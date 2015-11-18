@@ -6,7 +6,7 @@
     </HelpKeywords>
   </Topic>
   <Topic id="d8f382af-8f28-4e32-98a2-6f8e7ddf2cf5" visible="True" title="AMDL Design Principles" tocTitle="Design Principles" />
-  <Topic id="580efa0a-5f59-441d-9def-b2de59d71159" visible="True" title="MAML">
+  <Topic id="580efa0a-5f59-441d-9def-b2de59d71159" visible="True" isExpanded="true" title="MAML">
     <Topic id="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" visible="True" isExpanded="true" title="MAML File Types" tocTitle="File Types">
       <Topic id="f3a5769b-14ba-479d-b1b8-411a49dd09cb" visible="True" title="Topic File" />
     </Topic>
@@ -27,28 +27,30 @@
       <Topic id="522d44b1-5cd7-4403-987a-6f097fdc56ff" visible="True" title="&lt;mediaLinkInline&gt;" />
     </Topic>
   </Topic>
-  <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" title="Markdown">
-    <Topic id="49c9ae98-e954-41f8-b6e9-ad62637de12d" visible="True" isExpanded="true" title="ATX-Style Headers">
-      <Topic id="a3e870f6-5589-477a-8505-95c641025855" visible="True" title="ATX-Style Topic Header" />
-      <Topic id="3dc5a651-829e-4c61-9325-7738980ed456" visible="True" title="ATX-Style Section Header" />
-    </Topic>
+  <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" isExpanded="true" title="Markdown">
     <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
     <Topic id="9bd38298-3699-4415-9853-dd58f9b5a5a3" visible="True" title="Emphasis" />
     <Topic id="48782fa5-7847-4c47-9c54-ddb2731da049" visible="True" isExpanded="true" title="Images">
       <Topic id="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" visible="True" title="Block Image" />
       <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Inline Image" />
     </Topic>
-    <Topic id="a45d9463-6a0b-4767-aacf-eb50e38ed722" visible="True" isExpanded="true" title="Setext-Style Headers">
-      <Topic id="50005a18-8c9a-405b-82e7-efc76bb4eed1" visible="True" title="Setext-Style Topic Header" />
-      <Topic id="131f2864-f2bc-4170-a1a8-053bf3b83491" visible="True" title="Setext-Style Section Header" />
-    </Topic>
     <Topic id="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" visible="True" title="Subscript" />
     <Topic id="52e90a26-9d60-4e91-b5f2-b8137b59a137" visible="True" title="Superscript" />
     <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikethrough" />
     <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Strong Emphasis" />
+    <Topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" visible="True" isExpanded="true" title="Headers">
+      <Topic id="49c9ae98-e954-41f8-b6e9-ad62637de12d" visible="True" isExpanded="true" title="ATX-Style Headers">
+        <Topic id="a3e870f6-5589-477a-8505-95c641025855" visible="True" title="ATX-Style Topic Header" />
+        <Topic id="3dc5a651-829e-4c61-9325-7738980ed456" visible="True" title="ATX-Style Section Header" />
+      </Topic>
+      <Topic id="a45d9463-6a0b-4767-aacf-eb50e38ed722" visible="True" isExpanded="true" isSelected="true" title="Setext-Style Headers">
+        <Topic id="50005a18-8c9a-405b-82e7-efc76bb4eed1" visible="True" title="Setext-Style Topic Header" />
+        <Topic id="131f2864-f2bc-4170-a1a8-053bf3b83491" visible="True" title="Setext-Style Section Header" />
+      </Topic>
+    </Topic>
   </Topic>
   <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
-    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" isSelected="true" title="AMDL to MAML Converter" />
+    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" title="AMDL to MAML Converter" />
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />
   </Topic>
 </Topics>

@@ -17,11 +17,6 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
         <list class="bullet">
           <listItem>
             <para>
-              <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d" />
-            </para>
-          </listItem>
-          <listItem>
-            <para>
               <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" />
             </para>
           </listItem>
@@ -32,12 +27,12 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
           </listItem>
           <listItem>
             <para>
-              <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
+              <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" />
             </para>
           </listItem>
           <listItem>
             <para>
-              <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" />
+              <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
             </para>
           </listItem>
           <listItem>
@@ -56,17 +51,10 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
             </para>
           </listItem>
           <listItem>
-            <para>...</para>
-          </listItem>
-        </list>
-      </content>
-    </section>
-    <section address="PM Elements with Special Semantics in AMDL">
-      <title>PM Elements with Special Semantics in AMDL</title>
-      <content>
-        <list class="bullet">
-          <listItem>
             <para>Horizontal Rule</para>
+          </listItem>
+          <listItem>
+            <para>...</para>
           </listItem>
         </list>
       </content>
