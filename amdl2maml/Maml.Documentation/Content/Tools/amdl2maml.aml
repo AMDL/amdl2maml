@@ -20,7 +20,6 @@
         <para>This site is built <legacyItalic>(semi-automatically)</legacyItalic> from AMDL.</para>
         <para>
           <codeInline>amdl2maml</codeInline> uses a <externalLink><linkUri>https://github.com/AMDL/CommonMark.NET</linkUri><linkText>fork</linkText></externalLink> of <externalLink><linkUri>https://github.com/Knagis/CommonMark.NET</linkUri><linkText>CommonMark.NET</linkText></externalLink>.</para>
-        <para>It also feeds the documentation project, since SHFB won't build one with no Documentation Sources.</para>
       </content>
     </section>
     <section address="Status">

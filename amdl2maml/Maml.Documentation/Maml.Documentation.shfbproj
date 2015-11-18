@@ -48,6 +48,11 @@
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceTitle>Reference</RootNamespaceTitle>
     <FooterText>Documented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>
+    <PlugInConfigurations>
+      <PlugInConfig id="Additional Content Only" enabled="True" xmlns="">
+        <configuration />
+      </PlugInConfig>
+    </PlugInConfigurations>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
