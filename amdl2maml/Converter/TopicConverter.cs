@@ -128,7 +128,8 @@ namespace Amdl.Maml.Converter
             await writer.WriteAttributeStringAsync(null, "id", null, Id.ToString());
             await writer.WriteAttributeStringAsync(null, "revisionNumber", null, "1");
 
-            await writer.WriteStartElementAsync(null, GetRootElementName(), "http://ddue.schemas.microsoft.com/authoring/2003/5");
+            await writer.WriteStartElementAsync(null, GetDocElementName(), "http://ddue.schemas.microsoft.com/authoring/2003/5");
+            await writer.WriteAttributeStringAsync("xmlns", "xlink", null, "http://www.w3.org/1999/xlink");
 
             await WriteStartSummaryAsync(writer);
 
@@ -461,7 +462,7 @@ namespace Amdl.Maml.Converter
                 ? inline.TargetUrl
                 : getTopicFromName(inline.TargetUrl).Id.ToString();
             await writer.WriteStartElementAsync(null, "link", null);
-            await writer.WriteAttributeStringAsync(null, "href", "http://www.w3.org/1999/xlink", href);
+            await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
             //await writer.WriteStringAsync(inline.LiteralContent);
             await WriteChildInlinesAsync(inline, writer);
             await writer.WriteEndElementAsync(); //link
@@ -577,7 +578,7 @@ namespace Amdl.Maml.Converter
 
         #region Private Methods
 
-        private string GetRootElementName()
+        private string GetDocElementName()
         {
             return string.Format("developer{0}Document", Topic.Type);
         }
