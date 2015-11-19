@@ -36,9 +36,9 @@ This is an inline image:
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="522d44b1-5cd7-4403-987a-6f097fdc56ff" />
-      <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" />
-      <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
+      <link xlink:href="522d44b1-5cd7-4403-987a-6f097fdc56ff" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>(http://pandoc.org/README.html#images)</linkUri>
         <linkText>Pandoc's Markdown: Images</linkText>

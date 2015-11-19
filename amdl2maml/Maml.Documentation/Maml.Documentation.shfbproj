@@ -14,7 +14,7 @@
     <Name>Maml.Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
-    <OutputPath>.\Help\</OutputPath>
+    <OutputPath>..\..\..\amdl.github.io\</OutputPath>
     <HtmlHelpName>AMDL</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
@@ -44,7 +44,7 @@
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>AMDL</HelpTitle>
+    <HelpTitle>Human-Writable Documentation</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceTitle>Reference</RootNamespaceTitle>
     <FooterText>Documented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>
@@ -86,7 +86,7 @@
     <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
-    <Folder Include="Content\Markdown\Removed-Elements" />
+    <Folder Include="Content\Markdown\Absent-Elements" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
@@ -113,8 +113,8 @@
     <None Include="Content\MAML\MAML-Media-Elements\MAML-Media-Elements.aml" />
     <None Include="Content\Markdown\Block-Elements\Block-Elements.aml" />
     <None Include="Content\Markdown\Block-Elements\Definition-List.aml" />
-    <None Include="Content\Markdown\Removed-Elements\Removed-Elements.aml" />
-    <None Include="Content\Markdown\Removed-Elements\Strikethrough.aml" />
+    <None Include="Content\Markdown\Absent-Elements\Absent-Elements.aml" />
+    <None Include="Content\Markdown\Absent-Elements\Strikethrough.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Headers.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Section-Header.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Topic-Header.aml" />

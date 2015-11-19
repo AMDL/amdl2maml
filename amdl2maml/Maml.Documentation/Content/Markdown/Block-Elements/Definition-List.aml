@@ -40,8 +40,8 @@ Term
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="632e17ce-26cf-4455-a6ee-31e9dac8f05a" />
-      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" />
+      <link xlink:href="632e17ce-26cf-4455-a6ee-31e9dac8f05a" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#definition-lists</linkUri>
         <linkText>Pandoc's Markdown: Definition Lists</linkText>

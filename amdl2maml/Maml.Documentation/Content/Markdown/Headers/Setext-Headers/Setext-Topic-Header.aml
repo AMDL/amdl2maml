@@ -75,10 +75,10 @@ Specific implementations <legacyItalic>may</legacyItalic> choose to make this fu
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="4092517c-098d-4680-9efe-eaf5bb5019c0" />
-      <link xlink:href="a3e870f6-5589-477a-8505-95c641025855" />
-      <link xlink:href="131f2864-f2bc-4170-a1a8-053bf3b83491" />
-      <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" />
+      <link xlink:href="4092517c-098d-4680-9efe-eaf5bb5019c0" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="a3e870f6-5589-477a-8505-95c641025855" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="131f2864-f2bc-4170-a1a8-053bf3b83491" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#setext-style-headers</linkUri>
         <linkText>Pandoc's Markdown: Setext-Style Headers</linkText>

@@ -31,8 +31,8 @@ This is an inline image:
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />
-      <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" />
+      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

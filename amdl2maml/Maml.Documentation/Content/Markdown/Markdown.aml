@@ -44,18 +44,18 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
         </list>
       </content>
     </section>
-    <section address="AMDL Elements Not Present in PM">
-      <title>AMDL Elements Not Present in PM</title>
+    <section address="AMDL Elements Absent from PM">
+      <title>AMDL Elements Absent from PM</title>
       <content>
         <list class="bullet">
           <listItem>
-            <para>?</para>
+            <para>N/A.</para>
           </listItem>
         </list>
       </content>
     </section>
-    <section address="PM Elements Not Present in AMDL">
-      <title>PM Elements Not Present in AMDL</title>
+    <section address="PM Elements Absent from AMDL">
+      <title>PM Elements Absent from AMDL</title>
       <content>
         <list class="bullet">
           <listItem>
@@ -67,7 +67,7 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" />
+      <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html</linkUri>
         <linkText>Pandoc's Markdown</linkText>

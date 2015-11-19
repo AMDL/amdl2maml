@@ -30,8 +30,8 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d">Subscript</link>
-      <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" />
+      <link xlink:href="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd">Subscript</link>
+      <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
         <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>

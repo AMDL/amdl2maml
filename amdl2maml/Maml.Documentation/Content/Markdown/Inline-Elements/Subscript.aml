@@ -29,8 +29,8 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="225a03f7-69e1-44f6-b7b5-8f14f373a75c" />
-      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" />
+      <link xlink:href="225a03f7-69e1-44f6-b7b5-8f14f373a75c" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
         <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>

@@ -35,9 +35,9 @@ This * doesn't *.
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="0d1b5b1e-59ed-4111-b976-0f8dbcd435a8" />
-      <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />
-      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" />
+      <link xlink:href="0d1b5b1e-59ed-4111-b976-0f8dbcd435a8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

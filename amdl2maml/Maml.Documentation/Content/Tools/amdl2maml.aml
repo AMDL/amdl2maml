@@ -85,8 +85,8 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="f05b62e4-4805-491a-ad2a-85545efbf6b9" />
-      <link xlink:href="3aa7d932-6348-4151-80fa-f0df28976ae9" />
+      <link xlink:href="f05b62e4-4805-491a-ad2a-85545efbf6b9" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="3aa7d932-6348-4151-80fa-f0df28976ae9" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>https://github.com/AMDL/amdl2maml</linkUri>
         <linkText>amdl2maml on GitHub</linkText>

@@ -27,8 +27,8 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" />
-      <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d" />
+      <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#setext-style-headers</linkUri>
         <linkText>Pandoc's Markdown: Setext-Style Headers</linkText>

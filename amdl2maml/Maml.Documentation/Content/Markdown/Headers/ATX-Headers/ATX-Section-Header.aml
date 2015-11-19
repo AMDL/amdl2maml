@@ -70,10 +70,10 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" />
-      <link xlink:href="131f2864-f2bc-4170-a1a8-053bf3b83491" />
-      <link xlink:href="a3e870f6-5589-477a-8505-95c641025855" />
-      <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d" />
+      <link xlink:href="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="131f2864-f2bc-4170-a1a8-053bf3b83491" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="a3e870f6-5589-477a-8505-95c641025855" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#atx-style-headers</linkUri>
         <linkText>Pandoc's Markdown: ATX-Style Headers</linkText>

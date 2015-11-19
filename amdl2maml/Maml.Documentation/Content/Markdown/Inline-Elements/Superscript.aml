@@ -29,8 +29,8 @@ Let's start by noting that both <legacyItalic>m</legacyItalic> (the mass) and <l
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="76f41a0c-9f41-40b4-81f5-e3f264d795ab" />
-      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" />
+      <link xlink:href="76f41a0c-9f41-40b4-81f5-e3f264d795ab" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
         <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>

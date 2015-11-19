@@ -6,7 +6,7 @@
     </HelpKeywords>
   </Topic>
   <Topic id="d8f382af-8f28-4e32-98a2-6f8e7ddf2cf5" visible="True" title="AMDL Design Principles" tocTitle="Design Principles" />
-  <Topic id="580efa0a-5f59-441d-9def-b2de59d71159" visible="True" isExpanded="true" title="MAML">
+  <Topic id="580efa0a-5f59-441d-9def-b2de59d71159" visible="True" title="MAML">
     <Topic id="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" visible="True" isExpanded="true" title="MAML File Types" tocTitle="File Types">
       <Topic id="f3a5769b-14ba-479d-b1b8-411a49dd09cb" visible="True" title="Topic File" />
     </Topic>
@@ -38,7 +38,7 @@
         <Topic id="131f2864-f2bc-4170-a1a8-053bf3b83491" visible="True" title="Setext-Style Section Header" />
       </Topic>
     </Topic>
-    <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" isExpanded="true" isSelected="true" title="Block Elements">
+    <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" isExpanded="true" title="Block Elements">
       <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
     </Topic>
     <Topic id="48782fa5-7847-4c47-9c54-ddb2731da049" visible="True" isExpanded="true" title="Images">
@@ -51,11 +51,11 @@
       <Topic id="52e90a26-9d60-4e91-b5f2-b8137b59a137" visible="True" title="Superscript" />
       <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Strong Emphasis" />
     </Topic>
-    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" title="PM Elements Not Present in AMDL" tocTitle="Removed Elements" linkText="PM Elements Not Present in AMDL">
+    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" isSelected="true" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikethrough" />
     </Topic>
   </Topic>
-  <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
+  <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" title="AMDL Tools" tocTitle="Tools">
     <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" title="AMDL to MAML Converter" />
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />
   </Topic>
