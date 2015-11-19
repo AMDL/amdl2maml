@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Amdl.Maml.Converter
 {
-    class EmptyTopicConverter : TopicConverter
+    class EmptyTopicWriter : TopicWriter
     {
-        public EmptyTopicConverter(TopicData topic, IDictionary<string, TopicData> name2topic)
+        public EmptyTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
             : base(topic, name2topic)
         {
         }

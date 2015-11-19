@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Amdl.Maml.Converter
 {
-    class OrientationTopicConverter : TopicConverter
+    class OrientationTopicWriter : TopicWriter
     {
-        public OrientationTopicConverter(TopicData topic, IDictionary<string, TopicData> name2topic)
+        public OrientationTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
             : base(topic, name2topic)
         {
         }

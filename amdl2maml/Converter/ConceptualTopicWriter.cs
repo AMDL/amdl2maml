@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Amdl.Maml.Converter
 {
-    class ConceptualTopicConverter : TopicConverter
+    class ConceptualTopicWriter : TopicWriter
     {
-        public ConceptualTopicConverter(TopicData topic, IDictionary<string, TopicData> name2topic)
+        public ConceptualTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
             : base(topic, name2topic)
         {
         }

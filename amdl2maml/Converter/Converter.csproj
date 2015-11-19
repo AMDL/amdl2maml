@@ -36,18 +36,18 @@
     <DocumentationFile>bin\Release\Amdl.Maml.Converter.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConceptualTopicConverter.cs" />
-    <Compile Include="EmptyTopicConverter.cs" />
-    <Compile Include="FileConverter.cs" />
+    <Compile Include="ConceptualTopicWriter.cs" />
+    <Compile Include="EmptyTopicWriter.cs" />
+    <Compile Include="TopicConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
     <Compile Include="LayoutIndexer.cs" />
-    <Compile Include="OrientationTopicConverter.cs" />
+    <Compile Include="OrientationTopicWriter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TopicConverter.cs" />
+    <Compile Include="TopicWriter.cs" />
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TopicData.cs" />
