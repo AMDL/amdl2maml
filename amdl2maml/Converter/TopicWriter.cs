@@ -10,7 +10,7 @@ using System.Xml;
 namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// AMDL topic converter.
+    /// AMDL topic writer.
     /// </summary>
     public abstract class TopicWriter
     {
@@ -42,8 +42,7 @@ namespace Amdl.Maml.Converter
         /// <returns>Asynchronous task.</returns>
         public static Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer)
         {
-            var converter = Create(topic, name2topic);
-            return converter.ConvertAsync(reader, writer);
+            return TopicWriter.Create(topic, name2topic).ConvertAsync(reader, writer);
         }
 
         private static TopicWriter Create(TopicData topic, IDictionary<string, TopicData> name2topic)
