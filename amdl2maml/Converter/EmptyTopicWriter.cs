@@ -14,7 +14,7 @@ namespace Amdl.Maml.Converter
         {
         }
 
-        public override Task ConvertAsync(TextReader reader, TextWriter writer)
+        public override Task WriteAsync(TextReader reader, TextWriter writer)
         {
             var source = new TaskCompletionSource<object>();
             return source.Task;

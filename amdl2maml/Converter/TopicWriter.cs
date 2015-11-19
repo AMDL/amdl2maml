@@ -42,7 +42,7 @@ namespace Amdl.Maml.Converter
         /// <returns>Asynchronous task.</returns>
         public static Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer)
         {
-            return TopicWriter.Create(topic, name2topic).ConvertAsync(reader, writer);
+            return TopicWriter.Create(topic, name2topic).WriteAsync(reader, writer);
         }
 
         private static TopicWriter Create(TopicData topic, IDictionary<string, TopicData> name2topic)
@@ -124,12 +124,12 @@ namespace Amdl.Maml.Converter
         #region Public Members
 
         /// <summary>
-        /// Converts the topic to MAML.
+        /// Writes the topic as MAML.
         /// </summary>
         /// <param name="reader">Reader.</param>
         /// <param name="writer">Writer.</param>
         /// <returns>Asynchronous task.</returns>
-        public virtual Task ConvertAsync(TextReader reader, TextWriter writer)
+        public virtual Task WriteAsync(TextReader reader, TextWriter writer)
         {
             return WriteDocumentAsync(topic.ParserResult, writer);
         }
