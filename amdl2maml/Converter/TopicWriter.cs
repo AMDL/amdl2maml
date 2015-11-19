@@ -568,9 +568,7 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteConceptualLinkAsync(Inline inline, XmlWriter writer)
         {
-            string href = inline.TargetUrl.StartsWith("#")
-                ? inline.TargetUrl
-                : name2topic[inline.TargetUrl].Id.ToString();
+            var href = GetConceptualLinkTarget(inline);
             await writer.WriteStartElementAsync(null, "link", null);
             await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
             await WriteTopicTypeAttributeAsync(writer);
@@ -622,6 +620,14 @@ namespace Amdl.Maml.Converter
             await writer.WriteElementStringAsync(null, "linkText", null, text);
 
             await writer.WriteEndElementAsync(); //externalLink
+        }
+
+        private string GetConceptualLinkTarget(Inline inline)
+        {
+            var split = inline.TargetUrl.Split('#');
+            if (split[0].Length > 0)
+                return name2topic[split[0]].Id.ToString();
+            return '#' + split[1];
         }
 
         private async Task WriteTopicTypeAttributeAsync(XmlWriter writer)
