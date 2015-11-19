@@ -86,6 +86,12 @@ namespace Amdl.Maml.Converter
             Start,
         }
 
+        enum MarkupState
+        {
+            None,
+            Inline,
+        }
+
         #endregion
 
         #region Fields
@@ -96,8 +102,7 @@ namespace Amdl.Maml.Converter
         private TopicState topicState;
         private Stack<SectionState> sectionStates;
         private InlineState inlineState;
-
-        private bool isMarkupInline;
+        private MarkupState markupState;
 
         #endregion
 
@@ -405,19 +410,19 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteStartMarkupInlineAsync(XmlWriter writer)
         {
-            if (!isMarkupInline)
+            if (!IsInMarkupInline)
             {
                 await writer.WriteStartElementAsync(null, "markup", null);
-                isMarkupInline = true;
+                markupState = MarkupState.Inline;
             }
         }
 
         private async Task WriteEndMarkupInlineAsync(XmlWriter writer)
         {
-            if (isMarkupInline)
+            if (IsInMarkupInline)
             {
                 await writer.WriteEndElementAsync(); //markup
-                isMarkupInline = false;
+                markupState = MarkupState.None;
             }
         }
 
@@ -652,6 +657,11 @@ namespace Amdl.Maml.Converter
         private bool IsInSeeAlso
         {
             get { return sectionStates.Peek() == SectionState.SeeAlso; }
+        }
+
+        private bool IsInMarkupInline
+        {
+            get { return markupState == MarkupState.Inline; }
         }
 
         private TopicData Topic
