@@ -129,9 +129,18 @@ namespace Amdl.Maml.Converter
         /// <param name="reader">Reader.</param>
         /// <param name="writer">Writer.</param>
         /// <returns>Asynchronous task.</returns>
-        public virtual Task WriteAsync(TextReader reader, TextWriter writer)
+        public virtual async Task WriteAsync(TextReader reader, TextWriter writer)
         {
-            return WriteDocumentAsync(topic.ParserResult, writer);
+            var xmlSettings = new XmlWriterSettings
+            {
+                Async = true,
+                Indent = true,
+            };
+
+            using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
+            {
+                await WriteDocumentAsync(topic.ParserResult.Document, xmlWriter);
+            }
         }
 
         #endregion
@@ -148,21 +157,7 @@ namespace Amdl.Maml.Converter
 
         #region Document
 
-        private async Task WriteDocumentAsync(TopicParserResult result, TextWriter writer)
-        {
-            var xmlSettings = new XmlWriterSettings
-            {
-                Async = true,
-                Indent = true,
-            };
-
-            using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
-            {
-                await DoWriteDocumentAsync(result.Document, xmlWriter);
-            }
-        }
-
-        private async Task DoWriteDocumentAsync(Block block, XmlWriter writer)
+        private async Task WriteDocumentAsync(Block block, XmlWriter writer)
         {
             sectionStates = new Stack<SectionState>();
             sectionStates.Push(SectionState.None);
