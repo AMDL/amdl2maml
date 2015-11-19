@@ -62,5 +62,11 @@ namespace Amdl.Maml.Converter
         /// </summary>
         /// <value>Relative path.</value>
         public string RelativePath { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the parser result.
+        /// </summary>
+        /// <value>Parser result.</value>
+        public TopicParserResult ParserResult { get; set; }
     }
 }

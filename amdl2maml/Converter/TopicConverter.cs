@@ -127,8 +127,7 @@ namespace Amdl.Maml.Converter
         /// <returns>Asynchronous task.</returns>
         public virtual Task ConvertAsync(TextReader reader, TextWriter writer)
         {
-            var result = TopicParser.Parse(reader);
-            return WriteDocumentAsync(result, writer);
+            return WriteDocumentAsync(topic.ParserResult, writer);
         }
 
         #endregion

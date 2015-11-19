@@ -1,16 +1,13 @@
 ﻿using CommonMark.Syntax;
-using PCLStorage;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// Topic updater.
+    /// AMDL topic updater.
     /// </summary>
     public static class TopicUpdater
     {
@@ -21,28 +18,15 @@ namespace Amdl.Maml.Converter
         /// <param name="srcPath">Source base path.</param>
         /// <param name="title2id">Gets the topic ID from the topic title.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The topics.</returns>
-        public static async Task<IEnumerable<TopicData>> UpdateAsync(IEnumerable<TopicData> topics, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken)
+        /// <returns>Updated topics.</returns>
+        public static IEnumerable<TopicData> Update(IEnumerable<TopicData> topics, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken)
         {
-            var blocks = await Task.WhenAll(topics.Select(topic => GetHeaderBlockAsync(topic, srcPath, title2id, cancellationToken)));
-            return topics.Zip(blocks, (topic, block) => Update(topic, block, title2id));
+            return topics.Select(topic => Update(topic, title2id));
         }
 
-        private static async Task<Block> GetHeaderBlockAsync(TopicData topic, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken)
+        private static TopicData Update(TopicData topic, IDictionary<string, Guid> title2id)
         {
-            var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
-            var file = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken)
-                .ConfigureAwait(false);
-            using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
-            using (var reader = new StreamReader(stream))
-            {
-                var result = TopicParser.Parse(reader);
-                return GetHeaderBlock(result);
-            }
-        }
-
-        private static TopicData Update(TopicData topic, Block block, IDictionary<string, Guid> title2id)
-        {
+            var block = GetHeaderBlock(topic.ParserResult);
             var title = GetTitle(topic, block);
             Guid id;
             if (!title2id.TryGetValue(title, out id))
