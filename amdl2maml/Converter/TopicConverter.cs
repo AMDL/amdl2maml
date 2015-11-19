@@ -13,8 +13,10 @@ namespace Amdl.Maml.Converter
     /// <summary>
     /// AMDL topic converter.
     /// </summary>
-    public class TopicConverter
+    public abstract class TopicConverter
     {
+        #region Static Members
+
         private static readonly string[] Languages =
         {
             "C#", "CSharp",
@@ -30,6 +32,48 @@ namespace Amdl.Maml.Converter
         };
 
         private static readonly Version Version = typeof(TopicConverter).GetTypeInfo().Assembly.GetName().Version;
+
+        /// <summary>
+        /// Converts the topic to MAML.
+        /// </summary>
+        /// <param name="reader">Reader.</param>
+        /// <param name="writer">Writer.</param>
+        /// <param name="topic">The topic.</param>
+        /// <param name="name2topic">Mapping from topic name to data.</param>
+        /// <returns>Asynchronous task.</returns>
+        public static Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer)
+        {
+            var converter = Create(topic, name2topic);
+            return converter.ConvertAsync(reader, writer);
+        }
+
+        private static TopicConverter Create(TopicData topic, IDictionary<string, TopicData> name2topic)
+        {
+            switch (topic.Type)
+            {
+                case TopicType.Conceptual:
+                    return new ConceptualTopicConverter(topic, name2topic);
+                case TopicType.Orientation:
+                    return new OrientationTopicConverter(topic, name2topic);
+                default:
+                    throw new InvalidOperationException("Unexpected topic type: " + topic.Type);
+            }
+        }
+
+        private static Block Parse(TextReader reader)
+        {
+            var settings = CommonMarkSettings.Default.Clone();
+            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
+                | CommonMarkAdditionalFeatures.StrikethroughTilde
+                | CommonMarkAdditionalFeatures.SubscriptTilde
+                | CommonMarkAdditionalFeatures.SuperscriptCaret;
+            var doc = CommonMarkConverter.Parse(reader, settings);
+            return doc;
+        }
+
+        #endregion
+
+        #region Nested Types
 
         enum TopicState
         {
@@ -52,6 +96,10 @@ namespace Amdl.Maml.Converter
             Start,
         }
 
+        #endregion
+
+        #region Fields
+
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> name2topic;
 
@@ -62,16 +110,24 @@ namespace Amdl.Maml.Converter
         private bool isMarkupInline;
         private bool isInSeeAlso;
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TopicConverter"/> class.
         /// </summary>
         /// <param name="topic">Current topic.</param>
-        /// <param name="name2topic">Gets the topic data for the specified topic name.</param>
-        public TopicConverter(TopicData topic, IDictionary<string, TopicData> name2topic)
+        /// <param name="name2topic">Mapping from topic name to data.</param>
+        protected TopicConverter(TopicData topic, IDictionary<string, TopicData> name2topic)
         {
             this.topic = topic;
             this.name2topic = name2topic;
         }
+
+        #endregion
+
+        #region Public Members
 
         /// <summary>
         /// Converts the topic to MAML.
@@ -85,16 +141,17 @@ namespace Amdl.Maml.Converter
             return WriteDocumentAsync(doc, writer);
         }
 
-        private static Block Parse(TextReader reader)
-        {
-            var settings = CommonMarkSettings.Default.Clone();
-            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
-                | CommonMarkAdditionalFeatures.StrikethroughTilde
-                | CommonMarkAdditionalFeatures.SubscriptTilde
-                | CommonMarkAdditionalFeatures.SuperscriptCaret;
-            var doc = CommonMarkConverter.Parse(reader, settings);
-            return doc;
-        }
+        #endregion
+
+        #region Protected Members
+
+        /// <summary>
+        /// Gets the name of the document element.
+        /// </summary>
+        /// <returns>The name of the document element.</returns>
+        protected abstract string GetDocElementName();
+
+        #endregion
 
         #region Document
 
@@ -580,12 +637,7 @@ namespace Amdl.Maml.Converter
 
         #endregion
 
-        #region Private Methods
-
-        private string GetDocElementName()
-        {
-            return string.Format("developer{0}Document", Topic.Type);
-        }
+        #region Private Members
 
         private void SetTopicTitle(Block block)
         {
@@ -610,10 +662,6 @@ namespace Amdl.Maml.Converter
                     return null;
             }
         }
-
-        #endregion
-
-        #region Private Properties
 
         private TopicData Topic
         {

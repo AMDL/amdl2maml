@@ -36,9 +36,11 @@
     <DocumentationFile>bin\Release\Amdl.Maml.Converter.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ConceptualTopicConverter.cs" />
     <Compile Include="FileConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
     <Compile Include="LayoutIndexer.cs" />
+    <Compile Include="OrientationTopicConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
