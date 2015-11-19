@@ -1,5 +1,4 @@
-﻿using CommonMark;
-using CommonMark.Syntax;
+﻿using CommonMark.Syntax;
 using PCLStorage;
 using System;
 using System.Collections.Generic;
@@ -37,7 +36,8 @@ namespace Amdl.Maml.Converter
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))
             {
-                return GetHeaderBlock(reader);
+                var result = TopicParser.Parse(reader);
+                return GetHeaderBlock(result);
             }
         }
 
@@ -61,31 +61,13 @@ namespace Amdl.Maml.Converter
             return title;
         }
 
-        private static Block GetHeaderBlock(StreamReader reader)
+        private static Block GetHeaderBlock(TopicParserResult result)
         {
-            var block = CommonMarkConverter.Parse(reader);
-            if (block.Tag != BlockTag.Document)
-                throw new InvalidOperationException("Unexpected block tag: " + block.Tag);
-
-            for (block = block.FirstChild;
+            Block block;
+            for (block = result.Document.FirstChild;
                 block != null && block.Tag != BlockTag.AtxHeader && block.Tag != BlockTag.SETextHeader;
                 block = block.NextSibling) ;
             return block;
         }
-
-        //private static Block GetHeaderBlock2(StreamReader reader, Block block)
-        //{
-        //    string line;
-        //    while ((line = reader.ReadLine()) != null)
-        //    {
-        //        block = CommonMarkConverter.Parse(line);
-        //        for (block = block.FirstChild;
-        //            block != null && block.Tag != BlockTag.AtxHeader && block.Tag != BlockTag.SETextHeader;
-        //            block = block.NextSibling) ;
-        //        if (block != null)
-        //            break;
-        //    }
-        //    return block;
-        //}
     }
 }

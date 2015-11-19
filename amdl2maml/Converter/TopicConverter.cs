@@ -1,5 +1,4 @@
-﻿using CommonMark;
-using CommonMark.Syntax;
+﻿using CommonMark.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,17 +59,6 @@ namespace Amdl.Maml.Converter
                 default:
                     throw new InvalidOperationException("Unexpected topic type: " + topic.Type);
             }
-        }
-
-        private static Block Parse(TextReader reader)
-        {
-            var settings = CommonMarkSettings.Default.Clone();
-            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
-                | CommonMarkAdditionalFeatures.StrikethroughTilde
-                | CommonMarkAdditionalFeatures.SubscriptTilde
-                | CommonMarkAdditionalFeatures.SuperscriptCaret;
-            var doc = CommonMarkConverter.Parse(reader, settings);
-            return doc;
         }
 
         #endregion
@@ -139,8 +127,8 @@ namespace Amdl.Maml.Converter
         /// <returns>Asynchronous task.</returns>
         public virtual Task ConvertAsync(TextReader reader, TextWriter writer)
         {
-            var doc = Parse(reader);
-            return WriteDocumentAsync(doc, writer);
+            var result = TopicParser.Parse(reader);
+            return WriteDocumentAsync(result, writer);
         }
 
         #endregion
@@ -157,11 +145,8 @@ namespace Amdl.Maml.Converter
 
         #region Document
 
-        private async Task WriteDocumentAsync(Block doc, TextWriter writer)
+        private async Task WriteDocumentAsync(TopicParserResult result, TextWriter writer)
         {
-            if (doc.Tag != BlockTag.Document)
-                throw new InvalidOperationException("Unexpected block tag: " + doc.Tag);
-
             var xmlSettings = new XmlWriterSettings
             {
                 Async = true,
@@ -170,7 +155,7 @@ namespace Amdl.Maml.Converter
 
             using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
             {
-                await DoWriteDocumentAsync(doc, xmlWriter);
+                await DoWriteDocumentAsync(result.Document, xmlWriter);
             }
         }
 

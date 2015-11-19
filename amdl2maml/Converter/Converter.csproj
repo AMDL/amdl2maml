@@ -51,6 +51,8 @@
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TopicData.cs" />
+    <Compile Include="TopicParser.cs" />
+    <Compile Include="TopicParserResult.cs" />
     <Compile Include="TopicType.cs" />
     <Compile Include="TopicUpdater.cs" />
   </ItemGroup>
