@@ -77,6 +77,7 @@ namespace Amdl.Maml.Converter
             None,
             Content,
             Sections,
+            SeeAlso,
         }
 
         enum InlineState
@@ -97,7 +98,6 @@ namespace Amdl.Maml.Converter
         private InlineState inlineState;
 
         private bool isMarkupInline;
-        private bool isInSeeAlso;
 
         #endregion
 
@@ -228,7 +228,8 @@ namespace Amdl.Maml.Converter
         {
             await WriteEndSectionsAsync(2, writer);
             await writer.WriteStartElementAsync(null, "relatedTopics", null);
-            isInSeeAlso = true;
+            sectionStates.Pop();
+            sectionStates.Push(SectionState.SeeAlso);
         }
 
         #endregion
@@ -309,7 +310,7 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteParagraphAsync(Block block, XmlWriter writer)
         {
-            if (!isInSeeAlso)
+            if (!IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "para", null);
             for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
             {
@@ -318,7 +319,7 @@ namespace Amdl.Maml.Converter
             }
             inlineState = InlineState.None;
             await WriteEndMarkupInlineAsync(writer);
-            if (!isInSeeAlso)
+            if (!IsInSeeAlso)
                 await writer.WriteEndElementAsync(); //para
         }
 
@@ -442,7 +443,7 @@ namespace Amdl.Maml.Converter
 
             await WriteEndIntroductionAsync(writer);
 
-            if (isInSeeAlso)
+            if (IsInSeeAlso)
                 return;
 
             var title = block.InlineContent.LiteralContent;
@@ -533,14 +534,14 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteRelatedTopicsAsync(Block block, XmlWriter writer)
         {
-            if (block.ReferenceMap.Count > 0 && !isInSeeAlso)
+            if (block.ReferenceMap.Count > 0 && !IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "relatedTopics", null);
-            if (block.ReferenceMap.Count > 0 || isInSeeAlso)
+            if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
             {
                 foreach (var reference in block.ReferenceMap.Values)
                     await WriteReferenceLinkAsync(reference, writer);
             }
-            if (block.ReferenceMap.Count > 0 || isInSeeAlso)
+            if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
                 await writer.WriteEndElementAsync();  //relatedTopics
         }
 
@@ -646,6 +647,11 @@ namespace Amdl.Maml.Converter
                 default:
                     return null;
             }
+        }
+
+        private bool IsInSeeAlso
+        {
+            get { return sectionStates.Peek() == SectionState.SeeAlso; }
         }
 
         private TopicData Topic
