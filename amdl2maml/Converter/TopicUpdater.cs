@@ -43,16 +43,22 @@ namespace Amdl.Maml.Converter
 
         private static TopicData Update(TopicData topic, Block block, IDictionary<string, Guid> title2id)
         {
-            if (block == null || block.HeaderLevel != 1)
-                throw new InvalidOperationException("Missing header");
-            var title = string.Empty;
-            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
-                title += inline.LiteralContent;
+            var title = GetTitle(topic, block);
             Guid id;
             if (!title2id.TryGetValue(title, out id))
                 id = Guid.NewGuid();
             topic.Id = id;
             return topic;
+        }
+
+        private static string GetTitle(TopicData topic, Block block)
+        {
+            if (block == null || block.HeaderLevel != 1)
+                return topic.Name;
+            var title = string.Empty;
+            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
+                title += inline.LiteralContent;
+            return title;
         }
 
         private static Block GetHeaderBlock(StreamReader reader)

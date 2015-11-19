@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConceptualTopicConverter.cs" />
+    <Compile Include="EmptyTopicConverter.cs" />
     <Compile Include="FileConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
     <Compile Include="LayoutIndexer.cs" />

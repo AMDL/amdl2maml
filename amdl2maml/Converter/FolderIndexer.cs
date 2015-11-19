@@ -100,6 +100,8 @@ namespace Amdl.Maml.Converter
 
         private TopicType GetTopicType(IFile file)
         {
+            if (file.Name == null)
+                return TopicType.Empty;
             var name = Path.GetFileNameWithoutExtension(file.Name);
             if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase))
                 return TopicType.Orientation;

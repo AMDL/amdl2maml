@@ -6,6 +6,11 @@
     public enum TopicType
     {
         /// <summary>
+        /// Empty document.
+        /// </summary>
+        Empty,
+
+        /// <summary>
         /// Conceptual document.
         /// </summary>
         Conceptual,

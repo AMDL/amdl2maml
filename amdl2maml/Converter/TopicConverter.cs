@@ -51,6 +51,8 @@ namespace Amdl.Maml.Converter
         {
             switch (topic.Type)
             {
+                case TopicType.Empty:
+                    return new EmptyTopicConverter(topic, name2topic);
                 case TopicType.Conceptual:
                     return new ConceptualTopicConverter(topic, name2topic);
                 case TopicType.Orientation:
@@ -135,7 +137,7 @@ namespace Amdl.Maml.Converter
         /// <param name="reader">Reader.</param>
         /// <param name="writer">Writer.</param>
         /// <returns>Asynchronous task.</returns>
-        public Task ConvertAsync(TextReader reader, TextWriter writer)
+        public virtual Task ConvertAsync(TextReader reader, TextWriter writer)
         {
             var doc = Parse(reader);
             return WriteDocumentAsync(doc, writer);
