@@ -79,8 +79,13 @@ Specific implementations <legacyItalic>may</legacyItalic> choose to make this fu
     </section>
     <relatedTopics>
       <link xlink:href="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" />
-<link xlink:href="3dc5a651-829e-4c61-9325-7738980ed456" />
-<link xlink:href="50005a18-8c9a-405b-82e7-efc76bb4eed1" />
-<link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" /><externalLink><linkUri>http://pandoc.org/README.html#setext-style-headers</linkUri><linkText>Pandoc's Markdown: Setext-Style Headers</linkText></externalLink></relatedTopics>
+      <link xlink:href="3dc5a651-829e-4c61-9325-7738980ed456" />
+      <link xlink:href="50005a18-8c9a-405b-82e7-efc76bb4eed1" />
+      <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" />
+      <externalLink>
+        <linkUri>http://pandoc.org/README.html#setext-style-headers</linkUri>
+        <linkText>Pandoc's Markdown: Setext-Style Headers</linkText>
+      </externalLink>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

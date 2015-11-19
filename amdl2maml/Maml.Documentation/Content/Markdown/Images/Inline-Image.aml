@@ -37,7 +37,12 @@ This is an inline image:
     </section>
     <relatedTopics>
       <link xlink:href="522d44b1-5cd7-4403-987a-6f097fdc56ff" />
-<link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" />
-<link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" /><externalLink><linkUri>(http://pandoc.org/README.html#images)</linkUri><linkText>Pandoc's Markdown: Images</linkText></externalLink></relatedTopics>
+      <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" />
+      <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
+      <externalLink>
+        <linkUri>(http://pandoc.org/README.html#images)</linkUri>
+        <linkText>Pandoc's Markdown: Images</linkText>
+      </externalLink>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

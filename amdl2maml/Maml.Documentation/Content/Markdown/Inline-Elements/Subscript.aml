@@ -30,6 +30,11 @@
     </section>
     <relatedTopics>
       <link xlink:href="225a03f7-69e1-44f6-b7b5-8f14f373a75c" />
-<link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" /><externalLink><linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri><linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText></externalLink></relatedTopics>
+      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" />
+      <externalLink>
+        <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
+        <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>
+      </externalLink>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

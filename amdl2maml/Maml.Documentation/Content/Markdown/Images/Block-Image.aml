@@ -48,7 +48,12 @@ This is a block image:
     </section>
     <relatedTopics>
       <link xlink:href="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" />
-<link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />
-<link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" /><externalLink><linkUri>(http://pandoc.org/README.html#images)</linkUri><linkText>Pandoc's Markdown: Images</linkText></externalLink></relatedTopics>
+      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />
+      <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
+      <externalLink>
+        <linkUri>(http://pandoc.org/README.html#images)</linkUri>
+        <linkText>Pandoc's Markdown: Images</linkText>
+      </externalLink>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

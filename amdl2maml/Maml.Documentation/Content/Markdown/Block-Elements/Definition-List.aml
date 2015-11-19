@@ -41,6 +41,11 @@ Term
     </section>
     <relatedTopics>
       <link xlink:href="632e17ce-26cf-4455-a6ee-31e9dac8f05a" />
-<link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" /><externalLink><linkUri>http://pandoc.org/README.html#definition-lists</linkUri><linkText>Pandoc's Markdown: Definition Lists</linkText></externalLink></relatedTopics>
+      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" />
+      <externalLink>
+        <linkUri>http://pandoc.org/README.html#definition-lists</linkUri>
+        <linkText>Pandoc's Markdown: Definition Lists</linkText>
+      </externalLink>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>
