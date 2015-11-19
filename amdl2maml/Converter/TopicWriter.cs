@@ -30,6 +30,23 @@ namespace Amdl.Maml.Converter
             "SQL",
         };
 
+        private static readonly IDictionary<string, SeeAlsoGroupType> SeeAlsoGroups = new Dictionary<string, SeeAlsoGroupType>
+        {
+            { Properties.Resources.ConceptsTitle, SeeAlsoGroupType.Concepts },
+            { Properties.Resources.OtherResourcesTitle, SeeAlsoGroupType.OtherResources },
+            { Properties.Resources.ReferenceTitle, SeeAlsoGroupType.Reference },
+            { Properties.Resources.TasksTitle, SeeAlsoGroupType.Tasks },
+        };
+
+        private static readonly IDictionary<SeeAlsoGroupType, Guid> SeeAlsoGroupIds = new Dictionary<SeeAlsoGroupType, Guid>(5)
+        {
+            { SeeAlsoGroupType.None, Guid.Empty },
+            { SeeAlsoGroupType.Concepts, new Guid("1FE70836-AA7D-4515-B54B-E10C4B516E50") },
+            { SeeAlsoGroupType.OtherResources, new Guid("4A273212-0AC8-4D72-8349-EC11CD2FF8CD") },
+            { SeeAlsoGroupType.Reference, new Guid("A635375F-98C2-4241-94E7-E427B47C20B6") },
+            { SeeAlsoGroupType.Tasks, new Guid("DAC3A6A0-C863-4E5B-8F65-79EFC6A4BA09") },
+        };
+
         private static readonly Version Version = typeof(TopicWriter).GetTypeInfo().Assembly.GetName().Version;
 
         /// <summary>
@@ -92,6 +109,37 @@ namespace Amdl.Maml.Converter
             Inline,
         }
 
+        /// <summary>
+        /// See Also group type.
+        /// </summary>
+        enum SeeAlsoGroupType
+        {
+            /// <summary>
+            /// None.
+            /// </summary>
+            None,
+
+            /// <summary>
+            /// Concepts.
+            /// </summary>
+            Concepts,
+
+            /// <summary>
+            /// Other Resources.
+            /// </summary>
+            OtherResources,
+
+            /// <summary>
+            /// Reference.
+            /// </summary>
+            Reference,
+
+            /// <summary>
+            /// Tasks.
+            /// </summary>
+            Tasks,
+        }
+
         #endregion
 
         #region Fields
@@ -103,6 +151,7 @@ namespace Amdl.Maml.Converter
         private Stack<SectionState> sectionStates;
         private InlineState inlineState;
         private MarkupState markupState;
+        private SeeAlsoGroupType seeAlsoGroup;
 
         #endregion
 
@@ -223,12 +272,24 @@ namespace Amdl.Maml.Converter
             }
         }
 
-        private async Task WriteStartSeeAlsoAsync(XmlWriter writer)
+        private async Task WriteStartSeeAlsoAsync(XmlWriter writer, int level)
         {
-            await WriteEndSectionsAsync(2, writer);
+            await WriteEndSectionsAsync(level, writer);
+            if (level > 2)
+                await writer.WriteEndElementAsync(); //content | sections
             await writer.WriteStartElementAsync(null, "relatedTopics", null);
             sectionStates.Pop();
             sectionStates.Push(SectionState.SeeAlso);
+            seeAlsoGroup = SeeAlsoGroupType.None;
+        }
+
+        private void WriteStartSeeAlsoGroup(string title)
+        {
+            SeeAlsoGroupType group;
+            if (SeeAlsoGroups.TryGetValue(title, out group))
+                seeAlsoGroup = group;
+            else
+                seeAlsoGroup = SeeAlsoGroupType.None;
         }
 
         #endregion
@@ -442,13 +503,16 @@ namespace Amdl.Maml.Converter
 
             await WriteEndIntroductionAsync(writer);
 
-            if (IsInSeeAlso)
-                return;
-
             var title = block.InlineContent.LiteralContent;
+            if (IsInSeeAlso && block.HeaderLevel > sectionStates.Count())
+            {
+                WriteStartSeeAlsoGroup(title);
+                return;
+            }
+
             if (title.Equals(Properties.Resources.SeeAlsoTitle))
             {
-                await WriteStartSeeAlsoAsync(writer);
+                await WriteStartSeeAlsoAsync(writer, block.HeaderLevel);
                 return;
             }
 
@@ -509,6 +573,7 @@ namespace Amdl.Maml.Converter
                 : name2topic[inline.TargetUrl].Id.ToString();
             await writer.WriteStartElementAsync(null, "link", null);
             await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
+            await WriteTopicTypeAttributeAsync(writer);
             //await writer.WriteStringAsync(inline.LiteralContent);
             await WriteChildInlinesAsync(inline, writer);
             await writer.WriteEndElementAsync(); //link
@@ -557,6 +622,21 @@ namespace Amdl.Maml.Converter
             await writer.WriteElementStringAsync(null, "linkText", null, text);
 
             await writer.WriteEndElementAsync(); //externalLink
+        }
+
+        private async Task WriteTopicTypeAttributeAsync(XmlWriter writer)
+        {
+            if (IsInSeeAlso)
+            {
+                Guid guid = GetGroupId();
+                if (guid != default(Guid))
+                    await writer.WriteAttributeStringAsync(null, "topicType_id", null, guid.ToString());
+            }
+        }
+
+        private Guid GetGroupId()
+        {
+            return SeeAlsoGroupIds[seeAlsoGroup];
         }
 
         #endregion

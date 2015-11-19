@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConceptsTitle" xml:space="preserve">
+    <value>Concepts</value>
+  </data>
+  <data name="OtherResourcesTitle" xml:space="preserve">
+    <value>Other Resources</value>
+  </data>
+  <data name="ReferenceTitle" xml:space="preserve">
+    <value>Reference</value>
+  </data>
   <data name="SeeAlsoTitle" xml:space="preserve">
     <value>See Also</value>
+  </data>
+  <data name="TasksTitle" xml:space="preserve">
+    <value>Tasks</value>
   </data>
 </root>

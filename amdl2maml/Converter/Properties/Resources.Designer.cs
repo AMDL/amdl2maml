@@ -62,11 +62,47 @@ namespace Amdl.Maml.Converter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Concepts.
+        /// </summary>
+        internal static string ConceptsTitle {
+            get {
+                return ResourceManager.GetString("ConceptsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Resources.
+        /// </summary>
+        internal static string OtherResourcesTitle {
+            get {
+                return ResourceManager.GetString("OtherResourcesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference.
+        /// </summary>
+        internal static string ReferenceTitle {
+            get {
+                return ResourceManager.GetString("ReferenceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to See Also.
         /// </summary>
         internal static string SeeAlsoTitle {
             get {
                 return ResourceManager.GetString("SeeAlsoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        internal static string TasksTitle {
+            get {
+                return ResourceManager.GetString("TasksTitle", resourceCulture);
             }
         }
     }
