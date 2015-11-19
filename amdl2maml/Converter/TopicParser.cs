@@ -32,10 +32,22 @@ namespace Amdl.Maml.Converter
         /// <param name="topics">The topics.</param>
         /// <param name="srcPath">Source base path.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
+        /// <param name="progress">Progress indicator.</param>
         /// <returns>Parsed topics.</returns>
-        public static async Task<IEnumerable<TopicData>> ParseAsync(IEnumerable<TopicData> topics, string srcPath, CancellationToken cancellationToken)
+        public static async Task<IEnumerable<TopicData>> ParseAsync(IEnumerable<TopicData> topics, string srcPath,
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<int> progress = null)
         {
-            return await Task.WhenAll(topics.Select(topic => TopicParser.ParseAsync(topic, srcPath, cancellationToken)));
+            var topics2 = new TopicData[topics.Count()];
+            var index = 0;
+            if (progress != null)
+                progress.Report(index);
+            foreach (var topic in topics)
+            {
+                topics2[index++] = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
+                if (progress != null)
+                    progress.Report(index);
+            }
+            return topics2;
         }
 
         private static async Task<TopicData> ParseAsync(TopicData topic, string srcPath, CancellationToken cancellationToken)

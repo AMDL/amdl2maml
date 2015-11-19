@@ -1,4 +1,5 @@
 ﻿using PCLStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -19,12 +20,20 @@ namespace Amdl.Maml.Converter
         /// <param name="destPath">Destination base path.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
+        /// <param name="progress">Progress indicator.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken)
+        public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<int> progress = null)
         {
+            var index = 0;
+            if (progress != null)
+                progress.Report(index);
             foreach (var topic in topics)
             {
                 await ConvertAsync(topic, srcPath, destPath, name2topic, cancellationToken);
+                ++index;
+                if (progress != null)
+                    progress.Report(index);
             }
         }
 
