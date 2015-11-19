@@ -208,7 +208,6 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteStartIntroductionAsync(Block block, XmlWriter writer)
         {
-            SetTopicTitle(block);
             await writer.WriteStartElementAsync(null, "introduction", null);
             if (block.Tag == BlockTag.SETextHeader)
                 await writer.WriteElementStringAsync(null, "autoOutline", null, null);
@@ -625,13 +624,6 @@ namespace Amdl.Maml.Converter
 
         #region Private Members
 
-        private void SetTopicTitle(Block block)
-        {
-            if (Title != null)
-                throw new InvalidOperationException("Topic title is already set");
-            Title = block.InlineContent.LiteralContent;
-        }
-
         private static string GetListClass(Block block)
         {
             switch (block.ListData.ListType)
@@ -667,12 +659,6 @@ namespace Amdl.Maml.Converter
         private Guid Id
         {
             get { return Topic.Id; }
-        }
-
-        private string Title
-        {
-            get { return Topic.Title; }
-            set { Topic.Title = value; }
         }
 
         #endregion

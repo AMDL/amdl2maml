@@ -27,9 +27,9 @@ namespace Amdl.Maml.Converter
         private static TopicData Update(TopicData topic, IDictionary<string, Guid> title2id)
         {
             var block = GetHeaderBlock(topic.ParserResult);
-            var title = GetTitle(topic, block);
+            topic.Title = GetTitle(topic, block);
             Guid id;
-            if (!title2id.TryGetValue(title, out id))
+            if (!title2id.TryGetValue(topic.Title, out id))
                 id = Guid.NewGuid();
             topic.Id = id;
             return topic;
