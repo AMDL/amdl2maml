@@ -70,6 +70,8 @@ namespace Amdl.Maml.Converter
                     return new EmptyTopicWriter(topic, name2topic);
                 case TopicType.Conceptual:
                     return new ConceptualTopicWriter(topic, name2topic);
+                case TopicType.Glossary:
+                    return new GlossaryTopicWriter(topic, name2topic);
                 case TopicType.Orientation:
                     return new OrientationTopicWriter(topic, name2topic);
                 default:
@@ -89,7 +91,7 @@ namespace Amdl.Maml.Converter
             Content,
         }
 
-        enum SectionState
+        internal enum SectionState
         {
             None,
             Content,
@@ -255,7 +257,7 @@ namespace Amdl.Maml.Converter
             }
         }
 
-        private async Task WriteStartIntroductionAsync(Block block, XmlWriter writer)
+        internal virtual async Task WriteStartIntroductionAsync(Block block, XmlWriter writer)
         {
             await writer.WriteStartElementAsync(null, "introduction", null);
             if (block.Tag == BlockTag.SETextHeader)
@@ -263,7 +265,7 @@ namespace Amdl.Maml.Converter
             topicState = TopicState.Introduction;
         }
 
-        private async Task WriteEndIntroductionAsync(XmlWriter writer)
+        internal virtual async Task WriteEndIntroductionAsync(XmlWriter writer)
         {
             if (topicState == TopicState.Introduction)
             {
@@ -274,13 +276,18 @@ namespace Amdl.Maml.Converter
 
         private async Task WriteStartSeeAlsoAsync(XmlWriter writer, int level)
         {
+            await DoWriteStartSeeAlso(writer, level);
+            sectionStates.Pop();
+            sectionStates.Push(SectionState.SeeAlso);
+            seeAlsoGroup = SeeAlsoGroupType.None;
+        }
+
+        internal virtual async Task DoWriteStartSeeAlso(XmlWriter writer, int level)
+        {
             await WriteEndSectionsAsync(level, writer);
             if (level > 2)
                 await writer.WriteEndElementAsync(); //content | sections
             await writer.WriteStartElementAsync(null, "relatedTopics", null);
-            sectionStates.Pop();
-            sectionStates.Push(SectionState.SeeAlso);
-            seeAlsoGroup = SeeAlsoGroupType.None;
         }
 
         private void WriteStartSeeAlsoGroup(string title)
@@ -432,6 +439,7 @@ namespace Amdl.Maml.Converter
                     break;
 
                 case InlineTag.SoftBreak:
+                if (!IsInSeeAlso)
                     await writer.WriteRawAsync("\n");
                     break;
 
@@ -516,13 +524,13 @@ namespace Amdl.Maml.Converter
                 return;
             }
 
-            await DoWriteStartSectionAsync(block, writer);
+            await WriteEndSectionsAsync(block.HeaderLevel, writer);
+            var state = await DoWriteStartSectionAsync(block, title, writer);
+            sectionStates.Push(state);
         }
 
-        private async Task DoWriteStartSectionAsync(Block block, XmlWriter writer)
+        internal virtual async Task<SectionState> DoWriteStartSectionAsync(Block block, string title, XmlWriter writer)
         {
-            await WriteEndSectionsAsync(block.HeaderLevel, writer);
-
             var state = sectionStates.Peek();
             if (state == SectionState.Content)
             {
@@ -532,7 +540,6 @@ namespace Amdl.Maml.Converter
                 sectionStates.Push(SectionState.Sections);
             }
 
-            var title = block.InlineContent.LiteralContent;
             await writer.WriteStartElementAsync(null, "section", null);
             await writer.WriteAttributeStringAsync(null, "address", null, title);
             await writer.WriteElementStringAsync(null, "title", null, title);
@@ -541,7 +548,7 @@ namespace Amdl.Maml.Converter
             if (block.Tag == BlockTag.SETextHeader)
                 await writer.WriteElementStringAsync(null, "autoOutline", null, null);
 
-            sectionStates.Push(SectionState.Content);
+            return SectionState.Content;
         }
 
         private async Task WriteEndSectionsAsync(int level, XmlWriter writer)
@@ -549,9 +556,14 @@ namespace Amdl.Maml.Converter
             while (sectionStates.Count() >= level)
             {
                 var state = sectionStates.Pop();
-                await writer.WriteEndElementAsync(); //content | sections
-                await writer.WriteEndElementAsync(); //section
+                await WriteEndSectionAsync(state, writer);
             }
+        }
+
+        internal virtual async Task WriteEndSectionAsync(SectionState state, XmlWriter writer)
+        {
+            await writer.WriteEndElementAsync(); //content | sections
+            await writer.WriteEndElementAsync(); //section
         }
 
         #endregion Section
@@ -566,18 +578,20 @@ namespace Amdl.Maml.Converter
                 await WriteConceptualLinkAsync(inline, writer);
         }
 
-        private async Task WriteConceptualLinkAsync(Inline inline, XmlWriter writer)
+        internal virtual async Task WriteConceptualLinkAsync(Inline inline, XmlWriter writer)
         {
             var href = GetConceptualLinkTarget(inline);
             await writer.WriteStartElementAsync(null, "link", null);
             await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
             await WriteTopicTypeAttributeAsync(writer);
-            //await writer.WriteStringAsync(inline.LiteralContent);
-            await WriteChildInlinesAsync(inline, writer);
+            if (inline.FirstChild != null)
+                await WriteChildInlinesAsync(inline, writer);
+            //else
+            //    await writer.WriteStringAsync(inline.LiteralContent);
             await writer.WriteEndElementAsync(); //link
         }
 
-        private async Task WriteExternalLinkAsync(Inline inline, XmlWriter writer)
+        internal virtual async Task WriteExternalLinkAsync(Inline inline, XmlWriter writer)
         {
             await writer.WriteStartElementAsync(null, "externalLink", null);
             await writer.WriteStartElementAsync(null, "linkUri", null);
@@ -594,7 +608,7 @@ namespace Amdl.Maml.Converter
             await writer.WriteEndElementAsync(); //externalLink
         }
 
-        private async Task WriteRelatedTopicsAsync(Block block, XmlWriter writer)
+        internal virtual async Task WriteRelatedTopicsAsync(Block block, XmlWriter writer)
         {
             if (block.ReferenceMap.Count > 0 && !IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "relatedTopics", null);
@@ -622,7 +636,7 @@ namespace Amdl.Maml.Converter
             await writer.WriteEndElementAsync(); //externalLink
         }
 
-        private string GetConceptualLinkTarget(Inline inline)
+        internal string GetConceptualLinkTarget(Inline inline)
         {
             var split = inline.TargetUrl.Split('#');
             if (split[0].Length > 0)
@@ -727,7 +741,7 @@ namespace Amdl.Maml.Converter
             }
         }
 
-        private bool IsInSeeAlso
+        internal bool IsInSeeAlso
         {
             get { return sectionStates.Peek() == SectionState.SeeAlso; }
         }

@@ -103,8 +103,11 @@ namespace Amdl.Maml.Converter
             if (file.Name == null)
                 return TopicType.Empty;
             var name = Path.GetFileNameWithoutExtension(file.Name);
-            if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase))
+            if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase)) //TODO
                 return TopicType.Orientation;
+            var split = name.Split('-', ' ');
+            if (split.Any() && split.Last().EndsWith("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
+                return TopicType.Glossary;
             return TopicType.Conceptual;
         }
     }

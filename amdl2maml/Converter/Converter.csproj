@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ConceptualTopicWriter.cs" />
     <Compile Include="EmptyTopicWriter.cs" />
+    <Compile Include="GlossaryTopicWriter.cs" />
     <Compile Include="TopicConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
     <Compile Include="LayoutIndexer.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="TopicParserResult.cs" />
     <Compile Include="TopicType.cs" />
     <Compile Include="TopicUpdater.cs" />
+    <Compile Include="XmlWriterExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonMark">

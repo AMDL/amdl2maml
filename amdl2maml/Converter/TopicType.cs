@@ -16,6 +16,11 @@
         Conceptual,
 
         /// <summary>
+        /// Glossary document.
+        /// </summary>
+        Glossary,
+
+        /// <summary>
         /// Orientation document.
         /// </summary>
         Orientation,
