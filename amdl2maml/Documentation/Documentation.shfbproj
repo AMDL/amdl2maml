@@ -11,7 +11,7 @@
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>Maml.Documentation</AssemblyName>
     <RootNamespace>Maml.Documentation</RootNamespace>
-    <Name>Maml.Documentation</Name>
+    <Name>Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
     <OutputPath>..\..\..\amdl.github.io\</OutputPath>
