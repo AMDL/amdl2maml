@@ -51,8 +51,8 @@
       <Topic id="52e90a26-9d60-4e91-b5f2-b8137b59a137" visible="True" title="Superscript" />
       <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Strong Emphasis" />
     </Topic>
-    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" isSelected="true" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
-      <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikethrough" />
+    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
+      <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" isSelected="true" title="Strikeout" />
     </Topic>
   </Topic>
   <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" title="AMDL Tools" tocTitle="Tools">

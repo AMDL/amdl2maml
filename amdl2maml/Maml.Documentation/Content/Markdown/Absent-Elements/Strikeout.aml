@@ -9,7 +9,7 @@
     <section address="Status">
       <title>Status</title>
       <content>
-        <para>Strikethrough, a.k.a. strikeout, is absent from AMDL.</para>
+        <para>Strikeout, a.k.a. strikethrough, is absent from AMDL.</para>
       </content>
     </section>
     <section address="Motivation">
@@ -37,7 +37,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 ~~Any content enclosed in double tildes is interpreted as subscript within subscript.~~
 </code>
       </content>
@@ -56,7 +56,7 @@
       <title>Workaround</title>
       <content>
         <code language="HTML">
-&lt;s&gt;Strikethrough&lt;/s&gt;
+&lt;s&gt;Strikeout&lt;/s&gt;
 </code>
       </content>
     </section>

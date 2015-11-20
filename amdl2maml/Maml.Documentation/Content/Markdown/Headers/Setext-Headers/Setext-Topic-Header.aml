@@ -78,7 +78,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 Setext-Style Topic Header
 =========================
 </code>
@@ -94,7 +94,7 @@ Setext-Style Topic Header
       <title>Attributes</title>
       <content>
         <para>Topics can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 	{#identifier .class1 .class2 name1=value1 name2=value2 ...}
 </code>
         <para>All attribute values containing spaces, braces (<codeInline>{</codeInline> and <codeInline>}</codeInline>), or backslashes (<codeInline>\</codeInline>) <legacyItalic>must</legacyItalic> either</para>

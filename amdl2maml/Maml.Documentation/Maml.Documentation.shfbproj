@@ -114,7 +114,7 @@
     <None Include="Content\Markdown\Block-Elements\Block-Elements.aml" />
     <None Include="Content\Markdown\Block-Elements\Definition-List.aml" />
     <None Include="Content\Markdown\Absent-Elements\Absent-Elements.aml" />
-    <None Include="Content\Markdown\Absent-Elements\Strikethrough.aml" />
+    <None Include="Content\Markdown\Absent-Elements\Strikeout.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Headers.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Section-Header.aml" />
     <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Topic-Header.aml" />

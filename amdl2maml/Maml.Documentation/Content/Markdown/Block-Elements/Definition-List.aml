@@ -20,7 +20,7 @@ The body of the definition (including the first line, aside from the colon or ti
     <section address="Example">
       <title>Example</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 Term
 :	Definition
 </code>

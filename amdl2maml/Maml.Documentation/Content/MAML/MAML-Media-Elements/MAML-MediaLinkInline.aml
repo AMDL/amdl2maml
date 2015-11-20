@@ -17,7 +17,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This is an inline image:
 ![](Castle.png "Pirate Sandcastle")
 

@@ -9,13 +9,13 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This is a **strong emphasis**.
 </code>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This also __works__.
 </code>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This ** doesn't **.
 </code>
       </content>

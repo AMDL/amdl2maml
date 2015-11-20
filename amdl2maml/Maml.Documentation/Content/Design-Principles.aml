@@ -15,7 +15,7 @@
         <section address="Example:">
           <title>Example:</title>
           <content>
-            <list class="bullet">
+            <list class="nobullet">
               <listItem>
                 <para>
                   <link xlink:href="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" />
@@ -35,7 +35,7 @@
         <section address="Example:">
           <title>Example:</title>
           <content>
-            <list class="bullet">
+            <list class="nobullet">
               <listItem>
                 <para>
                   <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" />
@@ -55,7 +55,7 @@
         <section address="Example:">
           <title>Example:</title>
           <content>
-            <list class="bullet">
+            <list class="nobullet">
               <listItem>
                 <para>
                   <link xlink:href="c7ff7df3-d4f7-42a8-a70e-8739421ee5fb" />

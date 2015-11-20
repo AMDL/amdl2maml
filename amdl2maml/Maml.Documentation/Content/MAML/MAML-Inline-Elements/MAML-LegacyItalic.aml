@@ -17,13 +17,13 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This text is *emphasized*.
 </code>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This also _works_.
 </code>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 This * doesn't *.
 </code>
       </content>

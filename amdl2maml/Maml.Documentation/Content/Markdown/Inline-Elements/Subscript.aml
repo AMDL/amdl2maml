@@ -9,7 +9,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code title="AMDL">
+        <code language="none" title="AMDL">
 	The most widely known chemical reaction is 
     2H~2~ + O~2~ -&gt; 2H~2~O
 </code>
