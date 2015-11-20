@@ -5,13 +5,13 @@
 <topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>The topics in this section detail the syntax and the AMDL semantics of headers.</para>
+      <para>The topics in this section detail the AMDL syntax and semantics of headers.</para>
     </summary>
     <introduction />
     <section address="Headers">
       <title>Headers</title>
       <content>
-        <para>Select one of the topics below to learn more about a particular header style.</para>
+        <para>AMDL defines two distinct types of headers:</para>
         <list class="bullet">
           <listItem>
             <para>

@@ -44,7 +44,7 @@
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
     <NamingMethod>Guid</NamingMethod>
-    <HelpTitle>Human-Writable Documentation</HelpTitle>
+    <HelpTitle>AMDL: Human-Writable Documentation</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceTitle>Reference</RootNamespaceTitle>
     <FooterText>Documented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>

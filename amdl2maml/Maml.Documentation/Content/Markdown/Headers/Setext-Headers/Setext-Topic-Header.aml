@@ -5,7 +5,7 @@
 <topic id="50005a18-8c9a-405b-82e7-efc76bb4eed1" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the syntax and the AMDL semantics of the Setext-style topic header.</para>
+      <para>This topic details the AMDL syntax and semantics of Setext-style topic headers.</para>
     </summary>
     <introduction>
       <autoOutline />
@@ -16,13 +16,13 @@
         <para>A Setext-style topic header serves the following purposes:</para>
         <list class="ordered">
           <listItem>
-            <para>Assign the topic's title with the header's text.</para>
+            <para>Specify the topic's title.</para>
           </listItem>
           <listItem>
-            <para>Signify the termination of the topic's summary, if present.</para>
+            <para>Terminate the topic's summary, if one is present.</para>
           </listItem>
           <listItem>
-            <para>Indicate that a topic's outline should be generated.</para>
+            <para>Optionally, assign values to the topic's attributes.</para>
           </listItem>
         </list>
       </content>
@@ -30,7 +30,49 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>A line of text followed by a row of <codeInline>=</codeInline> signs.</para>
+        <list class="ordered">
+          <listItem>
+            <para>A line consisting of:</para>
+            <list class="ordered">
+              <listItem>
+                <para>zero to three space characters, followed by</para>
+              </listItem>
+              <listItem>
+                <para>unformatted text, followed by,</para>
+              </listItem>
+              <listItem>
+                <para>optionally, an attribute enclosure, followed by</para>
+              </listItem>
+            </list>
+          </listItem>
+          <listItem>
+            <para>a line consisting of:</para>
+            <list class="ordered">
+              <listItem>
+                <para>zero to three space characters, followed by,</para>
+              </listItem>
+              <listItem>
+                <para>at least three <codeInline>=</codeInline> character, followed by,</para>
+              </listItem>
+              <listItem>
+                <para>optionally, any character sequence.</para>
+              </listItem>
+            </list>
+          </listItem>
+        </list>
+        <para>The unformatted text must be XML-escaped, i.e.</para>
+        <list class="bullet">
+          <listItem>
+            <para>all occurrences of <codeInline>&lt;</codeInline> must be replaced with <codeInline>&amp;lt;</codeInline>,</para>
+          </listItem>
+          <listItem>
+            <para>all occurrences of <codeInline>&gt;</codeInline> must be replaced with <codeInline>&amp;gt;</codeInline>, and</para>
+          </listItem>
+          <listItem>
+            <para>all occurrences of <codeInline>&amp;</codeInline> must be replaced with <codeInline>&amp;amp;</codeInline>.</para>
+          </listItem>
+        </list>
+        <para>If a topic's title is unspecified, the topic's identifier will be used.</para>
       </content>
     </section>
     <section address="Example">
@@ -48,21 +90,131 @@ Setext-Style Topic Header
         <para>This topic's header.</para>
       </content>
     </section>
+    <section address="Attributes">
+      <title>Attributes</title>
+      <content>
+        <para>Topics can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <code title="AMDL">
+	{#identifier .class1 .class2 name1=value1 name2=value2 ...}
+</code>
+        <para>All attribute values containing spaces, braces (<codeInline>{</codeInline> and <codeInline>}</codeInline>), or backslashes (<codeInline>\</codeInline>) <legacyItalic>must</legacyItalic> either</para>
+        <list class="ordered">
+          <listItem>
+            <para>be enclosed in matching <codeInline>'</codeInline> or <codeInline>"</codeInline> characters, or</para>
+          </listItem>
+          <listItem>
+            <para>have all occurrences of these characters escaped, i.e. preceded by a <codeInline>\</codeInline> character.</para>
+          </listItem>
+        </list>
+        <para>Topic headers define the following attributes:</para>
+      </content>
+      <sections>
+        <section address="identifier">
+          <title>identifier</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a globally unique string value used for resolving internal links to the topic.
+If no value is specified, a unique identifier will be assigned based on the topic file name; detailed algorithm TBD.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="tocOrder">
+          <title>tocOrder</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>an integer value that will be used for determining the topic's placement in the Table of Contents.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="tocTitle">
+          <title>tocTitle</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be rendered as the link text in the link to the topic in the Table of Contents.
+If no attribute value is specified, the topic title will be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="linkText">
+          <title>linkText</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be rendered as the link text in internal links to the topic.
+If no attribute value is specified, the topic title will be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="autoOutline">
+          <title>autoOutline</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a boolean value indicating whether an automatic topic outline should be generated.
+If no attribute value is specified for a topic with a Setext-style header, a topic outline <legacyItalic>should</legacyItalic> be generated.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="outlineDepth">
+          <title>outlineDepth</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>an integer value indicating the maximum depth of the automatic topic outline, if one is generated.
+If no attribute value is specified, a zero-depth outline <legacyItalic>should</legacyItalic> be generated.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="outlineLead">
+          <title>outlineLead</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be used as the lead-in text rendered before the automatic outline, if one is generated.
+If an empty string is specified, the lead-in text <legacyItalic>should</legacyItalic> be omitted.
+If no attribute value is specified, a default lead-in text <legacyItalic>may</legacyItalic> be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="excludeSeeAlso">
+          <title>excludeSeeAlso</title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a boolean value indicating whether the top-level <legacyItalic>See Also</legacyItalic> section will be excluded from the automatic topic outline, if both are generated.
+If no attribute value is specified, the top-level <legacyItalic>See Also</legacyItalic> section <legacyItalic>should not</legacyItalic> be excluded, i.e. it <legacyItalic>should</legacyItalic> be included.</para>
+              </listItem>
+            </list>
+            <para>Class specifications <legacyItalic>should</legacyItalic> be ignored, but <legacyItalic>must</legacyItalic> be accepted as valid input.</para>
+          </content>
+        </section>
+      </sections>
+    </section>
     <section address="Notes">
       <title>Notes</title>
       <content />
       <sections>
-        <section address="Implementation">
-          <title>Implementation</title>
-          <content>
-            <para>A Setext-style topic header indicates that a topic outline <legacyItalic>should</legacyItalic> be generated.
-Specific implementations <legacyItalic>may</legacyItalic> choose to make this function user-configurable or disable it altogether.</para>
-          </content>
-        </section>
         <section address="Differences from PM">
           <title>Differences from PM</title>
           <content>
-            <para>AMDL does not permit inline formatting in headers.</para>
+            <list class="ordered">
+              <listItem>
+                <para>No inline formatting is permitted in topic headers.</para>
+              </listItem>
+              <listItem>
+                <para>Class specifications are undefined.</para>
+              </listItem>
+            </list>
           </content>
         </section>
       </sections>
@@ -71,17 +223,28 @@ Specific implementations <legacyItalic>may</legacyItalic> choose to make this fu
       <title>amdl2maml Support</title>
       <content>
         <autoOutline />
-        <para>Completed, save for topic title assignment.</para>
+        <para>Partial, pending parser modification.</para>
+        <list class="ordered">
+          <listItem>
+            <para>Topic titles are only read from the content file.</para>
+          </listItem>
+          <listItem>
+            <para>Outlines are generated for all Setext-style headers.</para>
+          </listItem>
+          <listItem>
+            <para>Attributes are misinterpreted as part of the header text.</para>
+          </listItem>
+        </list>
       </content>
     </section>
     <relatedTopics>
+      <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="4092517c-098d-4680-9efe-eaf5bb5019c0" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="a3e870f6-5589-477a-8505-95c641025855" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="131f2864-f2bc-4170-a1a8-053bf3b83491" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
-      <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
-        <linkUri>http://pandoc.org/README.html#setext-style-headers</linkUri>
-        <linkText>Pandoc's Markdown: Setext-Style Headers</linkText>
+        <linkUri>http://pandoc.org/README.html#headers</linkUri>
+        <linkText>Pandoc's Markdown: Headers</linkText>
       </externalLink>
     </relatedTopics>
   </developerConceptualDocument>
