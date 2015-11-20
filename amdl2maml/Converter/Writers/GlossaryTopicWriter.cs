@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Amdl.Maml.Converter
+namespace Amdl.Maml.Converter.Writers
 {
     class GlossaryTopicWriter : TopicWriter
     {

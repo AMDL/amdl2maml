@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Amdl.Maml.Converter
+namespace Amdl.Maml.Converter.Writers
 {
     class OrientationTopicWriter : TopicWriter
     {

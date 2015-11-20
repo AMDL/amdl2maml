@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Amdl.Maml.Converter
+namespace Amdl.Maml.Converter.Writers
 {
     /// <summary>
     /// AMDL topic writer.
@@ -68,8 +68,8 @@ namespace Amdl.Maml.Converter
             {
                 case TopicType.Empty:
                     return new EmptyTopicWriter(topic, name2topic);
-                case TopicType.Conceptual:
-                    return new ConceptualTopicWriter(topic, name2topic);
+                case TopicType.General:
+                    return new GeneralTopicWriter(topic, name2topic);
                 case TopicType.Glossary:
                     return new GlossaryTopicWriter(topic, name2topic);
                 case TopicType.Orientation:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Amdl.Maml.Converter
+namespace Amdl.Maml.Converter.Writers
 {
     class EmptyTopicWriter : TopicWriter
     {

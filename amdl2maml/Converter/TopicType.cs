@@ -6,22 +6,22 @@
     public enum TopicType
     {
         /// <summary>
-        /// Empty document.
+        /// Empty.
         /// </summary>
         Empty,
 
         /// <summary>
-        /// Conceptual document.
+        /// General.
         /// </summary>
-        Conceptual,
+        General,
 
         /// <summary>
-        /// Glossary document.
+        /// Glossary.
         /// </summary>
         Glossary,
 
         /// <summary>
-        /// Orientation document.
+        /// Orientation.
         /// </summary>
         Orientation,
     }

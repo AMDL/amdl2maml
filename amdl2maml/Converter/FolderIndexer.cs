@@ -108,7 +108,7 @@ namespace Amdl.Maml.Converter
             var split = name.Split('-', ' ');
             if (split.Any() && split.Last().EndsWith("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
                 return TopicType.Glossary;
-            return TopicType.Conceptual;
+            return TopicType.General;
         }
     }
 }

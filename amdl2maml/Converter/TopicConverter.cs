@@ -76,7 +76,7 @@ namespace Amdl.Maml.Converter
             using (var reader = new StreamReader(srcStream))
             using (var writer = new StreamWriter(destStream))
             {
-                await TopicWriter.WriteAsync(topic, name2topic, reader, writer);
+                await Writers.TopicWriter.WriteAsync(topic, name2topic, reader, writer);
             }
         }
     }
