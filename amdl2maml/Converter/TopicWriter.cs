@@ -330,24 +330,11 @@ namespace Amdl.Maml.Converter
                     break;
 
                 case BlockTag.IndentedCode:
-                    await writer.WriteStartElementAsync(null, "code", null);
-                    await writer.WriteRawAsync("\n");
-                    await writer.WriteRawAsync(block.StringContent.ToString());
-                    await writer.WriteEndElementAsync(); //code
+                    await WriteIndentedCodeAsync(block, writer);
                     break;
 
                 case BlockTag.FencedCode:
-                    await writer.WriteStartElementAsync(null, "code", null);
-                    if (!string.IsNullOrEmpty(block.FencedCodeData.Info))
-                    {
-                        if (Languages.Contains(block.FencedCodeData.Info))
-                            await writer.WriteAttributeStringAsync(null, "language", null, block.FencedCodeData.Info);
-                        else
-                            await writer.WriteAttributeStringAsync(null, "title", null, block.FencedCodeData.Info);
-                    }
-                    await writer.WriteRawAsync("\n");
-                    await writer.WriteStringAsync(block.StringContent.ToString());
-                    await writer.WriteEndElementAsync(); //code
+                    await WriteFencedCodeAsync(block, writer);
                     break;
 
                 case BlockTag.List:
@@ -439,8 +426,8 @@ namespace Amdl.Maml.Converter
                     break;
 
                 case InlineTag.SoftBreak:
-                if (!IsInSeeAlso)
-                    await writer.WriteRawAsync("\n");
+                    if (!IsInSeeAlso)
+                        await writer.WriteRawAsync("\n");
                     break;
 
                 case InlineTag.Link:
@@ -567,6 +554,37 @@ namespace Amdl.Maml.Converter
         }
 
         #endregion Section
+
+        #region Code
+
+        private static async Task WriteIndentedCodeAsync(Block block, XmlWriter writer)
+        {
+            await writer.WriteStartElementAsync("code");
+            await writer.WriteAttributeStringAsync("language", "none");
+            await writer.WriteRawAsync("\n");
+            await writer.WriteRawAsync(block.StringContent.ToString());
+            await writer.WriteEndElementAsync(); //code
+        }
+
+        private static async Task WriteFencedCodeAsync(Block block, XmlWriter writer)
+        {
+            await writer.WriteStartElementAsync("code");
+            if (!string.IsNullOrEmpty(block.FencedCodeData.Info))
+            {
+                if (Languages.Contains(block.FencedCodeData.Info))
+                    await writer.WriteAttributeStringAsync("language", block.FencedCodeData.Info);
+                else
+                {
+                    await writer.WriteAttributeStringAsync("language", "none");
+                    await writer.WriteAttributeStringAsync("title", block.FencedCodeData.Info);
+                }
+            }
+            await writer.WriteRawAsync("\n");
+            await writer.WriteStringAsync(block.StringContent.ToString());
+            await writer.WriteEndElementAsync(); //code
+        }
+
+        #endregion Code
 
         #region Link
 
