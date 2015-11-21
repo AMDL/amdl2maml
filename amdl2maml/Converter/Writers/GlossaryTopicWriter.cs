@@ -65,24 +65,25 @@ namespace Amdl.Maml.Converter.Writers
 
         internal override async Task WriteConceptualLinkAsync(Inline inline)
         {
-            if (!IsInSeeAlso)
+            if (GetSectionState() != SectionState.SeeAlso)
             {
                 await base.WriteConceptualLinkAsync(inline);
                 return;
             }
 
-            var termId = GetConceptualLinkTarget(inline);
-            if (!termId.StartsWith("#"))
+            var target = GetConceptualLinkTarget(inline);
+            if (!target.StartsWith("#"))
                 return;
 
+            var termId = target.TrimStart('#');
             await WriteStartElementAsync("relatedEntry");
-            await WriteAttributeStringAsync("termId", termId.TrimStart('#'));
+            await WriteAttributeStringAsync("termId", termId);
             await WriteEndElementAsync(); //relatedEntry
         }
 
         internal override async Task WriteExternalLinkAsync(Inline inline)
         {
-            if (!IsInSeeAlso)
+            if (GetSectionState() != SectionState.SeeAlso)
                 await base.WriteExternalLinkAsync(inline);
         }
     }

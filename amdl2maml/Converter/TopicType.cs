@@ -1,7 +1,7 @@
 ﻿namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// Topic type.
+    /// AMDL topic type.
     /// </summary>
     public enum TopicType
     {
@@ -19,6 +19,11 @@
         /// Glossary.
         /// </summary>
         Glossary,
+
+        /// <summary>
+        /// How-To.
+        /// </summary>
+        HowTo,
 
         /// <summary>
         /// Orientation.

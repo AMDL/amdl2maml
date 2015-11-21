@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// Topic folder converter.
+    /// AMDL topic folder indexer.
     /// </summary>
     public class FolderIndexer
     {
@@ -102,12 +102,21 @@ namespace Amdl.Maml.Converter
         {
             if (file.Name == null)
                 return TopicType.Empty;
+
             var name = Path.GetFileNameWithoutExtension(file.Name);
             if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase)) //TODO
                 return TopicType.Orientation;
+
             var split = name.Split('-', ' ');
-            if (split.Any() && split.Last().EndsWith("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
-                return TopicType.Glossary;
+            if (split.Any())
+            {
+                if (split.First().Equals("HowTo", StringComparison.OrdinalIgnoreCase)) //TODO
+                    return TopicType.HowTo;
+
+                if (split.Last().Equals("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
+                    return TopicType.Glossary;
+            }
+            
             return TopicType.General;
         }
     }

@@ -10,6 +10,11 @@ namespace Amdl.Maml.Converter
             return writer.WriteStartElementAsync(null, localName, null);
         }
 
+        public static Task WriteElementStringAsync(this XmlWriter writer, string localName, string value)
+        {
+            return writer.WriteElementStringAsync(null, localName, null, value);
+        }
+
         public static Task WriteAttributeStringAsync(this XmlWriter writer, string localName, string value)
         {
             return writer.WriteAttributeStringAsync(null, localName, null, value);

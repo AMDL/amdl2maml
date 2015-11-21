@@ -42,6 +42,7 @@
     <Compile Include="TopicConverter.cs" />
     <Compile Include="FolderIndexer.cs" />
     <Compile Include="LayoutIndexer.cs" />
+    <Compile Include="Writers\HowToTopicWriter.cs" />
     <Compile Include="Writers\OrientationTopicWriter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

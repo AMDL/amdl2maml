@@ -12,7 +12,7 @@ namespace Amdl.Maml.Converter.Writers
     /// <summary>
     /// AMDL topic writer.
     /// </summary>
-    public abstract class TopicWriter
+    internal abstract class TopicWriter
     {
         #region Static Members
 
@@ -82,6 +82,8 @@ namespace Amdl.Maml.Converter.Writers
                     return new GeneralTopicWriter(topic, name2topic, writer);
                 case TopicType.Glossary:
                     return new GlossaryTopicWriter(topic, name2topic, writer);
+                case TopicType.HowTo:
+                    return new HowToTopicWriter(topic, name2topic, writer);
                 case TopicType.Orientation:
                     return new OrientationTopicWriter(topic, name2topic, writer);
                 default:
@@ -213,6 +215,11 @@ namespace Amdl.Maml.Converter.Writers
             return writer.WriteEndElementAsync();
         }
 
+        internal Task WriteElementStringAsync(string localName, string value)
+        {
+            return writer.WriteElementStringAsync(localName, value);
+        }
+
         internal Task WriteAttributeStringAsync(string localName, string value)
         {
             return writer.WriteAttributeStringAsync(localName, value);
@@ -278,9 +285,9 @@ namespace Amdl.Maml.Converter.Writers
 
         internal virtual async Task WriteStartIntroductionAsync(Block block)
         {
-            await writer.WriteStartElementAsync(null, "introduction", null);
+            await WriteStartElementAsync("introduction");
             if (block.Tag == BlockTag.SETextHeader)
-                await writer.WriteElementStringAsync(null, "autoOutline", null, null);
+                await WriteElementStringAsync("autoOutline", null);
             topicState = TopicState.Introduction;
         }
 
@@ -296,8 +303,7 @@ namespace Amdl.Maml.Converter.Writers
         private async Task WriteStartSeeAlsoAsync(int level)
         {
             await DoWriteStartSeeAlso(level);
-            sectionStates.Pop();
-            sectionStates.Push(SectionState.SeeAlso);
+            SetSectionState(SectionState.SeeAlso);
             seeAlsoGroup = SeeAlsoGroupType.None;
         }
 
@@ -389,7 +395,7 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteChildBlocksAsync(Block block)
+        internal async Task WriteChildBlocksAsync(Block block)
         {
             for (var child = block.FirstChild; child != null; child = child.NextSibling)
                 await WriteBlockAsync(child);
@@ -397,11 +403,11 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteParagraphAsync(Block block)
         {
-            if (!IsInSeeAlso)
-                await writer.WriteStartElementAsync(null, "para", null);
+            if (GetSectionState() != SectionState.SeeAlso)
+                await WriteStartElementAsync("para");
             await WriteChildInlinesAsync(block);
-            if (!IsInSeeAlso)
-                await writer.WriteEndElementAsync(); //para
+            if (GetSectionState() != SectionState.SeeAlso)
+                await WriteEndElementAsync(); //para
         }
 
         #endregion Block
@@ -453,7 +459,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.SoftBreak:
-                    if (!IsInSeeAlso)
+                    if (GetSectionState() != SectionState.SeeAlso)
                         await writer.WriteRawAsync("\n");
                     break;
 
@@ -536,8 +542,8 @@ namespace Amdl.Maml.Converter.Writers
 
             await WriteEndIntroductionAsync();
 
-            var title = block.InlineContent.LiteralContent;
-            if (IsInSeeAlso && block.HeaderLevel > sectionStates.Count())
+            var title = GetTitle(block);
+            if (GetSectionState() == SectionState.SeeAlso && block.HeaderLevel > SectionLevel)
             {
                 WriteStartSeeAlsoGroup(title);
                 return;
@@ -559,21 +565,35 @@ namespace Amdl.Maml.Converter.Writers
             var state = sectionStates.Peek();
             if (state == SectionState.Content)
             {
-                await writer.WriteEndElementAsync(); //content
-                await writer.WriteStartElementAsync(null, "sections", null);
-                sectionStates.Pop();
-                sectionStates.Push(SectionState.Sections);
+                await WriteEndElementAsync(); //content
+                await WriteStartElementAsync("sections");
+                SetSectionState(SectionState.Sections);
             }
 
-            await writer.WriteStartElementAsync(null, "section", null);
-            await writer.WriteAttributeStringAsync(null, "address", null, title);
-            await writer.WriteElementStringAsync(null, "title", null, title);
-            await writer.WriteStartElementAsync(null, "content", null);
+            await WriteStartElementAsync("section");
+            await WriteAttributeStringAsync("address", title);
+            await WriteTitleAsync(block);
+            await WriteStartElementAsync("content");
 
             if (block.Tag == BlockTag.SETextHeader)
-                await writer.WriteElementStringAsync(null, "autoOutline", null, null);
+                await WriteElementStringAsync("autoOutline", null);
 
             return SectionState.Content;
+        }
+
+        internal async Task WriteTitleAsync(Block block)
+        {
+            await WriteStartElementAsync("title");
+            await WriteChildInlinesAsync(block);
+            await WriteEndElementAsync(); //title
+        }
+
+        internal static string GetTitle(Block block)
+        {
+            var title = string.Empty;
+            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
+                title += inline.LiteralContent;
+            return title;
         }
 
         private async Task WriteEndSectionsAsync(int level)
@@ -589,6 +609,22 @@ namespace Amdl.Maml.Converter.Writers
         {
             await writer.WriteEndElementAsync(); //content | sections
             await writer.WriteEndElementAsync(); //section
+        }
+
+        internal void SetSectionState(SectionState state)
+        {
+            sectionStates.Pop();
+            sectionStates.Push(state);
+        }
+
+        internal SectionState GetSectionState()
+        {
+            return sectionStates.Peek();
+        }
+
+        internal int SectionLevel
+        {
+            get { return sectionStates.Count(); }
         }
 
         #endregion Section
@@ -666,14 +702,14 @@ namespace Amdl.Maml.Converter.Writers
 
         internal virtual async Task WriteRelatedTopicsAsync(Block block)
         {
-            if (block.ReferenceMap.Count > 0 && !IsInSeeAlso)
+            if (block.ReferenceMap.Count > 0 && GetSectionState() != SectionState.SeeAlso)
                 await writer.WriteStartElementAsync(null, "relatedTopics", null);
-            if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
+            if (block.ReferenceMap.Count > 0 || GetSectionState() == SectionState.SeeAlso)
             {
                 foreach (var reference in block.ReferenceMap.Values)
                     await WriteReferenceLinkAsync(reference);
             }
-            if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
+            if (block.ReferenceMap.Count > 0 || GetSectionState() == SectionState.SeeAlso)
                 await writer.WriteEndElementAsync();  //relatedTopics
         }
 
@@ -702,7 +738,7 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteTopicTypeAttributeAsync()
         {
-            if (IsInSeeAlso)
+            if (GetSectionState() == SectionState.SeeAlso)
             {
                 Guid guid = GetGroupId();
                 if (guid != default(Guid))
@@ -759,21 +795,43 @@ namespace Amdl.Maml.Converter.Writers
 
         #region List
 
-        private async Task WriteListAsync(Block block)
+        internal virtual async Task WriteListAsync(Block block)
         {
-            await writer.WriteStartElementAsync(null, "list", null);
-            var listClass = GetListClass(block);
-            if (listClass != null)
-                await writer.WriteAttributeStringAsync(null, "class", null, listClass);
+            await WriteStartElementAsync("list");
+            await WriteListClassAsync(block);
             await WriteChildBlocksAsync(block);
-            await writer.WriteEndElementAsync(); //list
+            await WriteEndElementAsync(); //list
         }
 
-        private async Task WriteListItemAsync(Block block)
+        internal virtual async Task WriteListItemAsync(Block block)
         {
-            await writer.WriteStartElementAsync(null, "listItem", null);
+            await WriteStartElementAsync("listItem");
             await WriteChildBlocksAsync(block);
-            await writer.WriteEndElementAsync(); //listItem
+            await WriteEndElementAsync(); //listItem
+        }
+
+        internal async Task WriteListClassAsync(Block block, string defaultClass = null)
+        {
+            var listClass = GetListClass(block, defaultClass);
+            if (listClass != null)
+                await WriteAttributeStringAsync("class", listClass);
+        }
+
+        private static string GetListClass(Block block, string defaultClass)
+        {
+            switch (block.ListData.ListType)
+            {
+                case ListType.Bullet:
+                    if (block.ListData.BulletChar == '*')
+                        return "bullet";
+                    return "nobullet";
+
+                case ListType.Ordered:
+                    return "ordered";
+
+                default:
+                    return defaultClass;
+            }
         }
 
         #endregion
@@ -805,28 +863,6 @@ namespace Amdl.Maml.Converter.Writers
         #endregion Table
 
         #region Private Members
-
-        private static string GetListClass(Block block)
-        {
-            switch (block.ListData.ListType)
-            {
-                case ListType.Bullet:
-                    if (block.ListData.BulletChar == '*')
-                        return "bullet";
-                    return "nobullet";
-
-                case ListType.Ordered:
-                    return "ordered";
-
-                default:
-                    return null;
-            }
-        }
-
-        internal bool IsInSeeAlso
-        {
-            get { return sectionStates.Peek() == SectionState.SeeAlso; }
-        }
 
         private bool IsInMarkupInline
         {
