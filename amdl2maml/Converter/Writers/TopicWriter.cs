@@ -345,11 +345,25 @@ namespace Amdl.Maml.Converter.Writers
                     await WriteListItemAsync(block, writer);
                     break;
 
+#if TABLES
+                case BlockTag.Table:
+                    await WriteTableAsync(block, writer);
+                    break;
+
+                case BlockTag.TableRow:
+                    await WriteTableRowAsync(block, writer);
+                    break;
+
+                case BlockTag.TableCell:
+                    await WriteTableCellAsync(block, writer);
+                    break;
+#endif
+
                 case BlockTag.ReferenceDefinition:
                     break;
 
                 case BlockTag.HorizontalRuler:
-                    break;
+                    throw new NotImplementedException();
 
                 default:
                     throw new InvalidOperationException("Unexpected block tag: " + block.Tag);
@@ -366,13 +380,7 @@ namespace Amdl.Maml.Converter.Writers
         {
             if (!IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "para", null);
-            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
-            {
-                await WriteInlineAsync(inline, writer);
-                inlineState = InlineState.Start;
-            }
-            inlineState = InlineState.None;
-            await WriteEndMarkupInlineAsync(writer);
+            await WriteChildInlinesAsync(block, writer);
             if (!IsInSeeAlso)
                 await writer.WriteEndElementAsync(); //para
         }
@@ -448,6 +456,17 @@ namespace Amdl.Maml.Converter.Writers
                 default:
                     throw new InvalidOperationException("Unexpected inline tag: " + inline.Tag);
             }
+        }
+
+        private async Task WriteChildInlinesAsync(Block block, XmlWriter writer)
+        {
+            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
+            {
+                await WriteInlineAsync(inline, writer);
+                inlineState = InlineState.Start;
+            }
+            inlineState = InlineState.None;
+            await WriteEndMarkupInlineAsync(writer);
         }
 
         private async Task WriteStrikethroughAsync(Inline inline, XmlWriter writer)
@@ -739,6 +758,32 @@ namespace Amdl.Maml.Converter.Writers
         }
 
         #endregion
+
+        #region Table
+
+        private async Task WriteTableAsync(Block block, XmlWriter writer)
+        {
+            await writer.WriteStartElementAsync("table");
+            await WriteChildBlocksAsync(block, writer);
+            await writer.WriteEndElementAsync(); //table
+        }
+
+        private async Task WriteTableRowAsync(Block block, XmlWriter writer)
+        {
+            await writer.WriteStartElementAsync("row");
+            await WriteChildBlocksAsync(block, writer);
+            await writer.WriteEndElementAsync(); //row
+        }
+
+        private async Task WriteTableCellAsync(Block block, XmlWriter writer)
+        {
+            await writer.WriteStartElementAsync("entry");
+            await WriteChildInlinesAsync(block, writer);
+            //await WriteChildBlocksAsync(block, writer);
+            await writer.WriteEndElementAsync(); //entry
+        }
+
+        #endregion Table
 
         #region Private Members
 

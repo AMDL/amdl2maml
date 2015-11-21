@@ -23,7 +23,12 @@ namespace Amdl.Maml.Converter
             settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
                 //| CommonMarkAdditionalFeatures.StrikethroughTilde
                 | CommonMarkAdditionalFeatures.SubscriptTilde
-                | CommonMarkAdditionalFeatures.SuperscriptCaret;
+                | CommonMarkAdditionalFeatures.SuperscriptCaret
+#if TABLES
+                | CommonMarkAdditionalFeatures.GithubStyleTables;
+            settings.TrackSourcePosition = true;
+#endif
+                ;
         }
 
         /// <summary>
