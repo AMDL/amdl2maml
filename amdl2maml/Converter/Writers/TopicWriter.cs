@@ -463,6 +463,10 @@ namespace Amdl.Maml.Converter.Writers
                         await writer.WriteRawAsync("\n");
                     break;
 
+                case InlineTag.LineBreak:
+                    await WriteLineBreakAsync();
+                    break;
+
                 case InlineTag.Link:
                     await WriteLinkAsync(inline);
                     break;
@@ -470,9 +474,6 @@ namespace Amdl.Maml.Converter.Writers
                 case InlineTag.Image:
                     await WriteImageAsync(inline);
                     break;
-
-                case InlineTag.LineBreak:
-                    throw new NotImplementedException();
 
                 case InlineTag.Strikethrough:
                     await WriteStrikethroughAsync(inline);
@@ -500,6 +501,16 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteStartElementAsync(null, "s", null);
             await WriteChildInlinesAsync(inline);
             await writer.WriteEndElementAsync(); //s
+        }
+
+        private async Task WriteLineBreakAsync()
+        {
+            if (GetSectionState() != SectionState.SeeAlso)
+            {
+                await WriteStartElementAsync("markup");
+                await WriteElementStringAsync("br", null);
+                await WriteEndElementAsync(); //markup
+            }
         }
 
         private async Task WriteStartMarkupInlineAsync()
