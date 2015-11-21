@@ -286,8 +286,8 @@ namespace Amdl.Maml.Converter.Writers
         internal virtual async Task WriteStartIntroductionAsync(Block block)
         {
             await WriteStartElementAsync("introduction");
-            if (block.Tag == BlockTag.SETextHeader)
-                await WriteElementStringAsync("autoOutline", null);
+            await WriteAutoOutlineAsync(block);
+
             topicState = TopicState.Introduction;
         }
 
@@ -585,11 +585,20 @@ namespace Amdl.Maml.Converter.Writers
             await WriteAttributeStringAsync("address", title);
             await WriteTitleAsync(block);
             await WriteStartElementAsync("content");
-
-            if (block.Tag == BlockTag.SETextHeader)
-                await WriteElementStringAsync("autoOutline", null);
+            await WriteAutoOutlineAsync(block);
 
             return SectionState.Content;
+        }
+
+        private async Task WriteAutoOutlineAsync(Block block)
+        {
+            if (block.Tag == BlockTag.SETextHeader)
+            {
+                await WriteStartElementAsync("autoOutline");
+                await WriteAttributeStringAsync("lead", "none");
+                await WriteAttributeStringAsync("excludeRelatedTopics", "true");
+                await WriteEndElementAsync(); //autoOutline
+            }
         }
 
         internal async Task WriteTitleAsync(Block block)
