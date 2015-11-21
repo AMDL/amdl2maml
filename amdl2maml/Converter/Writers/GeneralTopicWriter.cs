@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Xml;
 
 namespace Amdl.Maml.Converter.Writers
 {
     class GeneralTopicWriter : TopicWriter
     {
-        public GeneralTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
-            : base(topic, name2topic)
+        public GeneralTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+            : base(topic, name2topic, writer)
         {
         }
 
-        protected override string GetDocElementName()
+        internal override string GetDocElementName()
         {
             return "developerConceptualDocument";
         }

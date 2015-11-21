@@ -59,21 +59,31 @@ namespace Amdl.Maml.Converter.Writers
         /// <returns>Asynchronous task.</returns>
         public static Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer)
         {
-            return TopicWriter.Create(topic, name2topic).WriteAsync(reader, writer);
+            var xmlSettings = new XmlWriterSettings
+            {
+                Async = true,
+                Indent = true,
+            };
+
+            using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
+            {
+                var topicWriter = TopicWriter.Create(topic, name2topic, xmlWriter);
+                return topicWriter.WriteAsync(reader);
+            }
         }
 
-        private static TopicWriter Create(TopicData topic, IDictionary<string, TopicData> name2topic)
+        private static TopicWriter Create(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
         {
             switch (topic.Type)
             {
                 case TopicType.Empty:
-                    return new EmptyTopicWriter(topic, name2topic);
+                    return new EmptyTopicWriter(topic, name2topic, writer);
                 case TopicType.General:
-                    return new GeneralTopicWriter(topic, name2topic);
+                    return new GeneralTopicWriter(topic, name2topic, writer);
                 case TopicType.Glossary:
-                    return new GlossaryTopicWriter(topic, name2topic);
+                    return new GlossaryTopicWriter(topic, name2topic, writer);
                 case TopicType.Orientation:
-                    return new OrientationTopicWriter(topic, name2topic);
+                    return new OrientationTopicWriter(topic, name2topic, writer);
                 default:
                     throw new InvalidOperationException("Unexpected topic type: " + topic.Type);
             }
@@ -148,6 +158,7 @@ namespace Amdl.Maml.Converter.Writers
 
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> name2topic;
+        private readonly XmlWriter writer;
 
         private TopicState topicState;
         private Stack<SectionState> sectionStates;
@@ -164,10 +175,12 @@ namespace Amdl.Maml.Converter.Writers
         /// </summary>
         /// <param name="topic">Current topic.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
-        protected TopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
+        /// <param name="writer">XML writer.</param>
+        protected TopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
         {
             this.topic = topic;
             this.name2topic = name2topic;
+            this.writer = writer;
         }
 
         #endregion
@@ -178,37 +191,43 @@ namespace Amdl.Maml.Converter.Writers
         /// Writes the topic as MAML.
         /// </summary>
         /// <param name="reader">Reader.</param>
-        /// <param name="writer">Writer.</param>
         /// <returns>Asynchronous task.</returns>
-        public virtual async Task WriteAsync(TextReader reader, TextWriter writer)
+        public virtual async Task WriteAsync(TextReader reader)
         {
-            var xmlSettings = new XmlWriterSettings
-            {
-                Async = true,
-                Indent = true,
-            };
-
-            using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
-            {
-                await WriteDocumentAsync(topic.ParserResult.Document, xmlWriter);
-            }
+            await WriteDocumentAsync(topic.ParserResult.Document);
         }
 
         #endregion
 
-        #region Protected Members
+        #region Internal Members
 
-        /// <summary>
-        /// Gets the name of the document element.
-        /// </summary>
-        /// <returns>The name of the document element.</returns>
-        protected abstract string GetDocElementName();
+        internal abstract string GetDocElementName();
+
+        internal Task WriteStartElementAsync(string localName)
+        {
+            return writer.WriteStartElementAsync(localName);
+        }
+
+        internal Task WriteEndElementAsync()
+        {
+            return writer.WriteEndElementAsync();
+        }
+
+        internal Task WriteAttributeStringAsync(string localName, string value)
+        {
+            return writer.WriteAttributeStringAsync(localName, value);
+        }
+
+        internal Task WriteStringAsync(string text)
+        {
+            return writer.WriteStringAsync(text);
+        }
 
         #endregion
 
         #region Document
 
-        private async Task WriteDocumentAsync(Block block, XmlWriter writer)
+        private async Task WriteDocumentAsync(Block block)
         {
             sectionStates = new Stack<SectionState>();
             sectionStates.Push(SectionState.None);
@@ -228,27 +247,27 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteStartElementAsync(null, GetDocElementName(), "http://ddue.schemas.microsoft.com/authoring/2003/5");
             await writer.WriteAttributeStringAsync("xmlns", "xlink", null, "http://www.w3.org/1999/xlink");
 
-            await WriteStartSummaryAsync(writer);
+            await WriteStartSummaryAsync();
 
-            await WriteChildBlocksAsync(block, writer);
+            await WriteChildBlocksAsync(block);
 
-            await WriteEndSectionsAsync(2, writer);
-            await WriteEndSummaryAsync(writer);
-            await WriteEndIntroductionAsync(writer);
-            await WriteRelatedTopicsAsync(block, writer);
+            await WriteEndSectionsAsync(2);
+            await WriteEndSummaryAsync();
+            await WriteEndIntroductionAsync();
+            await WriteRelatedTopicsAsync(block);
 
             await writer.WriteEndElementAsync(); //developerConceptualDocument
             await writer.WriteEndElementAsync(); //topic
             await writer.WriteEndDocumentAsync();
         }
 
-        private async Task WriteStartSummaryAsync(XmlWriter writer)
+        private async Task WriteStartSummaryAsync()
         {
             await writer.WriteStartElementAsync(null, "summary", null);
             topicState = TopicState.Summary;
         }
 
-        private async Task WriteEndSummaryAsync(XmlWriter writer)
+        private async Task WriteEndSummaryAsync()
         {
             if (topicState == TopicState.Summary)
             {
@@ -257,7 +276,7 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        internal virtual async Task WriteStartIntroductionAsync(Block block, XmlWriter writer)
+        internal virtual async Task WriteStartIntroductionAsync(Block block)
         {
             await writer.WriteStartElementAsync(null, "introduction", null);
             if (block.Tag == BlockTag.SETextHeader)
@@ -265,7 +284,7 @@ namespace Amdl.Maml.Converter.Writers
             topicState = TopicState.Introduction;
         }
 
-        internal virtual async Task WriteEndIntroductionAsync(XmlWriter writer)
+        internal virtual async Task WriteEndIntroductionAsync()
         {
             if (topicState == TopicState.Introduction)
             {
@@ -274,17 +293,17 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteStartSeeAlsoAsync(XmlWriter writer, int level)
+        private async Task WriteStartSeeAlsoAsync(int level)
         {
-            await DoWriteStartSeeAlso(writer, level);
+            await DoWriteStartSeeAlso(level);
             sectionStates.Pop();
             sectionStates.Push(SectionState.SeeAlso);
             seeAlsoGroup = SeeAlsoGroupType.None;
         }
 
-        internal virtual async Task DoWriteStartSeeAlso(XmlWriter writer, int level)
+        internal virtual async Task DoWriteStartSeeAlso(int level)
         {
-            await WriteEndSectionsAsync(level, writer);
+            await WriteEndSectionsAsync(level);
             if (level > 2)
                 await writer.WriteEndElementAsync(); //content | sections
             await writer.WriteStartElementAsync(null, "relatedTopics", null);
@@ -303,22 +322,22 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Block
 
-        private async Task WriteBlockAsync(Block block, XmlWriter writer)
+        private async Task WriteBlockAsync(Block block)
         {
             switch (block.Tag)
             {
                 case BlockTag.AtxHeader:
                 case BlockTag.SETextHeader:
-                    await WriteStartSectionAsync(block, writer);
+                    await WriteStartSectionAsync(block);
                     break;
 
                 case BlockTag.Paragraph:
-                    await WriteParagraphAsync(block, writer);
+                    await WriteParagraphAsync(block);
                     break;
 
                 case BlockTag.BlockQuote:
                     await writer.WriteStartElementAsync(null, "quote", null);
-                    await WriteChildBlocksAsync(block, writer);
+                    await WriteChildBlocksAsync(block);
                     await writer.WriteEndElementAsync(); //quote
                     break;
 
@@ -330,32 +349,32 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case BlockTag.IndentedCode:
-                    await WriteIndentedCodeAsync(block, writer);
+                    await WriteIndentedCodeAsync(block);
                     break;
 
                 case BlockTag.FencedCode:
-                    await WriteFencedCodeAsync(block, writer);
+                    await WriteFencedCodeAsync(block);
                     break;
 
                 case BlockTag.List:
-                    await WriteListAsync(block, writer);
+                    await WriteListAsync(block);
                     break;
 
                 case BlockTag.ListItem:
-                    await WriteListItemAsync(block, writer);
+                    await WriteListItemAsync(block);
                     break;
 
 #if TABLES
                 case BlockTag.Table:
-                    await WriteTableAsync(block, writer);
+                    await WriteTableAsync(block);
                     break;
 
                 case BlockTag.TableRow:
-                    await WriteTableRowAsync(block, writer);
+                    await WriteTableRowAsync(block);
                     break;
 
                 case BlockTag.TableCell:
-                    await WriteTableCellAsync(block, writer);
+                    await WriteTableCellAsync(block);
                     break;
 #endif
 
@@ -370,17 +389,17 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteChildBlocksAsync(Block block, XmlWriter writer)
+        private async Task WriteChildBlocksAsync(Block block)
         {
             for (var child = block.FirstChild; child != null; child = child.NextSibling)
-                await WriteBlockAsync(child, writer);
+                await WriteBlockAsync(child);
         }
 
-        private async Task WriteParagraphAsync(Block block, XmlWriter writer)
+        private async Task WriteParagraphAsync(Block block)
         {
             if (!IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "para", null);
-            await WriteChildInlinesAsync(block, writer);
+            await WriteChildInlinesAsync(block);
             if (!IsInSeeAlso)
                 await writer.WriteEndElementAsync(); //para
         }
@@ -389,7 +408,7 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Inline
 
-        private async Task WriteInlineAsync(Inline inline, XmlWriter writer)
+        private async Task WriteInlineAsync(Inline inline)
         {
             switch (inline.Tag)
             {
@@ -405,31 +424,31 @@ namespace Amdl.Maml.Converter.Writers
 
                 case InlineTag.Emphasis:
                     await writer.WriteStartElementAsync(null, "legacyItalic", null);
-                    await WriteChildInlinesAsync(inline, writer);
+                    await WriteChildInlinesAsync(inline);
                     await writer.WriteEndElementAsync();
                     break;
 
                 case InlineTag.RawHtml:
-                    await WriteStartMarkupInlineAsync(writer);
+                    await WriteStartMarkupInlineAsync();
                     await writer.WriteRawAsync(inline.LiteralContent);
-                    await WriteChildInlinesAsync(inline, writer);
+                    await WriteChildInlinesAsync(inline);
                     break;
 
                 case InlineTag.Strong:
                     await writer.WriteStartElementAsync(null, "legacyBold", null);
-                    await WriteChildInlinesAsync(inline, writer);
+                    await WriteChildInlinesAsync(inline);
                     await writer.WriteEndElementAsync();
                     break;
 
                 case InlineTag.Subscript:
                     await writer.WriteStartElementAsync(null, "subscript", null);
-                    await WriteChildInlinesAsync(inline, writer);
+                    await WriteChildInlinesAsync(inline);
                     await writer.WriteEndElementAsync(); //subscript;
                     break;
 
                 case InlineTag.Superscript:
                     await writer.WriteStartElementAsync(null, "superscript", null);
-                    await WriteChildInlinesAsync(inline, writer);
+                    await WriteChildInlinesAsync(inline);
                     await writer.WriteEndElementAsync(); //superscript;
                     break;
 
@@ -439,18 +458,18 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.Link:
-                    await WriteLinkAsync(inline, writer);
+                    await WriteLinkAsync(inline);
                     break;
 
                 case InlineTag.Image:
-                    await WriteImageAsync(inline, writer);
+                    await WriteImageAsync(inline);
                     break;
 
                 case InlineTag.LineBreak:
                     throw new NotImplementedException();
 
                 case InlineTag.Strikethrough:
-                    await WriteStrikethroughAsync(inline, writer);
+                    await WriteStrikethroughAsync(inline);
                     break;
 
                 default:
@@ -458,26 +477,26 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteChildInlinesAsync(Block block, XmlWriter writer)
+        private async Task WriteChildInlinesAsync(Block block)
         {
             for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
             {
-                await WriteInlineAsync(inline, writer);
+                await WriteInlineAsync(inline);
                 inlineState = InlineState.Start;
             }
             inlineState = InlineState.None;
-            await WriteEndMarkupInlineAsync(writer);
+            await WriteEndMarkupInlineAsync();
         }
 
-        private async Task WriteStrikethroughAsync(Inline inline, XmlWriter writer)
+        private async Task WriteStrikethroughAsync(Inline inline)
         {
-            await WriteStartMarkupInlineAsync(writer);
+            await WriteStartMarkupInlineAsync();
             await writer.WriteStartElementAsync(null, "s", null);
-            await WriteChildInlinesAsync(inline, writer);
+            await WriteChildInlinesAsync(inline);
             await writer.WriteEndElementAsync(); //s
         }
 
-        private async Task WriteStartMarkupInlineAsync(XmlWriter writer)
+        private async Task WriteStartMarkupInlineAsync()
         {
             if (!IsInMarkupInline)
             {
@@ -486,7 +505,7 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteEndMarkupInlineAsync(XmlWriter writer)
+        private async Task WriteEndMarkupInlineAsync()
         {
             if (IsInMarkupInline)
             {
@@ -495,27 +514,27 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteChildInlinesAsync(Inline inline, XmlWriter writer)
+        private async Task WriteChildInlinesAsync(Inline inline)
         {
             for (var child = inline.FirstChild; child != null; child = child.NextSibling)
-                await WriteInlineAsync(child, writer);
+                await WriteInlineAsync(child);
         }
 
         #endregion Inline
 
         #region Section
 
-        private async Task WriteStartSectionAsync(Block block, XmlWriter writer)
+        private async Task WriteStartSectionAsync(Block block)
         {
-            await WriteEndSummaryAsync(writer);
+            await WriteEndSummaryAsync();
 
             if (block.HeaderLevel == 1)
             {
-                await WriteStartIntroductionAsync(block, writer);
+                await WriteStartIntroductionAsync(block);
                 return;
             }
 
-            await WriteEndIntroductionAsync(writer);
+            await WriteEndIntroductionAsync();
 
             var title = block.InlineContent.LiteralContent;
             if (IsInSeeAlso && block.HeaderLevel > sectionStates.Count())
@@ -526,16 +545,16 @@ namespace Amdl.Maml.Converter.Writers
 
             if (title.Equals(Properties.Resources.SeeAlsoTitle))
             {
-                await WriteStartSeeAlsoAsync(writer, block.HeaderLevel);
+                await WriteStartSeeAlsoAsync(block.HeaderLevel);
                 return;
             }
 
-            await WriteEndSectionsAsync(block.HeaderLevel, writer);
-            var state = await DoWriteStartSectionAsync(block, title, writer);
+            await WriteEndSectionsAsync(block.HeaderLevel);
+            var state = await DoWriteStartSectionAsync(block, title);
             sectionStates.Push(state);
         }
 
-        internal virtual async Task<SectionState> DoWriteStartSectionAsync(Block block, string title, XmlWriter writer)
+        internal virtual async Task<SectionState> DoWriteStartSectionAsync(Block block, string title)
         {
             var state = sectionStates.Peek();
             if (state == SectionState.Content)
@@ -557,16 +576,16 @@ namespace Amdl.Maml.Converter.Writers
             return SectionState.Content;
         }
 
-        private async Task WriteEndSectionsAsync(int level, XmlWriter writer)
+        private async Task WriteEndSectionsAsync(int level)
         {
             while (sectionStates.Count() >= level)
             {
                 var state = sectionStates.Pop();
-                await WriteEndSectionAsync(state, writer);
+                await WriteEndSectionAsync(state);
             }
         }
 
-        internal virtual async Task WriteEndSectionAsync(SectionState state, XmlWriter writer)
+        internal virtual async Task WriteEndSectionAsync(SectionState state)
         {
             await writer.WriteEndElementAsync(); //content | sections
             await writer.WriteEndElementAsync(); //section
@@ -576,7 +595,7 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Code
 
-        private static async Task WriteIndentedCodeAsync(Block block, XmlWriter writer)
+        private async Task WriteIndentedCodeAsync(Block block)
         {
             await writer.WriteStartElementAsync("code");
             await writer.WriteAttributeStringAsync("language", "none");
@@ -585,7 +604,7 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteEndElementAsync(); //code
         }
 
-        private static async Task WriteFencedCodeAsync(Block block, XmlWriter writer)
+        private async Task WriteFencedCodeAsync(Block block)
         {
             await writer.WriteStartElementAsync("code");
             if (!string.IsNullOrEmpty(block.FencedCodeData.Info))
@@ -607,28 +626,28 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Link
 
-        private async Task WriteLinkAsync(Inline inline, XmlWriter writer)
+        private async Task WriteLinkAsync(Inline inline)
         {
             if (Uri.IsWellFormedUriString(inline.TargetUrl, UriKind.Absolute))
-                await WriteExternalLinkAsync(inline, writer);
+                await WriteExternalLinkAsync(inline);
             else
-                await WriteConceptualLinkAsync(inline, writer);
+                await WriteConceptualLinkAsync(inline);
         }
 
-        internal virtual async Task WriteConceptualLinkAsync(Inline inline, XmlWriter writer)
+        internal virtual async Task WriteConceptualLinkAsync(Inline inline)
         {
             var href = GetConceptualLinkTarget(inline);
             await writer.WriteStartElementAsync(null, "link", null);
             await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
-            await WriteTopicTypeAttributeAsync(writer);
+            await WriteTopicTypeAttributeAsync();
             if (inline.FirstChild != null)
-                await WriteChildInlinesAsync(inline, writer);
+                await WriteChildInlinesAsync(inline);
             //else
             //    await writer.WriteStringAsync(inline.LiteralContent);
             await writer.WriteEndElementAsync(); //link
         }
 
-        internal virtual async Task WriteExternalLinkAsync(Inline inline, XmlWriter writer)
+        internal virtual async Task WriteExternalLinkAsync(Inline inline)
         {
             await writer.WriteStartElementAsync(null, "externalLink", null);
             await writer.WriteStartElementAsync(null, "linkUri", null);
@@ -639,26 +658,26 @@ namespace Amdl.Maml.Converter.Writers
             if (!string.IsNullOrEmpty(inline.LiteralContent))
                 await writer.WriteStringAsync(inline.LiteralContent);
             else
-                await WriteChildInlinesAsync(inline, writer);
+                await WriteChildInlinesAsync(inline);
             await writer.WriteEndElementAsync(); //linkText
 
             await writer.WriteEndElementAsync(); //externalLink
         }
 
-        internal virtual async Task WriteRelatedTopicsAsync(Block block, XmlWriter writer)
+        internal virtual async Task WriteRelatedTopicsAsync(Block block)
         {
             if (block.ReferenceMap.Count > 0 && !IsInSeeAlso)
                 await writer.WriteStartElementAsync(null, "relatedTopics", null);
             if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
             {
                 foreach (var reference in block.ReferenceMap.Values)
-                    await WriteReferenceLinkAsync(reference, writer);
+                    await WriteReferenceLinkAsync(reference);
             }
             if (block.ReferenceMap.Count > 0 || IsInSeeAlso)
                 await writer.WriteEndElementAsync();  //relatedTopics
         }
 
-        private async Task WriteReferenceLinkAsync(Reference reference, XmlWriter writer)
+        private async Task WriteReferenceLinkAsync(Reference reference)
         {
             await writer.WriteStartElementAsync(null, "externalLink", null);
             await writer.WriteStartElementAsync(null, "linkUri", null);
@@ -681,7 +700,7 @@ namespace Amdl.Maml.Converter.Writers
             return '#' + split[1];
         }
 
-        private async Task WriteTopicTypeAttributeAsync(XmlWriter writer)
+        private async Task WriteTopicTypeAttributeAsync()
         {
             if (IsInSeeAlso)
             {
@@ -700,15 +719,15 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Image
 
-        private async Task WriteImageAsync(Inline inline, XmlWriter writer)
+        private async Task WriteImageAsync(Inline inline)
         {
             if (inlineState == InlineState.Start)
-                await WriteInlineImageAsync(inline, writer);
+                await WriteInlineImageAsync(inline);
             else
-                await WriteBlockImageAsync(inline, writer);
+                await WriteBlockImageAsync(inline);
         }
 
-        private async Task WriteInlineImageAsync(Inline inline, XmlWriter writer)
+        private async Task WriteInlineImageAsync(Inline inline)
         {
             await writer.WriteStartElementAsync(null, "mediaLinkInline", null);
             await writer.WriteStartElementAsync(null, "image", null);
@@ -717,22 +736,22 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteEndElementAsync(); //mediaLinkInline
         }
 
-        private async Task WriteBlockImageAsync(Inline inline, XmlWriter writer)
+        private async Task WriteBlockImageAsync(Inline inline)
         {
             await writer.WriteStartElementAsync(null, "mediaLink", null);
             await writer.WriteStartElementAsync(null, "image", null);
             await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", inline.TargetUrl);
             await writer.WriteEndElementAsync(); //image
             if (inline.FirstChild != null)
-                await WriteCaptionAsync(inline, writer);
+                await WriteCaptionAsync(inline);
             await writer.WriteEndElementAsync(); //mediaLink
         }
 
-        private async Task WriteCaptionAsync(Inline inline, XmlWriter writer)
+        private async Task WriteCaptionAsync(Inline inline)
         {
             await writer.WriteStartElementAsync(null, "caption", null);
             await writer.WriteAttributeStringAsync(null, "placement", null, "after");
-            await WriteChildInlinesAsync(inline, writer);
+            await WriteChildInlinesAsync(inline);
             await writer.WriteEndElementAsync(); //caption
         }
 
@@ -740,20 +759,20 @@ namespace Amdl.Maml.Converter.Writers
 
         #region List
 
-        private async Task WriteListAsync(Block block, XmlWriter writer)
+        private async Task WriteListAsync(Block block)
         {
             await writer.WriteStartElementAsync(null, "list", null);
             var listClass = GetListClass(block);
             if (listClass != null)
                 await writer.WriteAttributeStringAsync(null, "class", null, listClass);
-            await WriteChildBlocksAsync(block, writer);
+            await WriteChildBlocksAsync(block);
             await writer.WriteEndElementAsync(); //list
         }
 
-        private async Task WriteListItemAsync(Block block, XmlWriter writer)
+        private async Task WriteListItemAsync(Block block)
         {
             await writer.WriteStartElementAsync(null, "listItem", null);
-            await WriteChildBlocksAsync(block, writer);
+            await WriteChildBlocksAsync(block);
             await writer.WriteEndElementAsync(); //listItem
         }
 
@@ -761,25 +780,25 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Table
 
-        private async Task WriteTableAsync(Block block, XmlWriter writer)
+        private async Task WriteTableAsync(Block block)
         {
             await writer.WriteStartElementAsync("table");
-            await WriteChildBlocksAsync(block, writer);
+            await WriteChildBlocksAsync(block);
             await writer.WriteEndElementAsync(); //table
         }
 
-        private async Task WriteTableRowAsync(Block block, XmlWriter writer)
+        private async Task WriteTableRowAsync(Block block)
         {
             await writer.WriteStartElementAsync("row");
-            await WriteChildBlocksAsync(block, writer);
+            await WriteChildBlocksAsync(block);
             await writer.WriteEndElementAsync(); //row
         }
 
-        private async Task WriteTableCellAsync(Block block, XmlWriter writer)
+        private async Task WriteTableCellAsync(Block block)
         {
             await writer.WriteStartElementAsync("entry");
-            await WriteChildInlinesAsync(block, writer);
-            //await WriteChildBlocksAsync(block, writer);
+            await WriteChildInlinesAsync(block);
+            //await WriteChildBlocksAsync(block);
             await writer.WriteEndElementAsync(); //entry
         }
 

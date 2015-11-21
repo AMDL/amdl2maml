@@ -7,67 +7,67 @@ namespace Amdl.Maml.Converter.Writers
 {
     class GlossaryTopicWriter : TopicWriter
     {
-        public GlossaryTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic)
-            : base(topic, name2topic)
+        public GlossaryTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+            : base(topic, name2topic, writer)
         {
         }
 
-        protected override string GetDocElementName()
+        internal override string GetDocElementName()
         {
             return "developerGlossaryDocument";
         }
 
-        internal override async Task WriteStartIntroductionAsync(Block block, XmlWriter writer)
+        internal override async Task WriteStartIntroductionAsync(Block block)
         {
-            await writer.WriteStartElementAsync("glossary");
+            await WriteStartElementAsync("glossary");
         }
 
-        internal override Task WriteEndIntroductionAsync(XmlWriter writer)
+        internal override Task WriteEndIntroductionAsync()
         {
             return Task.FromResult<object>(null);
         }
 
-        internal override async Task WriteRelatedTopicsAsync(Block block, XmlWriter writer)
+        internal override async Task WriteRelatedTopicsAsync(Block block)
         {
-            await writer.WriteEndElementAsync(); //glossary
+            await WriteEndElementAsync(); //glossary
         }
 
-        internal override async Task DoWriteStartSeeAlso(XmlWriter writer, int level)
+        internal override async Task DoWriteStartSeeAlso(int level)
         {
-            await writer.WriteEndElementAsync(); //definition
+            await WriteEndElementAsync(); //definition
         }
 
-        internal override async Task WriteEndSectionAsync(SectionState state, XmlWriter writer)
+        internal override async Task WriteEndSectionAsync(SectionState state)
         {
-            await writer.WriteEndElementAsync(); //glossaryEntry
+            await WriteEndElementAsync(); //glossaryEntry
         }
 
-        internal override async Task<SectionState> DoWriteStartSectionAsync(Block block, string title, XmlWriter writer)
+        internal override async Task<SectionState> DoWriteStartSectionAsync(Block block, string title)
         {
-            await writer.WriteStartElementAsync("glossaryEntry");
-            await writer.WriteStartElementAsync("terms");
+            await WriteStartElementAsync("glossaryEntry");
+            await WriteStartElementAsync("terms");
             foreach (var term in title.Split(','))
-                await WriteTermAsync(term, writer);
-            await writer.WriteEndElementAsync(); //terms
-            await writer.WriteStartElementAsync("definition");
+                await WriteTermAsync(term);
+            await WriteEndElementAsync(); //terms
+            await WriteStartElementAsync("definition");
             return SectionState.Content;
         }
 
-        private async Task WriteTermAsync(string term, XmlWriter writer)
+        private async Task WriteTermAsync(string term)
         {
             var termTrim = term.Trim();
             var termId = termTrim.Replace(' ', '-');
-            await writer.WriteStartElementAsync("term");
-            await writer.WriteAttributeStringAsync("termId", termId);
-            await writer.WriteStringAsync(termTrim);
-            await writer.WriteEndElementAsync(); //term
+            await WriteStartElementAsync("term");
+            await WriteAttributeStringAsync("termId", termId);
+            await WriteStringAsync(termTrim);
+            await WriteEndElementAsync(); //term
         }
 
-        internal override async Task WriteConceptualLinkAsync(Inline inline, XmlWriter writer)
+        internal override async Task WriteConceptualLinkAsync(Inline inline)
         {
             if (!IsInSeeAlso)
             {
-                await base.WriteConceptualLinkAsync(inline, writer);
+                await base.WriteConceptualLinkAsync(inline);
                 return;
             }
 
@@ -75,15 +75,15 @@ namespace Amdl.Maml.Converter.Writers
             if (!termId.StartsWith("#"))
                 return;
 
-            await writer.WriteStartElementAsync("relatedEntry");
-            await writer.WriteAttributeStringAsync("termId", termId.TrimStart('#'));
-            await writer.WriteEndElementAsync(); //relatedEntry
+            await WriteStartElementAsync("relatedEntry");
+            await WriteAttributeStringAsync("termId", termId.TrimStart('#'));
+            await WriteEndElementAsync(); //relatedEntry
         }
 
-        internal override async Task WriteExternalLinkAsync(Inline inline, XmlWriter writer)
+        internal override async Task WriteExternalLinkAsync(Inline inline)
         {
             if (!IsInSeeAlso)
-                await base.WriteExternalLinkAsync(inline, writer);
+                await base.WriteExternalLinkAsync(inline);
         }
     }
 }
