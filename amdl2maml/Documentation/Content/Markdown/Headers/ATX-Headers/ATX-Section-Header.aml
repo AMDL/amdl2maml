@@ -100,7 +100,9 @@
       </content>
       <sections>
         <section address="identifier">
-          <title>identifier</title>
+          <title>
+            <codeInline>identifier</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -111,7 +113,9 @@ If no value is specified, a unique identifier will be assigned based on the head
           </content>
         </section>
         <section address="autoOutline">
-          <title>autoOutline</title>
+          <title>
+            <codeInline>autoOutline</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -122,7 +126,9 @@ If no attribute value is specified for a section with an ATX-style header, a sec
           </content>
         </section>
         <section address="outlineDepth">
-          <title>outlineDepth</title>
+          <title>
+            <codeInline>outlineDepth</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -133,7 +139,9 @@ If no attribute value is specified, a zero-depth outline <legacyItalic>should</l
           </content>
         </section>
         <section address="outlineLead">
-          <title>outlineLead</title>
+          <title>
+            <codeInline>outlineLead</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -145,7 +153,9 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
           </content>
         </section>
         <section address="excludeSeeAlso">
-          <title>excludeSeeAlso</title>
+          <title>
+            <codeInline>excludeSeeAlso</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>

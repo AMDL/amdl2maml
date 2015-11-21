@@ -5,7 +5,9 @@
 <topic id="8105a28b-0627-4b9e-97f6-5cd978f4d128" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
-    <introduction />
+    <introduction>
+      <autoOutline lead="none" excludeRelatedTopics="true" />
+    </introduction>
     <section address="Goal">
       <title>Goal</title>
       <content>
@@ -63,59 +65,21 @@
         </list>
       </content>
     </section>
-    <section address="Which Sandcastle?">
-      <title>Which Sandcastle?</title>
+    <section address="Thanks">
+      <title>Thanks</title>
       <content>
-        <para>
-          <externalLink>
-            <linkUri>http://github.com/EWSoftware/SHFB</linkUri>
-            <linkText>Sandcastle Help File Builder</linkText>
-          </externalLink>, a.k.a SHFB.</para>
-      </content>
-    </section>
-    <section address="Which Markdown?">
-      <title>Which Markdown?</title>
-      <content>
-        <para>
-          <externalLink>
-            <linkUri>http://pandoc.org/README.html</linkUri>
-            <linkText>Pandoc's Markdown</linkText>
-          </externalLink>, a.k.a. PM, with <link xlink:href="a8e7fa0d-1cde-4d54-8999-90674b26f8d8">extensions, restrictions, and interpretations</link>.</para>
-      </content>
-    </section>
-    <section address="Why AMDL?">
-      <title>Why AMDL?</title>
-      <content>
-        <para>AMDL is acronym for Assistance Markdown Language. It's the bastard child of MAML and MD.</para>
-        <markup>
-<dl>
-  <dt>Why not MAMDL?</dt>
-  <dd>It isn't created by Microsoft.</dd>
-  <dt>Why not AML?</dt>
-  <dd>That's the MAML file extension.</dd>
-  <dt>Why not AMD?</dt>
-  <dd>That one's taken as well.</dd>
-  <dt>Isn't AMDL also taken?</dt>
-  <dd>Advanced Micronic Devices Ltd. are hardly competition.</dd>
-  <dt>Wasn't it something I studied in college?</dt>
-  <dd>Nope, you'd need L<sub>A</sub>T<sub>E</sub>X for <a href="https://en.wikipedia.org/wiki/Amdahl%27s_law" target="_blank">that</a>.</dd>
-</dl>
-</markup>
-        <para>
-          <legacyBold>Note:</legacyBold> The preceding section is embedded HTML. It should be changed to a <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" />.</para>
-        <para>
-          <legacyBold>Note:</legacyBold> This and the preceding note should be changed to alerts.</para>
+        <list class="bullet">
+          <listItem>
+            <para>Kārlis Gaņģis for <externalLink><linkUri>https://github.com/Knagis/CommonMark.NET</linkUri><linkText>CommonMark.NET</linkText></externalLink> and for his great help and patience, and</para>
+          </listItem>
+          <listItem>
+            <para>Kevin Montrose for his help and patience</para>
+          </listItem>
+        </list>
       </content>
     </section>
     <relatedTopics>
-      <externalLink>
-        <linkUri>http://github.com/EWSoftware/SHFB</linkUri>
-        <linkText>Sandcastle Help File Builder</linkText>
-      </externalLink>
-      <externalLink>
-        <linkUri>http://pandoc.org/README.html</linkUri>
-        <linkText>Pandoc's Markdown</linkText>
-      </externalLink>
+      <link xlink:href="60c732b5-2209-435f-b01e-d111d6bdf6e1" topicType_id="dac3a6a0-c863-4e5b-8f65-79efc6a4ba09" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

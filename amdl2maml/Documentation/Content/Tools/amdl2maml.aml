@@ -11,77 +11,135 @@
     <section address="Goal">
       <title>Goal</title>
       <content>
-        <para>Create a shim to feed AMDL conceptual topics into existing tools (i.e., SHFB).</para>
+        <para>Provide a means of feeding AMDL topics into existing tools (i.e., SHFB).</para>
       </content>
     </section>
     <section address="About">
       <title>About</title>
       <content>
         <para>This site is built <legacyItalic>(semi-automatically)</legacyItalic> from AMDL.</para>
-        <para>
-          <codeInline>amdl2maml</codeInline> uses a <externalLink><linkUri>https://github.com/AMDL/CommonMark.NET</linkUri><linkText>fork</linkText></externalLink> of <externalLink><linkUri>https://github.com/Knagis/CommonMark.NET</linkUri><linkText>CommonMark.NET</linkText></externalLink>.</para>
       </content>
+      <sections>
+        <section address="Dependencies">
+          <title>Dependencies</title>
+          <content>
+            <para>A build requires the following:</para>
+            <list class="ordered">
+              <listItem>
+                <para>A <externalLink><linkUri>https://github.com/AMDL/CommonMark.NET</linkUri><linkText>forked CommonMark.NET</linkText></externalLink>.</para>
+              </listItem>
+              <listItem>
+                <para>A <externalLink><linkUri>https://github.com/AMDL/PCLStorage</linkUri><linkText>forked PCLStorage</linkText></externalLink>.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
     </section>
     <section address="Status">
       <title>Status</title>
+      <content />
+      <sections>
+        <section address="Topic Types">
+          <title>Topic Types</title>
+          <content>
+            <para>The following topic types are currently supported:</para>
+            <list class="ordered">
+              <listItem>
+                <para>Empty topic.</para>
+              </listItem>
+              <listItem>
+                <para>General topic.</para>
+              </listItem>
+              <listItem>
+                <para>Glossary topic.</para>
+              </listItem>
+              <listItem>
+                <para>How-To topic.</para>
+              </listItem>
+              <listItem>
+                <para>Orientation topic.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="Entities">
+          <title>Entities</title>
+          <content>
+            <para>The following entities are currently partially or fully supported:</para>
+            <list class="ordered">
+              <listItem>
+                <para>Sections and subsections, including <legacyItalic>See Also</legacyItalic>.</para>
+              </listItem>
+              <listItem>
+                <para>Topic and section outlines from <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" />.</para>
+              </listItem>
+              <listItem>
+                <para>Topic summaries and introductions.</para>
+              </listItem>
+              <listItem>
+                <para>Paragraphs, quotes and soft and hard line breaks.</para>
+              </listItem>
+              <listItem>
+                <para>Ordered, bulleted and unbulleted lists.</para>
+              </listItem>
+              <listItem>
+                <para>Fenced, indented and inline code.</para>
+              </listItem>
+              <listItem>
+                <para>Inline conceptual, internal and external links.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c">Block</link> and <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007">inline</link> images.</para>
+              </listItem>
+              <listItem>
+                <para>Block and inline HTML.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" /> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <link xlink:href="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" /> and <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137" />.</para>
+              </listItem>
+            </list>
+            <para>The following is an <legacyBold>incomplete</legacyBold> list of missing entities:</para>
+            <list class="ordered">
+              <listItem>
+                <para>Reference link.</para>
+              </listItem>
+              <listItem>
+                <para>Table.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" />.</para>
+              </listItem>
+            </list>
+            <para>Ideally, <codeInline>amdl2maml</codeInline> should be able to produce an SHFB project without human intervention. Right now it can only read/write the content layout XML.</para>
+          </content>
+        </section>
+      </sections>
+    </section>
+    <section address="Notice">
+      <title>Notice</title>
       <content>
-        <para>At the moment <codeInline>amdl2maml</codeInline> supports the following AMDL syntax elements:</para>
-        <list class="ordered">
-          <listItem>
-            <para>Sections and subsections from both <link xlink:href="49c9ae98-e954-41f8-b6e9-ad62637de12d">ATX-style</link> and <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722">Setext-style</link> headers.</para>
-          </listItem>
-          <listItem>
-            <para>Topic and section outlines from <link xlink:href="a45d9463-6a0b-4767-aacf-eb50e38ed722" />.</para>
-          </listItem>
-          <listItem>
-            <para>Topic summaries and introductions.</para>
-          </listItem>
-          <listItem>
-            <para>Fenced, indented and inline code.</para>
-          </listItem>
-          <listItem>
-            <para>Ordered, bulleted and unbulleted lists.</para>
-          </listItem>
-          <listItem>
-            <para>Paragraphs, soft line breaks and quotes.</para>
-          </listItem>
-          <listItem>
-            <para>Inline conceptual, internal and external links.</para>
-          </listItem>
-          <listItem>
-            <para>
-              <legacyItalic>See Also</legacyItalic> sections from references and crafted sections.</para>
-          </listItem>
-          <listItem>
-            <para>
-              <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" /> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />.</para>
-          </listItem>
-          <listItem>
-            <para>
-              <link xlink:href="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" /> and <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137" />.</para>
-          </listItem>
-          <listItem>
-            <para>
-              <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c">Block</link> and <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007">inline</link> images.</para>
-          </listItem>
-          <listItem>
-            <para>Block and inline HTML.</para>
-          </listItem>
-        </list>
-        <para>The following is an <legacyBold>incomplete</legacyBold> list of missing elements:</para>
-        <list class="ordered">
-          <listItem>
-            <para>Reference link.</para>
-          </listItem>
-          <listItem>
-            <para>Table.</para>
-          </listItem>
-          <listItem>
-            <para>
-              <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" />.</para>
-          </listItem>
-        </list>
-        <para>Ideally, <codeInline>amdl2maml</codeInline> should be able to produce an SHFB project without human intervention. Right now it can only read/write the content layout XML.</para>
+        <para>Copyright © Dmitry Shechtman 2015</para>
+        <para>Licensed under the Apache License, Version 2.0 (the "License").
+You may obtain a copy of the License at</para>
+        <para>
+          <externalLink>
+            <linkUri>http://www.apache.org/licenses/LICENSE-2.0</linkUri>
+            <linkText>http://www.apache.org/licenses/LICENSE-2.0</linkText>
+          </externalLink>
+        </para>
+        <para>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</para>
       </content>
     </section>
     <relatedTopics>
@@ -94,6 +152,10 @@
       <externalLink>
         <linkUri>https://github.com/AMDL/CommonMark.NET</linkUri>
         <linkText>AMDL fork of CommonMark.NET</linkText>
+      </externalLink>
+      <externalLink>
+        <linkUri>https://github.com/AMDL/PCLStorage</linkUri>
+        <linkText>AMDL fork of PCLStorage</linkText>
       </externalLink>
     </relatedTopics>
   </developerConceptualDocument>

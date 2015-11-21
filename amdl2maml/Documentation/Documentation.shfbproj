@@ -49,10 +49,11 @@
     <RootNamespaceTitle>Reference</RootNamespaceTitle>
     <FooterText>Documented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>
     <PlugInConfigurations>
-      <PlugInConfig id="Additional Content Only" enabled="True" xmlns="">
+      <PlugInConfig id="Additional Content Only" enabled="False">
         <configuration />
       </PlugInConfig>
     </PlugInConfigurations>
+    <CopyrightText>Copyright &amp;#169%3b Dmitry Shechtman 2015</CopyrightText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
@@ -87,6 +88,7 @@
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
+    <Folder Include="Content\HowTo" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
@@ -94,7 +96,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Design-Principles.aml" />
+    <None Include="Content\FAQ.aml" />
     <None Include="Content\Home.aml" />
+    <None Include="Content\HowTo\HowTo-Contribute-amdl2maml.aml" />
+    <None Include="Content\HowTo\HowTo-Contribute-Documentation.aml" />
+    <None Include="Content\HowTo\HowTo-Contribute-Other.aml" />
+    <None Include="Content\HowTo\HowTo-Discuss.aml" />
+    <None Include="Content\HowTo\HowTo.aml" />
+    <None Include="Content\License.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Block-Elements.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-DefinitionTable.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Introduction.aml" />
@@ -131,6 +140,7 @@
     <None Include="Content\Markdown\Inline-Elements\Subscript.aml" />
     <None Include="Content\Markdown\Inline-Elements\Superscript.aml" />
     <None Include="Content\Markdown\Markdown.aml" />
+    <None Include="Content\Tools\amdl2maml-License.aml" />
     <None Include="Content\Tools\amdl2maml.aml" />
     <None Include="Content\Tools\maml2amdl.aml" />
     <None Include="Content\Tools\Tools.aml" />

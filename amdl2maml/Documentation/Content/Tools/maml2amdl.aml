@@ -11,7 +11,7 @@
     <section address="Goal">
       <title>Goal</title>
       <content>
-        <para>Create a tool that would allow existing documentation projects to migrate to AMDL.</para>
+        <para>Provide a means of migrating existing documentation projects to AMDL.</para>
       </content>
     </section>
     <section address="Progress">

@@ -52,11 +52,21 @@
       <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Strong Emphasis" />
     </Topic>
     <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" isExpanded="true" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
-      <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" isSelected="true" title="Strikeout" />
+      <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>
   </Topic>
-  <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" title="AMDL Tools" tocTitle="Tools">
-    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" title="AMDL to MAML Converter" />
+  <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
+    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" isExpanded="true" apiParentMode="InsertAsChild" title="AMDL to MAML Converter">
+      <Topic id="b5a804b7-2daa-42a5-b578-c604cc17f3a2" visible="True" title="Apache License, Version 2.0" />
+    </Topic>
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />
   </Topic>
+  <Topic id="60c732b5-2209-435f-b01e-d111d6bdf6e1" visible="True" isExpanded="true" title="How To">
+    <Topic id="f7e99efb-6f44-4a9c-9e91-91ff96bd603f" visible="True" isSelected="true" title="How To Discuss AMDL" tocTitle="Discuss AMDL" linkText="How To Discuss AMDL" />
+    <Topic id="5b89311b-b05c-4672-a6c0-54436d5a034d" visible="True" title="How To Contribute to amdl2maml" tocTitle="Contribute to amdl2maml" linkText="How To Contribute to amdl2maml" />
+    <Topic id="264b62f7-dcfa-456d-b3d9-55584b5bf2e3" visible="True" title="How To Contribute to the AMDL Documentation" tocTitle="Contribute to the AMDL Documentation" linkText="How To Contribute to the AMDL Documentation" />
+    <Topic id="43c62513-a4d2-4ebd-af1d-c1b01416ad30" visible="True" title="How To Contribute in Other Venues" tocTitle="Contribute in Other Venues" linkText="How To Contribute in Other Venues" />
+  </Topic>
+  <Topic id="7c33aed9-8c25-4bb3-a8a4-37e0051d9113" visible="True" title="Frequently Asked Questions" />
+  <Topic id="89e8afb2-3b22-4a7c-82be-a0c7d39147dc" visible="True" title="Creative Commons Attribution-ShareAlike 4.0 International Public License" tocTitle="License" linkText="CC-BY-SA 4.0 License" />
 </Topics>

@@ -8,7 +8,7 @@
       <para>This topic details the AMDL syntax and semantics of Setext-style topic headers.</para>
     </summary>
     <introduction>
-      <autoOutline />
+      <autoOutline lead="none" excludeRelatedTopics="true" />
     </introduction>
     <section address="Function">
       <title>Function</title>
@@ -110,7 +110,9 @@ Setext-Style Topic Header
       </content>
       <sections>
         <section address="identifier">
-          <title>identifier</title>
+          <title>
+            <codeInline>identifier</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -121,7 +123,9 @@ If no value is specified, a unique identifier will be assigned based on the topi
           </content>
         </section>
         <section address="tocOrder">
-          <title>tocOrder</title>
+          <title>
+            <codeInline>tocOrder</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -131,7 +135,9 @@ If no value is specified, a unique identifier will be assigned based on the topi
           </content>
         </section>
         <section address="tocTitle">
-          <title>tocTitle</title>
+          <title>
+            <codeInline>tocTitle</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -142,7 +148,9 @@ If no attribute value is specified, the topic title will be used.</para>
           </content>
         </section>
         <section address="linkText">
-          <title>linkText</title>
+          <title>
+            <codeInline>linkText</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -153,7 +161,9 @@ If no attribute value is specified, the topic title will be used.</para>
           </content>
         </section>
         <section address="autoOutline">
-          <title>autoOutline</title>
+          <title>
+            <codeInline>autoOutline</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -164,7 +174,9 @@ If no attribute value is specified for a topic with a Setext-style header, a top
           </content>
         </section>
         <section address="outlineDepth">
-          <title>outlineDepth</title>
+          <title>
+            <codeInline>outlineDepth</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -175,7 +187,9 @@ If no attribute value is specified, a zero-depth outline <legacyItalic>should</l
           </content>
         </section>
         <section address="outlineLead">
-          <title>outlineLead</title>
+          <title>
+            <codeInline>outlineLead</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -187,7 +201,9 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
           </content>
         </section>
         <section address="excludeSeeAlso">
-          <title>excludeSeeAlso</title>
+          <title>
+            <codeInline>excludeSeeAlso</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -222,7 +238,7 @@ If no attribute value is specified, the top-level <legacyItalic>See Also</legacy
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <autoOutline />
+        <autoOutline lead="none" excludeRelatedTopics="true" />
         <para>Partial, pending parser modification.</para>
         <list class="ordered">
           <listItem>

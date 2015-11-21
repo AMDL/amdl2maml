@@ -110,7 +110,9 @@ Notes
       </content>
       <sections>
         <section address="identifier">
-          <title>identifier</title>
+          <title>
+            <codeInline>identifier</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -121,7 +123,9 @@ If no value is specified, a unique identifier will be assigned based on the head
           </content>
         </section>
         <section address="autoOutline">
-          <title>autoOutline</title>
+          <title>
+            <codeInline>autoOutline</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -132,7 +136,9 @@ If no attribute value is specified for a section with an Setex-style header, a s
           </content>
         </section>
         <section address="outlineDepth">
-          <title>outlineDepth</title>
+          <title>
+            <codeInline>outlineDepth</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -143,7 +149,9 @@ If no attribute value is specified, a zero-depth outline <legacyItalic>should</l
           </content>
         </section>
         <section address="outlineLead">
-          <title>outlineLead</title>
+          <title>
+            <codeInline>outlineLead</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -155,7 +163,9 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
           </content>
         </section>
         <section address="excludeSeeAlso">
-          <title>excludeSeeAlso</title>
+          <title>
+            <codeInline>excludeSeeAlso</codeInline>
+          </title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -171,7 +181,7 @@ If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> su
     <section address="Notes">
       <title>Notes</title>
       <content>
-        <autoOutline />
+        <autoOutline lead="none" excludeRelatedTopics="true" />
       </content>
       <sections>
         <section address="Differences from PM">
@@ -189,7 +199,7 @@ If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> su
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <autoOutline />
+        <autoOutline lead="none" excludeRelatedTopics="true" />
         <para>Partial, pending parser modification.</para>
         <list class="ordered">
           <listItem>
