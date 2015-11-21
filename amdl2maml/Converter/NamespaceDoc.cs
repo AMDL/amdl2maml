@@ -1,7 +1,7 @@
 ﻿namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// amdl2maml classes.
+    /// AMDL to MAML Converter classes and enumerations.
     /// </summary>
     [System.Runtime.CompilerServices.CompilerGenerated]
     sealed class NamespaceDoc

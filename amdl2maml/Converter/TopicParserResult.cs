@@ -12,7 +12,7 @@ namespace Amdl.Maml.Converter
         /// Initializes a new instance of the <see cref="TopicParserResult"/> class.
         /// </summary>
         /// <param name="doc">Document block.</param>
-        public TopicParserResult(Block doc)
+        internal TopicParserResult(Block doc)
         {
             if (doc == null)
                 throw new ArgumentNullException("doc");
@@ -25,6 +25,6 @@ namespace Amdl.Maml.Converter
         /// Gets the document block.
         /// </summary>
         /// <value>Document block.</value>
-        public Block Document { get; private set; }
+        internal Block Document { get; private set; }
     }
 }

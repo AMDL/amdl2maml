@@ -21,6 +21,7 @@ namespace Amdl.Maml.Converter
         {
             settings = CommonMarkSettings.Default.Clone();
             settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
+                | CommonMarkAdditionalFeatures.RespectReferenceCase
                 //| CommonMarkAdditionalFeatures.StrikethroughTilde
                 | CommonMarkAdditionalFeatures.SubscriptTilde
                 | CommonMarkAdditionalFeatures.SuperscriptCaret

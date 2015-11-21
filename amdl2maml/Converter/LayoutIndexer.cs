@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// Content layout indexer.
+    /// MAML content layout indexer.
     /// </summary>
     public class LayoutIndexer
     {

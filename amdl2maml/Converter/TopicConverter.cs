@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Amdl.Maml.Converter
 {
     /// <summary>
-    /// AMDL topic file converter.
+    /// AMDL topic converter.
     /// </summary>
     public class TopicConverter
     {
