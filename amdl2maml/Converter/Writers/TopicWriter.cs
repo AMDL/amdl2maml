@@ -664,7 +664,7 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteStartElementAsync("code");
             await writer.WriteAttributeStringAsync("language", "none");
             await writer.WriteRawAsync("\n");
-            await writer.WriteRawAsync(block.StringContent.ToString());
+            await writer.WriteStringAsync(block.StringContent.ToString());
             await writer.WriteEndElementAsync(); //code
         }
 
