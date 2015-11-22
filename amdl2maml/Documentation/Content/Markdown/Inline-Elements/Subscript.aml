@@ -10,7 +10,7 @@
       <title>Example</title>
       <content>
         <code language="none" title="AMDL">
-	The most widely known chemical reaction is 
+    The most widely known chemical reaction is 
     2H~2~ + O~2~ -&gt; 2H~2~O
 </code>
       </content>
@@ -25,8 +25,20 @@
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Partial (needs space checks for <externalLink><linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri><linkText>Pandoc</linkText></externalLink> compatibility).</para>
+        <para>Partial.</para>
       </content>
+      <sections>
+        <section address="Limitations">
+          <title>Limitations</title>
+          <content>
+            <list class="ordered">
+              <listItem>
+                <para>Inline spaces are accepted.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
     </section>
     <relatedTopics>
       <link xlink:href="225a03f7-69e1-44f6-b7b5-8f14f373a75c" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />

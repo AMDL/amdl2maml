@@ -81,8 +81,6 @@
     <Folder Include="Content\MAML\MAML-File-Types" />
     <Folder Include="Content\MAML\MAML-Media-Elements" />
     <Folder Include="Content\Markdown" />
-    <Folder Include="Content\Markdown\Headers\ATX-Headers\" />
-    <Folder Include="Content\Markdown\Headers\Setext-Headers\" />
     <Folder Include="Content\Markdown\Images" />
     <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
@@ -126,13 +124,9 @@
     <None Include="Content\Markdown\Block-Elements\Definition-List.aml" />
     <None Include="Content\Markdown\Absent-Elements\Absent-Elements.aml" />
     <None Include="Content\Markdown\Absent-Elements\Strikeout.aml" />
-    <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Headers.aml" />
-    <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Section-Header.aml" />
-    <None Include="Content\Markdown\Headers\ATX-Headers\ATX-Topic-Header.aml" />
     <None Include="Content\Markdown\Headers\Headers.aml" />
-    <None Include="Content\Markdown\Headers\Setext-Headers\Setext-Headers.aml" />
-    <None Include="Content\Markdown\Headers\Setext-Headers\Setext-Section-Header.aml" />
-    <None Include="Content\Markdown\Headers\Setext-Headers\Setext-Topic-Header.aml" />
+    <None Include="Content\Markdown\Headers\Section-Header.aml" />
+    <None Include="Content\Markdown\Headers\Topic-Header.aml" />
     <None Include="Content\Markdown\Images\Block-Image.aml" />
     <None Include="Content\Markdown\Images\Images.aml" />
     <None Include="Content\Markdown\Images\Inline-Image.aml" />
