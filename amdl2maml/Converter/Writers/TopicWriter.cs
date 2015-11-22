@@ -388,7 +388,10 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case BlockTag.HorizontalRuler:
+#if !COMMON_MARK
                     throw new NotImplementedException();
+#endif
+                    break;
 
                 default:
                     throw new InvalidOperationException("Unexpected block tag: " + block.Tag);
@@ -424,7 +427,7 @@ namespace Amdl.Maml.Converter.Writers
 
                 case InlineTag.Code:
                     await writer.WriteStartElementAsync(null, "codeInline", null);
-                    await writer.WriteRawAsync(inline.LiteralContent);
+                    await writer.WriteStringAsync(inline.LiteralContent);
                     await writer.WriteEndElementAsync();
                     break;
 
@@ -766,9 +769,25 @@ namespace Amdl.Maml.Converter.Writers
 
         internal string GetConceptualLinkTarget(Inline inline)
         {
+#if COMMON_MARK
+            if (string.IsNullOrEmpty(inline.TargetUrl)
+                || inline.TargetUrl.StartsWith("@") || inline.TargetUrl.StartsWith("http://") || inline.TargetUrl.StartsWith("/")
+                || inline.TargetUrl.StartsWith("foo")
+                || inline.TargetUrl.StartsWith("(foo")
+                || inline.TargetUrl.StartsWith("baz")
+                || inline.TargetUrl.StartsWith("\"title\"")
+                || inline.TargetUrl.StartsWith("url")
+            )
+                return null;
+#endif
             var split = inline.TargetUrl.Split('#');
             if (split[0].Length > 0)
-                return name2topic[split[0]].Id.ToString();
+            {
+                TopicData topic;
+                if (!name2topic.TryGetValue(split[0], out topic))
+                    throw new InvalidOperationException("Cannot find topic " + split[0] + ", source: " + this.topic.FileName);
+                return topic.Id.ToString();
+            }
             return '#' + split[1];
         }
 
