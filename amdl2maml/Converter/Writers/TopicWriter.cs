@@ -798,7 +798,7 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteImageAsync(Inline inline)
         {
-            if (inlineState == InlineState.Start)
+            if (inlineState == InlineState.Start || inline.NextSibling != null)
                 await WriteInlineImageAsync(inline);
             else
                 await WriteBlockImageAsync(inline);
