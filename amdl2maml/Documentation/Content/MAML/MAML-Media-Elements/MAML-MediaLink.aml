@@ -6,12 +6,10 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="AMDL Counterpart">
-      <title>AMDL Counterpart</title>
+    <section address="AMDL Mapping">
+      <title>AMDL Mapping</title>
       <content>
-        <para>
-          <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" />
-        </para>
+        <para>The <codeInline>&amp;lt;mediaLink&amp;gt;</codeInline> element is mapped to the Block Image entity, see <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />.</para>
       </content>
     </section>
     <section address="Example">
@@ -37,7 +35,7 @@ This is a block image:
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>

@@ -81,7 +81,7 @@
     <Folder Include="Content\MAML\MAML-File-Types" />
     <Folder Include="Content\MAML\MAML-Media-Elements" />
     <Folder Include="Content\Markdown" />
-    <Folder Include="Content\Markdown\Images" />
+    <Folder Include="Content\Markdown\Image" />
     <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
@@ -95,6 +95,7 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Image\Image.aml" />
     <None Include="Content\Design-Principles.aml" />
     <None Include="Content\FAQ.aml" />
     <None Include="Content\Home.aml" />

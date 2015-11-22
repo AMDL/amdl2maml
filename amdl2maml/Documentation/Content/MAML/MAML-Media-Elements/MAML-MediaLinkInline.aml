@@ -6,12 +6,10 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="AMDL Counterpart">
-      <title>AMDL Counterpart</title>
+    <section address="AMDL Mapping">
+      <title>AMDL Mapping</title>
       <content>
-        <para>
-          <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />
-        </para>
+        <para>The <codeInline>&amp;lt;mediaLinkInline&amp;gt;</codeInline> element is mapped to the Inline Image entity, see <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />.</para>
       </content>
     </section>
     <section address="Example">

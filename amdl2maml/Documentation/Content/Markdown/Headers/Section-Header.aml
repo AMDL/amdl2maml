@@ -102,13 +102,13 @@
             <para>In both syntaxes the text must be XML-escaped, i.e.</para>
             <list class="bullet">
               <listItem>
-                <para>all occurrences of <codeInline>&lt;</codeInline> must be replaced with <codeInline>&amp;lt;</codeInline>,</para>
+                <para>all occurrences of <codeInline>&amp;lt;</codeInline> must be replaced with <codeInline>&amp;amp;lt;</codeInline>,</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&gt;</codeInline> must be replaced with <codeInline>&amp;gt;</codeInline>, and</para>
+                <para>all occurrences of <codeInline>&amp;gt;</codeInline> must be replaced with <codeInline>&amp;amp;gt;</codeInline>, and</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&amp;</codeInline> must be replaced with <codeInline>&amp;amp;</codeInline>.</para>
+                <para>all occurrences of <codeInline>&amp;amp;</codeInline> must be replaced with <codeInline>&amp;amp;amp;</codeInline>.</para>
               </listItem>
             </list>
           </content>

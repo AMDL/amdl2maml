@@ -29,7 +29,7 @@
   </Topic>
   <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" isExpanded="true" title="Markdown">
     <Topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" visible="True" isExpanded="true" title="Headers">
-      <Topic id="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" visible="True" isSelected="true" title="Topic Header" />
+      <Topic id="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" visible="True" title="Topic Header" />
       <Topic id="e1613da4-e793-4fac-9728-6f52e04ee4ea" visible="True" title="Section Header" />
     </Topic>
     <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" title="Block Elements">
@@ -51,10 +51,7 @@
         <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" title="Method Link" />
       </Topic>
     </Topic>
-    <Topic id="48782fa5-7847-4c47-9c54-ddb2731da049" visible="True" title="Images">
-      <Topic id="cfeda7ee-17b9-463b-9aa1-e5348e6a7b6c" visible="True" title="Block Image" />
-      <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Inline Image" />
-    </Topic>
+    <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" isSelected="true" title="Image" />
     <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>
