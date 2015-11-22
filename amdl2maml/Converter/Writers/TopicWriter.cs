@@ -537,6 +537,14 @@ namespace Amdl.Maml.Converter.Writers
                 await WriteInlineAsync(child);
         }
 
+        internal static string GetAllLiteralContent(Inline inline)
+        {
+            var content = string.Empty;
+            for (; inline != null; inline = inline.NextSibling)
+                content += inline.LiteralContent;
+            return content;
+        }
+
         #endregion Inline
 
         #region Section
@@ -610,10 +618,7 @@ namespace Amdl.Maml.Converter.Writers
 
         internal static string GetTitle(Block block)
         {
-            var title = string.Empty;
-            for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
-                title += inline.LiteralContent;
-            return title;
+            return GetAllLiteralContent(block.InlineContent);
         }
 
         private async Task WriteEndSectionsAsync(int level)
@@ -686,21 +691,32 @@ namespace Amdl.Maml.Converter.Writers
         {
             if (Uri.IsWellFormedUriString(inline.TargetUrl, UriKind.Absolute))
                 await WriteExternalLinkAsync(inline);
+            else if (inline.TargetUrl.Length >= 2 && inline.TargetUrl[1] == ':')
+                await WriteCodeLinkAsync(inline);
             else
                 await WriteConceptualLinkAsync(inline);
         }
 
         internal virtual async Task WriteConceptualLinkAsync(Inline inline)
         {
-            var href = GetConceptualLinkTarget(inline);
-            await writer.WriteStartElementAsync(null, "link", null);
-            await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", href);
+            var target = GetConceptualLinkTarget(inline);
+            await WriteStartElementAsync("link");
+            await WriteLinkTargetAsync(target);
             await WriteTopicTypeAttributeAsync();
             if (inline.FirstChild != null)
                 await WriteChildInlinesAsync(inline);
             //else
-            //    await writer.WriteStringAsync(inline.LiteralContent);
-            await writer.WriteEndElementAsync(); //link
+            //    await WriteStringAsync(inline.LiteralContent);
+            await WriteEndElementAsync(); //link
+        }
+
+        private async Task WriteCodeLinkAsync(Inline inline)
+        {
+            await WriteStartElementAsync("codeEntityReference");
+            var linkText = GetAllLiteralContent(inline.FirstChild);
+            await WriteAttributeStringAsync("linkText", linkText);
+            await WriteStringAsync(inline.TargetUrl);
+            await writer.WriteEndElementAsync(); //codeEntityReference
         }
 
         internal virtual async Task WriteExternalLinkAsync(Inline inline)
@@ -756,6 +772,11 @@ namespace Amdl.Maml.Converter.Writers
             return '#' + split[1];
         }
 
+        private Task WriteLinkTargetAsync(string target)
+        {
+            return writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", target);
+        }
+
         private async Task WriteTopicTypeAttributeAsync()
         {
             if (GetSectionState() == SectionState.SeeAlso)
@@ -787,7 +808,7 @@ namespace Amdl.Maml.Converter.Writers
         {
             await writer.WriteStartElementAsync(null, "mediaLinkInline", null);
             await writer.WriteStartElementAsync(null, "image", null);
-            await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", inline.TargetUrl);
+            await WriteLinkTargetAsync(inline.TargetUrl);
             await writer.WriteEndElementAsync(); //image
             await writer.WriteEndElementAsync(); //mediaLinkInline
         }
@@ -796,7 +817,7 @@ namespace Amdl.Maml.Converter.Writers
         {
             await writer.WriteStartElementAsync(null, "mediaLink", null);
             await writer.WriteStartElementAsync(null, "image", null);
-            await writer.WriteAttributeStringAsync("xlink", "href", "http://www.w3.org/1999/xlink", inline.TargetUrl);
+            await WriteLinkTargetAsync(inline.TargetUrl);
             await writer.WriteEndElementAsync(); //image
             if (inline.FirstChild != null)
                 await WriteCaptionAsync(inline);
