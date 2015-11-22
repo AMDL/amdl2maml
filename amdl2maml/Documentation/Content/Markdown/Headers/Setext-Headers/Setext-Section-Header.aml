@@ -206,7 +206,7 @@ If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> su
             <para>Outlines are generated for all Setext-style headers.</para>
           </listItem>
           <listItem>
-            <para>Attributes are misinterpreted as part of the header text.</para>
+            <para>Attributes are unsupported.</para>
           </listItem>
         </list>
       </content>

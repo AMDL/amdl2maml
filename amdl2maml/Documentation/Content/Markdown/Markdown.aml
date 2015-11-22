@@ -32,6 +32,11 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
           </listItem>
           <listItem>
             <para>
+              <link xlink:href="4650d9b1-92cc-46dc-88ee-4b234fd1af78" />
+            </para>
+          </listItem>
+          <listItem>
+            <para>
               <link xlink:href="48782fa5-7847-4c47-9c54-ddb2731da049" />
             </para>
           </listItem>
@@ -40,16 +45,6 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
           </listItem>
           <listItem>
             <para>...</para>
-          </listItem>
-        </list>
-      </content>
-    </section>
-    <section address="AMDL Elements Absent from PM">
-      <title>AMDL Elements Absent from PM</title>
-      <content>
-        <list class="bullet">
-          <listItem>
-            <para>N/A.</para>
           </listItem>
         </list>
       </content>

@@ -89,6 +89,8 @@
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
     <Folder Include="Content\HowTo" />
+    <Folder Include="Content\Markdown\Links" />
+    <Folder Include="Content\Markdown\Links\Code-Links" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
@@ -139,6 +141,14 @@
     <None Include="Content\Markdown\Inline-Elements\Strong-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Subscript.aml" />
     <None Include="Content\Markdown\Inline-Elements\Superscript.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Code-Links.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Event-Link.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Field-Link.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Method-Link.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Namespace-Link.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Property-Link.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Type-Link.aml" />
+    <None Include="Content\Markdown\Links\Links.aml" />
     <None Include="Content\Markdown\Markdown.aml" />
     <None Include="Content\Tools\amdl2maml-License.aml" />
     <None Include="Content\Tools\amdl2maml.aml" />
