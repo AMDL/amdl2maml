@@ -51,10 +51,10 @@
       <Topic id="36f3beb8-5259-44e2-a41e-43080fdf28b9" visible="True" isExpanded="true" title="Code Links">
         <Topic id="1e88e196-f485-4b80-b559-0499e03dec54" visible="True" title="Namespace Link" />
         <Topic id="d38f5687-e8c7-4035-9e3f-28e9f7b569ec" visible="True" title="Type Link" />
-        <Topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" visible="True" title="Event Link" />
         <Topic id="02e3c06a-c7b6-43df-aece-af9ccc5dac39" visible="True" title="Field Link" />
-        <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" isSelected="true" title="Method Link" />
-        <Topic id="35365556-1d87-4621-bad3-ff5309b10cc2" visible="True" title="Property Link" />
+        <Topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" visible="True" title="Event Link" />
+        <Topic id="35365556-1d87-4621-bad3-ff5309b10cc2" visible="True" isSelected="true" title="Property Link" />
+        <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" title="Method Link" />
       </Topic>
     </Topic>
     <Topic id="48782fa5-7847-4c47-9c54-ddb2731da049" visible="True" title="Images">
