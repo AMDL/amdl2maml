@@ -18,7 +18,7 @@ namespace Amdl.Maml.Converter
         private static readonly string[] Extensions = new[] { ".md", ".markdown", ".amdl" };
 
         /// <summary>
-        /// Indexes the specified input folder.
+        /// Indexes the input folder.
         /// </summary>
         /// <param name="path">Base path.</param>
         /// <param name="cancellationToken">Cancellation token.</param>

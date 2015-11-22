@@ -30,7 +30,7 @@ namespace Amdl.Maml.Converter
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <value>Topic Name.</value>
+        /// <value>Topic name.</value>
         public string Name
         {
             get
@@ -42,7 +42,7 @@ namespace Amdl.Maml.Converter
         /// <summary>
         /// Gets or sets the type.
         /// </summary>
-        /// <value>Topic Type.</value>
+        /// <value>Topic type.</value>
         public TopicType Type { get; private set; }
 
         /// <summary>

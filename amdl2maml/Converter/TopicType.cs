@@ -6,27 +6,27 @@
     public enum TopicType
     {
         /// <summary>
-        /// Empty.
+        /// Empty topic.
         /// </summary>
         Empty,
 
         /// <summary>
-        /// General.
+        /// General topic.
         /// </summary>
         General,
 
         /// <summary>
-        /// Glossary.
+        /// Glossary topic.
         /// </summary>
         Glossary,
 
         /// <summary>
-        /// How-To.
+        /// How-To topic.
         /// </summary>
         HowTo,
 
         /// <summary>
-        /// Orientation.
+        /// Orientation topic.
         /// </summary>
         Orientation,
     }
