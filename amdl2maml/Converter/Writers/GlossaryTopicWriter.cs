@@ -71,7 +71,7 @@ namespace Amdl.Maml.Converter.Writers
                 return;
             }
 
-            var target = GetConceptualLinkTarget(inline);
+            var target = GetConceptualLinkTarget(inline.TargetUrl);
             if (!target.StartsWith("#"))
                 return;
 
@@ -81,10 +81,10 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //relatedEntry
         }
 
-        internal override async Task WriteExternalLinkAsync(Inline inline)
+        internal override async Task WriteExternalLinkAsync(Inline inline, string targetUrl)
         {
             if (GetSectionState() != SectionState.SeeAlso)
-                await base.WriteExternalLinkAsync(inline);
+                await base.WriteExternalLinkAsync(inline, targetUrl);
         }
     }
 }

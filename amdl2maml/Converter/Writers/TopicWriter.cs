@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -46,6 +47,10 @@ namespace Amdl.Maml.Converter.Writers
             { SeeAlsoGroupType.Reference, new Guid("A635375F-98C2-4241-94E7-E427B47C20B6") },
             { SeeAlsoGroupType.Tasks, new Guid("DAC3A6A0-C863-4E5B-8F65-79EFC6A4BA09") },
         };
+
+        //https://html.spec.whatwg.org/multipage/forms.html#e-mail-state-(type=email)
+        private static readonly Regex EmailRegex =
+            new Regex(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
 
         private static readonly Version Version = typeof(TopicWriter).GetTypeInfo().Assembly.GetName().Version;
 
@@ -692,9 +697,11 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteLinkAsync(Inline inline)
         {
-            if (Uri.IsWellFormedUriString(inline.TargetUrl, UriKind.Absolute))
-                await WriteExternalLinkAsync(inline);
-            else if (inline.TargetUrl.Length >= 2 && inline.TargetUrl[1] == ':')
+            var targetUrl = inline.TargetUrl;
+            var extTargetUrl = GetExternalLinkTarget(targetUrl);
+            if (extTargetUrl != null)
+                await WriteExternalLinkAsync(inline, extTargetUrl);
+            else if (targetUrl.Length >= 2 && targetUrl[1] == ':')
                 await WriteCodeLinkAsync(inline);
             else
                 await WriteConceptualLinkAsync(inline);
@@ -702,7 +709,7 @@ namespace Amdl.Maml.Converter.Writers
 
         internal virtual async Task WriteConceptualLinkAsync(Inline inline)
         {
-            var target = GetConceptualLinkTarget(inline);
+            var target = GetConceptualLinkTarget(inline.TargetUrl);
             await WriteStartElementAsync("link");
             await WriteLinkTargetAsync(target);
             await WriteTopicTypeAttributeAsync();
@@ -722,21 +729,21 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteEndElementAsync(); //codeEntityReference
         }
 
-        internal virtual async Task WriteExternalLinkAsync(Inline inline)
+        internal virtual async Task WriteExternalLinkAsync(Inline inline, string targetUrl)
         {
-            await writer.WriteStartElementAsync(null, "externalLink", null);
-            await writer.WriteStartElementAsync(null, "linkUri", null);
-            await writer.WriteStringAsync(inline.TargetUrl);
-            await writer.WriteEndElementAsync(); //linkUri
+            await WriteStartElementAsync("externalLink");
+            await WriteStartElementAsync("linkUri");
+            await writer.WriteStringAsync(targetUrl);
+            await WriteEndElementAsync(); //linkUri
 
-            await writer.WriteStartElementAsync(null, "linkText", null);
+            await WriteStartElementAsync("linkText");
             if (!string.IsNullOrEmpty(inline.LiteralContent))
-                await writer.WriteStringAsync(inline.LiteralContent);
+                await WriteStringAsync(inline.LiteralContent);
             else
                 await WriteChildInlinesAsync(inline);
-            await writer.WriteEndElementAsync(); //linkText
+            await WriteEndElementAsync(); //linkText
 
-            await writer.WriteEndElementAsync(); //externalLink
+            await WriteEndElementAsync(); //externalLink
         }
 
         internal virtual async Task WriteRelatedTopicsAsync(Block block)
@@ -767,20 +774,22 @@ namespace Amdl.Maml.Converter.Writers
             await writer.WriteEndElementAsync(); //externalLink
         }
 
-        internal string GetConceptualLinkTarget(Inline inline)
+        private static string GetExternalLinkTarget(string target)
+        {
+            if (Uri.IsWellFormedUriString(target, UriKind.Absolute))
+                return target;
+            if (EmailRegex.IsMatch(target))
+                return "mailto:" + target;
+            return null;
+        }
+
+        internal string GetConceptualLinkTarget(string target)
         {
 #if COMMON_MARK
-            if (string.IsNullOrEmpty(inline.TargetUrl)
-                || inline.TargetUrl.StartsWith("@") || inline.TargetUrl.StartsWith("http://") || inline.TargetUrl.StartsWith("/")
-                || inline.TargetUrl.StartsWith("foo")
-                || inline.TargetUrl.StartsWith("(foo")
-                || inline.TargetUrl.StartsWith("baz")
-                || inline.TargetUrl.StartsWith("\"title\"")
-                || inline.TargetUrl.StartsWith("url")
-            )
+            if (target.StartsWith("@"))
                 return null;
 #endif
-            var split = inline.TargetUrl.Split('#');
+            var split = target.Split('#');
             if (split[0].Length > 0)
             {
                 TopicData topic;
