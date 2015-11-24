@@ -48,7 +48,9 @@ namespace Amdl.Maml.Converter.Writers
             { SeeAlsoGroupType.Tasks, new Guid("DAC3A6A0-C863-4E5B-8F65-79EFC6A4BA09") },
         };
 
-        //https://html.spec.whatwg.org/multipage/forms.html#e-mail-state-(type=email)
+        /// <summary>
+        /// https://html.spec.whatwg.org/multipage/forms.html#e-mail-state-(type=email)
+        /// </summary>
         private static readonly Regex EmailRegex =
             new Regex(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
 
