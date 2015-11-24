@@ -20,16 +20,7 @@ namespace Amdl.Maml.Converter
         static TopicParser()
         {
             settings = CommonMarkSettings.Default.Clone();
-            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.None
-                | CommonMarkAdditionalFeatures.RespectReferenceCase
-                //| CommonMarkAdditionalFeatures.StrikethroughTilde
-                | CommonMarkAdditionalFeatures.SubscriptTilde
-                | CommonMarkAdditionalFeatures.SuperscriptCaret
-#if TABLES
-                | CommonMarkAdditionalFeatures.GithubStyleTables;
-            settings.TrackSourcePosition = true;
-#endif
-                ;
+            settings.AdditionalFeatures = CommonMarkAdditionalFeatures.All & ~CommonMarkAdditionalFeatures.StrikethroughTilde;
         }
 
         /// <summary>
