@@ -27,6 +27,15 @@
       <Topic id="522d44b1-5cd7-4403-987a-6f097fdc56ff" visible="True" title="&lt;mediaLinkInline&gt;" />
     </Topic>
   </Topic>
+  <Topic id="0ff091f1-423f-486c-99fc-777c8aa8bad7" visible="True" isExpanded="true" title="Structure">
+    <Topic id="3f8f2890-4623-4559-a188-11688942c6e2" visible="True" isExpanded="true" title="Topic Types">
+      <Topic id="3df186a0-8f72-4d95-a987-2fed5cfe5cc6" visible="True" isSelected="true" title="Empty Topic" />
+      <Topic id="a7cc2634-ecd5-4902-8738-52fff958500f" visible="True" title="General Topic" />
+      <Topic id="9b67c50a-e534-4b9c-a9b5-947ef7486587" visible="True" title="Glossary Topic" />
+      <Topic id="bd996d34-5618-4b05-9c10-63c5dff4f695" visible="True" title="How-To Topic" />
+      <Topic id="f855b674-feeb-40c3-b363-e2610609855f" visible="True" title="Orientation Topic" />
+    </Topic>
+  </Topic>
   <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" isExpanded="true" title="Markdown">
     <Topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" visible="True" isExpanded="true" title="Headers">
       <Topic id="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" visible="True" title="Topic Header" />
@@ -51,7 +60,7 @@
         <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" title="Method Link" />
       </Topic>
     </Topic>
-    <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" isSelected="true" title="Image" />
+    <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Image" />
     <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>

@@ -46,19 +46,29 @@
             <para>The following topic types are currently supported:</para>
             <list class="ordered">
               <listItem>
-                <para>Empty topic.</para>
+                <para>
+                  <link xlink:href="3df186a0-8f72-4d95-a987-2fed5cfe5cc6" />
+                </para>
               </listItem>
               <listItem>
-                <para>General topic.</para>
+                <para>
+                  <link xlink:href="a7cc2634-ecd5-4902-8738-52fff958500f" />
+                </para>
               </listItem>
               <listItem>
-                <para>Glossary topic.</para>
+                <para>
+                  <link xlink:href="9b67c50a-e534-4b9c-a9b5-947ef7486587" />
+                </para>
               </listItem>
               <listItem>
-                <para>How-To topic.</para>
+                <para>
+                  <link xlink:href="bd996d34-5618-4b05-9c10-63c5dff4f695" />
+                </para>
               </listItem>
               <listItem>
-                <para>Orientation topic.</para>
+                <para>
+                  <link xlink:href="f855b674-feeb-40c3-b363-e2610609855f" />
+                </para>
               </listItem>
             </list>
           </content>
@@ -72,7 +82,7 @@
                 <para>Sections and subsections, including <legacyItalic>See Also</legacyItalic>.</para>
               </listItem>
               <listItem>
-                <para>Topic and section outlines from Setext-style headers.</para>
+                <para>Topic and section outlines from setext-style headers.</para>
               </listItem>
               <listItem>
                 <para>Topic summaries and introductions.</para>
@@ -87,7 +97,10 @@
                 <para>Fenced, indented and inline code.</para>
               </listItem>
               <listItem>
-                <para>Inline conceptual, internal and external links.</para>
+                <para>Inline internal, local and code links.</para>
+              </listItem>
+              <listItem>
+                <para>Inline URI and email links.</para>
               </listItem>
               <listItem>
                 <para>Block and inline <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007">images</link>.</para>
@@ -106,9 +119,6 @@
             </list>
             <para>The following is an <legacyBold>incomplete</legacyBold> list of missing entities:</para>
             <list class="ordered">
-              <listItem>
-                <para>Reference link.</para>
-              </listItem>
               <listItem>
                 <para>Table.</para>
               </listItem>

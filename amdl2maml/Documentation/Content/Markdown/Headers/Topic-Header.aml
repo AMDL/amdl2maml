@@ -33,8 +33,8 @@
         <para>Two header syntaxes are accepted:</para>
       </content>
       <sections>
-        <section address="1. Setext-Style Topic Header:">
-          <title>1. Setext-Style Topic Header:</title>
+        <section address="1. setext-Style Topic Header:">
+          <title>1. setext-Style Topic Header:</title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -99,13 +99,13 @@
             <para>In both syntaxes the text must be XML-escaped, i.e.</para>
             <list class="bullet">
               <listItem>
-                <para>all occurrences of <codeInline>&amp;lt;</codeInline> must be replaced with <codeInline>&amp;amp;lt;</codeInline>,</para>
+                <para>all occurrences of <codeInline>&lt;</codeInline> must be replaced with <codeInline>&amp;lt;</codeInline>,</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&amp;gt;</codeInline> must be replaced with <codeInline>&amp;amp;gt;</codeInline>, and</para>
+                <para>all occurrences of <codeInline>&gt;</codeInline> must be replaced with <codeInline>&amp;gt;</codeInline>, and</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&amp;amp;</codeInline> must be replaced with <codeInline>&amp;amp;amp;</codeInline>.</para>
+                <para>all occurrences of <codeInline>&amp;</codeInline> must be replaced with <codeInline>&amp;amp;</codeInline>.</para>
               </listItem>
             </list>
             <para>If a topic's title is unspecified, the topic's identifier will be used.</para>
@@ -117,8 +117,8 @@
       <title>Examples</title>
       <content />
       <sections>
-        <section address="1. Setext-style topic header:">
-          <title>1. Setext-style topic header:</title>
+        <section address="1. setext-style topic header:">
+          <title>1. setext-style topic header:</title>
           <content>
             <code language="none" title="AMDL">
 Topic Header
@@ -227,7 +227,7 @@ If no attribute value is specified, the topic title will be used.</para>
             <list class="nobullet">
               <listItem>
                 <para>a boolean value indicating whether an automatic topic outline should be generated.
-If no attribute value is specified, a topic outline <legacyItalic>should</legacyItalic> be generated for a topic with a Setext-style header,
+If no attribute value is specified, a topic outline <legacyItalic>should</legacyItalic> be generated for a topic with a setext-style header,
 and <legacyItalic>should not</legacyItalic> be generated for a section with an ATX-style header.</para>
               </listItem>
             </list>
@@ -260,15 +260,16 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
             </list>
           </content>
         </section>
-        <section address="excludeSeeAlso">
+        <section address="noSeeAlso">
           <title>
-            <codeInline>excludeSeeAlso</codeInline>
+            <codeInline>noSeeAlso</codeInline>
           </title>
           <content>
             <list class="nobullet">
               <listItem>
                 <para>a boolean value indicating whether the top-level <legacyItalic>See Also</legacyItalic> section will be excluded from the automatic topic outline, if both are generated.
-If no attribute value is specified, the top-level <legacyItalic>See Also</legacyItalic> section <legacyItalic>should not</legacyItalic> be excluded, i.e. it <legacyItalic>should</legacyItalic> be included.</para>
+If no attribute value is specified, the top-level <legacyItalic>See Also</legacyItalic> section <legacyItalic>should</legacyItalic> be excluded if it has an ATX-style header,
+and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style header.</para>
               </listItem>
             </list>
             <para>Class specifications <legacyItalic>should</legacyItalic> be ignored, but <legacyItalic>must</legacyItalic> be accepted as valid input.</para>

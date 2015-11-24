@@ -36,8 +36,8 @@
         <para>Two header syntaxes are accepted:</para>
       </content>
       <sections>
-        <section address="1. Setext-Style Section Header:">
-          <title>1. Setext-Style Section Header:</title>
+        <section address="1. setext-Style Section Header:">
+          <title>1. setext-Style Section Header:</title>
           <content>
             <list class="nobullet">
               <listItem>
@@ -102,13 +102,13 @@
             <para>In both syntaxes the text must be XML-escaped, i.e.</para>
             <list class="bullet">
               <listItem>
-                <para>all occurrences of <codeInline>&amp;lt;</codeInline> must be replaced with <codeInline>&amp;amp;lt;</codeInline>,</para>
+                <para>all occurrences of <codeInline>&lt;</codeInline> must be replaced with <codeInline>&amp;lt;</codeInline>,</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&amp;gt;</codeInline> must be replaced with <codeInline>&amp;amp;gt;</codeInline>, and</para>
+                <para>all occurrences of <codeInline>&gt;</codeInline> must be replaced with <codeInline>&amp;gt;</codeInline>, and</para>
               </listItem>
               <listItem>
-                <para>all occurrences of <codeInline>&amp;amp;</codeInline> must be replaced with <codeInline>&amp;amp;amp;</codeInline>.</para>
+                <para>all occurrences of <codeInline>&amp;</codeInline> must be replaced with <codeInline>&amp;amp;</codeInline>.</para>
               </listItem>
             </list>
           </content>
@@ -121,8 +121,8 @@
         <autoOutline lead="none" excludeRelatedTopics="true" />
       </content>
       <sections>
-        <section address="1. Setext-style section header:">
-          <title>1. Setext-style section header:</title>
+        <section address="1. setext-style section header:">
+          <title>1. setext-style section header:</title>
           <content>
             <code language="none" title="AMDL">
 Examples
@@ -179,7 +179,7 @@ Examples
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a string value used for resolving internal links to the section.
+                <para>a string value used for resolving local links to the section.
 If no value is specified, a unique identifier will be assigned based on the header text; detailed algorithm TBD.</para>
               </listItem>
             </list>
@@ -193,7 +193,7 @@ If no value is specified, a unique identifier will be assigned based on the head
             <list class="nobullet">
               <listItem>
                 <para>a boolean value indicating whether an automatic section outline should be generated.
-If no attribute value is specified, a section outline <legacyItalic>should</legacyItalic> be generated for a section with an Setex-style header,
+If no attribute value is specified, a section outline <legacyItalic>should</legacyItalic> be generated for a section with an setex-style header,
 and <legacyItalic>should not</legacyItalic> be generated for a section with an ATX-style header.</para>
               </listItem>
             </list>
@@ -226,15 +226,16 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
             </list>
           </content>
         </section>
-        <section address="excludeSeeAlso">
+        <section address="noSeeAlso">
           <title>
-            <codeInline>excludeSeeAlso</codeInline>
+            <codeInline>noSeeAlso</codeInline>
           </title>
           <content>
             <list class="nobullet">
               <listItem>
                 <para>a boolean value indicating whether the <legacyItalic>See Also</legacyItalic> sub-section will be excluded from the automatic section outline, if both are generated.
-If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> sub-section <legacyItalic>should not</legacyItalic> be excluded, i.e. it <legacyItalic>should</legacyItalic> be included.</para>
+If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> sub-section <legacyItalic>should</legacyItalic> be excluded if it has an ATX-style header,
+and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style header.</para>
               </listItem>
             </list>
             <para>Class specifications <legacyItalic>should</legacyItalic> be ignored, but <legacyItalic>must</legacyItalic> be accepted as valid input.</para>

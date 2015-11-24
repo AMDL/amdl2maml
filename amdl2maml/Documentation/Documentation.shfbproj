@@ -14,7 +14,7 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
-    <OutputPath>..\..\..\amdl.github.io\</OutputPath>
+    <OutputPath>..\..\..\amdl.github.io\AMDL\</OutputPath>
     <HtmlHelpName>AMDL</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
@@ -83,18 +83,28 @@
     <Folder Include="Content\Markdown" />
     <Folder Include="Content\Markdown\Image" />
     <Folder Include="Content\Markdown\Headers" />
+    <Folder Include="Content\Markdown\Images\" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
     <Folder Include="Content\HowTo" />
     <Folder Include="Content\Markdown\Links" />
     <Folder Include="Content\Markdown\Links\Code-Links" />
+    <Folder Include="Content\Structure" />
+    <Folder Include="Content\Structure\Topic-Types" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Structure\Topic-Types\Orientation-Topic.aml" />
+    <None Include="Content\Structure\Topic-Types\How-To-Topic.aml" />
+    <None Include="Content\Structure\Topic-Types\Glossary-Topic.aml" />
+    <None Include="Content\Structure\Topic-Types\Empty-Topic.aml" />
+    <None Include="Content\Structure\Structure.aml" />
+    <None Include="Content\Structure\Topic-Types\General-Topic.aml" />
+    <None Include="Content\Structure\Topic-Types\Topic-Types.aml" />
     <None Include="Content\Markdown\Image\Image.aml" />
     <None Include="Content\Design-Principles.aml" />
     <None Include="Content\FAQ.aml" />

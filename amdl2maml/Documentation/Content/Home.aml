@@ -11,7 +11,13 @@
     <section address="Goal">
       <title>Goal</title>
       <content>
-        <para>Combine the power of Sandcastle with the elegance of Markdown.</para>
+        <para>Combine the power of Sandcastle with the humanity of Markdown and YAML.</para>
+      </content>
+    </section>
+    <section address="Status">
+      <title>Status</title>
+      <content>
+        <para>In active development as of November 23 2015.</para>
       </content>
     </section>
     <section address="Design Principles">

@@ -6,10 +6,10 @@
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction>
-      <para>The topics in this section will detail
-the syntax of common Markdown elements,
-their AMDL semantics, and
-the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README.html</linkUri><linkText>Pandoc's Markdown</linkText></externalLink>.</para>
+      <para>The topics in this section detail the AMDL syntax and semantics of its Markdown elements.</para>
+      <para>
+        <legacyBold>Note:</legacyBold> In all cases where a contents of a Syntax section contradict any contents of <externalLink><linkUri>http://spec.commonmark.org/0.22/</linkUri><linkText>The CommonMark Specification, Revision 0.22</linkText></externalLink>,
+the latter shall take precedence, unless explicitly noted otherwise.</para>
     </introduction>
     <section address="Elements Shared by AMDL and PM">
       <title>Elements Shared by AMDL and PM</title>
@@ -64,8 +64,8 @@ the differences between AMDL and <externalLink><linkUri>http://pandoc.org/README
     <relatedTopics>
       <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <externalLink>
-        <linkUri>http://pandoc.org/README.html</linkUri>
-        <linkText>Pandoc's Markdown</linkText>
+        <linkUri>http://spec.commonmark.org/0.22/</linkUri>
+        <linkText>The CommonMark Specification, Revision 0.22</linkText>
       </externalLink>
     </relatedTopics>
   </developerOrientationDocument>
