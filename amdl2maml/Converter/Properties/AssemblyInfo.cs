@@ -12,7 +12,7 @@ using System;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Dmitry Shechtman")]
 [assembly: AssemblyProduct("Converter")]
-[assembly: AssemblyCopyright("Copyright © Dmitry Shechtman 2015")]
+[assembly: AssemblyCopyright("Copyright © Dmitry Shechtman 2015     ")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
