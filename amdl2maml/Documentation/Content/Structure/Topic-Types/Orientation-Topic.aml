@@ -6,11 +6,7 @@
 <topic id="f855b674-feeb-40c3-b363-e2610609855f" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
-    <introduction>
-      <markup>
-<!-- TODO -->
-</markup>
-    </introduction>
+    <introduction><!-- TODO --></introduction>
     <section address="Syntax">
       <title>Syntax</title>
       <content>
