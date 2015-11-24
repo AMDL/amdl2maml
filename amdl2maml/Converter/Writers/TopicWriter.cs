@@ -369,10 +369,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case BlockTag.HtmlBlock:
-                    await WriteStartElementAsync("markup");
-                    await WriteRawAsync("\n");
-                    await WriteRawAsync(block.StringContent.ToString());
-                    await WriteEndElementAsync(); //markup
+                    await WriteMarkupBlockAsync(block);
                     break;
 
                 case BlockTag.IndentedCode:
@@ -411,8 +408,9 @@ namespace Amdl.Maml.Converter.Writers
                 case BlockTag.HorizontalRuler:
 #if !COMMON_MARK
                     throw new NotImplementedException();
-#endif
+#else
                     break;
+#endif
 
                 default:
                     throw new InvalidOperationException("Unexpected block tag: " + block.Tag);
@@ -459,9 +457,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.RawHtml:
-                    await WriteStartMarkupInlineAsync();
-                    await WriteRawAsync(inline.LiteralContent);
-                    await WriteChildInlinesAsync(inline);
+                    await WriteMarkupInlineAsync(inline);
                     break;
 
                 case InlineTag.Strong:
@@ -534,24 +530,6 @@ namespace Amdl.Maml.Converter.Writers
                 await WriteStartElementAsync("markup");
                 await WriteElementStringAsync("br", null);
                 await WriteEndElementAsync(); //markup
-            }
-        }
-
-        private async Task WriteStartMarkupInlineAsync()
-        {
-            if (!IsInMarkupInline)
-            {
-                await WriteStartElementAsync("markup");
-                markupState = MarkupState.Inline;
-            }
-        }
-
-        private async Task WriteEndMarkupInlineAsync()
-        {
-            if (IsInMarkupInline)
-            {
-                await WriteEndElementAsync(); //markup
-                markupState = MarkupState.None;
             }
         }
 
@@ -946,6 +924,64 @@ namespace Amdl.Maml.Converter.Writers
         }
 
         #endregion Table
+
+        #region HTML
+
+        private async Task WriteMarkupBlockAsync(Block block)
+        {
+            var content = block.StringContent.ToString();
+            if (await TryWriteCommentAsync(content))
+                return;
+            await WriteStartElementAsync("markup");
+            await WriteRawAsync("\n");
+            await WriteRawAsync(content);
+            await WriteEndElementAsync(); //markup
+        }
+
+        private async Task WriteMarkupInlineAsync(Inline inline)
+        {
+            var content = inline.LiteralContent;
+            if (await TryWriteCommentAsync(content))
+                return;
+            await WriteStartMarkupInlineAsync();
+            await WriteRawAsync(inline.LiteralContent);
+            await WriteChildInlinesAsync(inline);
+        }
+
+        /// <summary>
+        /// http://www.w3.org/TR/html5/syntax.html#comments
+        /// </summary>
+        private async Task<bool> TryWriteCommentAsync(string content)
+        {
+            var trim = content.Trim();
+            if (!trim.StartsWith("<!--") || !trim.EndsWith("-->"))
+                return false;
+            var text = trim.Substring("<!--".Length, trim.Length - ("<!--".Length + "-->".Length));
+            if (text.StartsWith(">") || text.StartsWith("->") || text.EndsWith("-") || text.Contains("--"))
+                return false;
+            await WriteRawAsync(trim);
+            return true;
+        }
+
+        private async Task WriteStartMarkupInlineAsync()
+        {
+            if (!IsInMarkupInline)
+            {
+                await WriteStartElementAsync("markup");
+                markupState = MarkupState.Inline;
+            }
+        }
+
+        private async Task WriteEndMarkupInlineAsync()
+        {
+            if (IsInMarkupInline)
+            {
+                await WriteEndElementAsync(); //markup
+                markupState = MarkupState.None;
+            }
+        }
+
+        #endregion HTML
 
         #region Private Members
 
