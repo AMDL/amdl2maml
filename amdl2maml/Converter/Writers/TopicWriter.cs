@@ -479,12 +479,11 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.SoftBreak:
-                    if (GetSectionState() != SectionState.SeeAlso)
-                        await WriteRawAsync("\n");
+                    await WriteSoftLineBreakAsync();
                     break;
 
                 case InlineTag.LineBreak:
-                    await WriteLineBreakAsync();
+                    await WriteHardLineBreakAsync();
                     break;
 
                 case InlineTag.Link:
@@ -523,7 +522,13 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //s
         }
 
-        private async Task WriteLineBreakAsync()
+        private async Task WriteSoftLineBreakAsync()
+        {
+            if (GetSectionState() != SectionState.SeeAlso)
+                await WriteRawAsync("\n");
+        }
+
+        private async Task WriteHardLineBreakAsync()
         {
             if (GetSectionState() != SectionState.SeeAlso)
             {
