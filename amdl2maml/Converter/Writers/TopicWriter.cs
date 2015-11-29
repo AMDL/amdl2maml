@@ -496,7 +496,11 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.Link:
-                    await WriteLinkAsync(inline);
+                    //TODO Move to parser
+                    if (inline.TargetUrl.StartsWith("@"))
+                        await WriteNewTermAsync(inline);
+                    else
+                        await WriteLinkAsync(inline);
                     break;
 
                 case InlineTag.Image:
@@ -705,14 +709,21 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteLinkAsync(Inline inline)
         {
-            var targetUrl = inline.TargetUrl;
-            var extTargetUrl = GetExternalLinkTarget(targetUrl);
+            var target = inline.TargetUrl;
+            var extTargetUrl = GetExternalLinkTarget(target);
             if (extTargetUrl != null)
                 await WriteExternalLinkAsync(inline, extTargetUrl);
-            else if (targetUrl.Length >= 2 && targetUrl[1] == ':')
+            else if (target.Length >= 2 && target[1] == ':')
                 await WriteCodeLinkAsync(inline);
             else
                 await WriteConceptualLinkAsync(inline);
+        }
+
+        private async Task WriteNewTermAsync(Inline inline)
+        {
+            await WriteStartElementAsync("newTerm");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //newTerm
         }
 
         internal virtual async Task WriteConceptualLinkAsync(Inline inline)
@@ -737,11 +748,11 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //codeEntityReference
         }
 
-        internal virtual async Task WriteExternalLinkAsync(Inline inline, string targetUrl)
+        internal virtual async Task WriteExternalLinkAsync(Inline inline, string target)
         {
             await WriteStartElementAsync("externalLink");
             await WriteStartElementAsync("linkUri");
-            await WriteStringAsync(targetUrl);
+            await WriteStringAsync(target);
             await WriteEndElementAsync(); //linkUri
 
             await WriteStartElementAsync("linkText");
@@ -793,10 +804,6 @@ namespace Amdl.Maml.Converter.Writers
 
         internal string GetConceptualLinkTarget(string target)
         {
-#if COMMON_MARK
-            if (target.StartsWith("@"))
-                return null;
-#endif
             var split = target.Split('#');
             if (split[0].Length > 0)
             {
