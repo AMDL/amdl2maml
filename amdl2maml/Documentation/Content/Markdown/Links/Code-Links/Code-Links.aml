@@ -5,7 +5,9 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="36f3beb8-5259-44e2-a41e-43080fdf28b9" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
+    <summary>
+      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>code links</newTerm>.</para>
+    </summary>
     <introduction />
     <section address="Code Links">
       <title>Code Links</title>

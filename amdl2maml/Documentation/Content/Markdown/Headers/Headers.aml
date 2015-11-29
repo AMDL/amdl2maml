@@ -6,7 +6,7 @@
 <topic id="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>The topics in this section detail the AMDL syntax and semantics of headers.</para>
+      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>headers</newTerm>.</para>
     </summary>
     <introduction />
     <section address="Headers">

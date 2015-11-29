@@ -5,8 +5,24 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="52e90a26-9d60-4e91-b5f2-b8137b59a137" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
-    <introduction />
+    <summary>
+      <para>This topic details the AMDL syntax and semantics of <newTerm>superscript</newTerm>.</para>
+    </summary>
+    <introduction>
+      <autoOutline lead="none" excludeRelatedTopics="true" />
+    </introduction>
+    <section address="Function">
+      <title>Function</title>
+      <content>
+        <para>TBD. <!-- TODO --></para>
+      </content>
+    </section>
+    <section address="Syntax">
+      <title>Syntax</title>
+      <content>
+        <para>TBD. <!-- TODO --></para>
+      </content>
+    </section>
     <section address="Example">
       <title>Example</title>
       <content>
@@ -21,6 +37,12 @@
       <content>
         <para>Sure, I'd love to explain <legacyItalic>E = mc<superscript>2</superscript></legacyItalic> to you.
 Let me start by noting that both <legacyItalic>m</legacyItalic> (the mass) and <legacyItalic>c</legacyItalic> (the speed of light) are lowercase.</para>
+      </content>
+    </section>
+    <section address="Differences from PM">
+      <title>Differences from PM</title>
+      <content>
+        <para>N/A.</para>
       </content>
     </section>
     <section address="amdl2maml Support">

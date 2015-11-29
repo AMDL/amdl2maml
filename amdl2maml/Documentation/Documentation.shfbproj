@@ -83,7 +83,6 @@
     <Folder Include="Content\Markdown" />
     <Folder Include="Content\Markdown\Image" />
     <Folder Include="Content\Markdown\Headers" />
-    <Folder Include="Content\Markdown\Images\" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
@@ -98,6 +97,13 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Inline-Elements\Special-Weak-Emphasis.aml" />
+    <None Include="Content\Markdown\Inline-Elements\Special-Strong-Emphasis.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-Literal.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-NewTerm.aml" />
+    <None Include="Content\Markdown\Inline-Elements\New-Term.aml" />
+    <None Include="Content\Tools\amdl-Editor.aml" />
+    <None Include="Content\How-I-Created-AMDL.aml" />
     <None Include="Content\Structure\Topic-Types\Orientation-Topic.aml" />
     <None Include="Content\Structure\Topic-Types\How-To-Topic.aml" />
     <None Include="Content\Structure\Topic-Types\Glossary-Topic.aml" />
@@ -138,12 +144,9 @@
     <None Include="Content\Markdown\Headers\Headers.aml" />
     <None Include="Content\Markdown\Headers\Section-Header.aml" />
     <None Include="Content\Markdown\Headers\Topic-Header.aml" />
-    <None Include="Content\Markdown\Images\Block-Image.aml" />
-    <None Include="Content\Markdown\Images\Images.aml" />
-    <None Include="Content\Markdown\Images\Inline-Image.aml" />
-    <None Include="Content\Markdown\Inline-Elements\Emphasis.aml" />
+    <None Include="Content\Markdown\Inline-Elements\Ordinary-Weak-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Inline-Elements.aml" />
-    <None Include="Content\Markdown\Inline-Elements\Strong-Emphasis.aml" />
+    <None Include="Content\Markdown\Inline-Elements\Ordinary-Strong-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Subscript.aml" />
     <None Include="Content\Markdown\Inline-Elements\Superscript.aml" />
     <None Include="Content\Markdown\Links\Code-Links\Code-Links.aml" />
@@ -180,6 +183,10 @@
       <ImageId>Castle.png</ImageId>
       <AlternateText>
       </AlternateText>
+    </Image>
+    <Image Include="media\standards.png">
+      <ImageId>standards.png</ImageId>
+      <AlternateText>xkcd.com/927</AlternateText>
     </Image>
   </ItemGroup>
   <!-- Import the SHFB build targets -->

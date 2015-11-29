@@ -6,13 +6,13 @@
 <topic id="43c62513-a4d2-4ebd-af1d-c1b01416ad30" revisionNumber="1">
   <developerHowToDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the steps necessary for contributing to AMDL in other venues.</para>
+      <para>This topic details the steps necessary for contributing to AMDL in other veins.</para>
     </summary>
     <introduction>
       <para>The AMDL documentation is hosted on GitHub. Basic <codeInline>git</codeInline> knowledge and a GitHub account are prerequisites.</para>
     </introduction>
     <procedure>
-      <title>Contributing in other venues</title>
+      <title>Contributing in other veins</title>
       <steps class="bullet">
         <step>
           <content>
@@ -21,7 +21,7 @@
         </step>
         <step>
           <content>
-            <para>create an AMDL GUI editor, or</para>
+            <para>create an <link xlink:href="d3a86f89-4c0f-4425-9ff1-3f9f02f4e31d" />, or</para>
           </content>
         </step>
         <step>

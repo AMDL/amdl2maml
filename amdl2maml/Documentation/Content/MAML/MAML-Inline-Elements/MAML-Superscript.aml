@@ -7,12 +7,10 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="AMDL Counterpart">
-      <title>AMDL Counterpart</title>
+    <section address="AMDL Mapping">
+      <title>AMDL Mapping</title>
       <content>
-        <para>
-          <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137">Superscript</link>
-        </para>
+        <para>The <codeInline>&lt;superscript&gt;</codeInline> element directly maps to <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137">Superscript</link>.</para>
       </content>
     </section>
     <section address="Example">
@@ -26,16 +24,24 @@
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Partial (needs space checks for <externalLink><linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri><linkText>Pandoc</linkText></externalLink> compatibility).</para>
+        <para>Partial.</para>
       </content>
+      <sections>
+        <section address="Limitations">
+          <title>Limitations</title>
+          <content>
+            <list class="ordered">
+              <listItem>
+                <para>Inline spaces don't break superscript.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
     </section>
     <relatedTopics>
       <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd">Superscript</link>
       <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
-      <externalLink>
-        <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
-        <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>
-      </externalLink>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

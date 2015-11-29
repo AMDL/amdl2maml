@@ -18,7 +18,7 @@
     <section address="Status">
       <title>Status</title>
       <content>
-        <para>In active development as of November 23 2015.</para>
+        <para>In active development as of November 29 2015.</para>
       </content>
     </section>
     <section address="Design Principles">
@@ -58,16 +58,18 @@
             </para>
           </listItem>
           <listItem>
-            <para>Fork BuildAssembler into an AMDL BuildAssembler</para>
+            <para>
+              <link xlink:href="d3a86f89-4c0f-4425-9ff1-3f9f02f4e31d">Edit AMDL</link>
+            </para>
           </listItem>
           <listItem>
-            <para>Have SHFB adopt the AMDL BuildAssembler</para>
+            <para>SHFB adopt AMDL</para>
           </listItem>
           <listItem>
-            <para>Have SHFB drop support for the MAML BuildAssembler</para>
+            <para>SHFB drop support for MAML and GUIDs</para>
           </listItem>
           <listItem>
-            <para>Watch MAML die and piss on its grave</para>
+            <para>MAML and GUIDs become obscure Sandcastle implementation details</para>
           </listItem>
         </list>
       </content>

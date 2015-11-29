@@ -6,7 +6,7 @@
 <topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the AMDL syntax and semantics of definition lists.</para>
+      <para>This topic details the AMDL syntax and semantics of <newTerm>definition list</newTerm>s.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -14,7 +14,7 @@
     <section address="Function">
       <title>Function</title>
       <content>
-        <para>Definition lists are used for listing terms along with their definitions.</para>
+        <para>List terms along with their definitions.</para>
       </content>
     </section>
     <section address="Syntax">

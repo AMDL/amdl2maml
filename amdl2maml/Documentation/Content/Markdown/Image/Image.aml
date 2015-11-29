@@ -5,7 +5,9 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="586fceda-0136-42e4-a7be-936b1181d007" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
+    <summary>
+      <para>This topic details the AMDL syntax and semantics of <newTerm>images</newTerm>.</para>
+    </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
     </introduction>
@@ -19,7 +21,7 @@
       <title>Syntax</title>
       <content>
         <para>A link immediately preceded by a <codeInline>!</codeInline> character; formalized syntax TBD.</para>
-        <para>An image appearing as the sole entity in its block <legacyItalic>should</legacyItalic> be interpreted as a <legacyItalic>block image</legacyItalic>; otherwise, it <legacyItalic>should</legacyItalic> be interpreted as an <legacyItalic>inline image</legacyItalic>.</para>
+        <para>An image appearing as the sole entity in its block <legacyItalic>should</legacyItalic> be interpreted as a <newTerm>block image</newTerm>; otherwise, it <legacyItalic>should</legacyItalic> be interpreted as an <newTerm>inline image</newTerm>.</para>
         <para>The link text of a block image <legacyItalic>should</legacyItalic> be interpreted as the image's caption.
 If no link text is specified, a captionless image <legacyItalic>should</legacyItalic> be generated.</para>
       </content>

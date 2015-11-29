@@ -3,27 +3,21 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="d348035c-2667-432b-9084-16544290874d" revisionNumber="1">
+<topic id="6ca4512f-9b5d-4fe4-9131-0c892d068dde" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;legacyBold&gt;</codeInline> element maps to <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />.</para>
+        <para>The <codeInline>&lt;newTerm&gt;</codeInline> element directly maps to <link xlink:href="a61bf961-b3cd-45d2-861b-ca12b59106c4" />.</para>
       </content>
     </section>
-    <section address="Examples">
-      <title>Examples</title>
+    <section address="Example">
+      <title>Example</title>
       <content>
         <code language="none" title="AMDL">
-This is an **ordinary strong emphasis**.
-</code>
-        <code language="none" title="AMDL">
-This also __works__.
-</code>
-        <code language="none" title="AMDL">
-This ** doesn't **.
+[This](@this) is self-referential.
 </code>
       </content>
     </section>
@@ -34,7 +28,8 @@ This ** doesn't **.
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="a61bf961-b3cd-45d2-861b-ca12b59106c4" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

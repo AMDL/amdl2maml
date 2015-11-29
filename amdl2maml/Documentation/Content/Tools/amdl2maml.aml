@@ -107,15 +107,21 @@
                 <para>Block and inline <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007">images</link>.</para>
               </listItem>
               <listItem>
-                <para>Block and inline HTML.</para>
+                <para>
+                  <link xlink:href="a61bf961-b3cd-45d2-861b-ca12b59106c4" />.</para>
               </listItem>
               <listItem>
-                <para>
-                  <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" /> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />.</para>
+                <para>Ordinary <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3">weak</link> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939">strong</link> emphases.</para>
+              </listItem>
+              <listItem>
+                <para>Special <link xlink:href="35b59fef-c95a-4d45-b9b0-faa3775814c7">weak</link> and <link xlink:href="7958aedc-83cb-417d-9c23-dd8a5be6d821">strong</link> emphases.</para>
               </listItem>
               <listItem>
                 <para>
                   <link xlink:href="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" /> and <link xlink:href="52e90a26-9d60-4e91-b5f2-b8137b59a137" />.</para>
+              </listItem>
+              <listItem>
+                <para>Block and inline HTML.</para>
               </listItem>
             </list>
             <para>The following is an <legacyBold>incomplete</legacyBold> list of missing entities:</para>

@@ -5,7 +5,9 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
+    <summary>
+      <para>The topics in this section detail <newTerm>PM elements that are absent from AMDL</newTerm>.</para>
+    </summary>
     <introduction />
     <section address="PM Elements that are Absent from in AMDL">
       <title>PM Elements that are Absent from in AMDL</title>

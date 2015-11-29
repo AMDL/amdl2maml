@@ -7,19 +7,17 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="AMDL Counterpart">
-      <title>AMDL Counterpart</title>
+    <section address="AMDL Mapping">
+      <title>AMDL Mapping</title>
       <content>
-        <para>
-          <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" />
-        </para>
+        <para>The <codeInline>&lt;legacyItalic&gt;</codeInline> element maps to <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" />.</para>
       </content>
     </section>
     <section address="Examples">
       <title>Examples</title>
       <content>
         <code language="none" title="AMDL">
-This text is *emphasized*.
+This is an *ordinary weak emphasis*.
 </code>
         <code language="none" title="AMDL">
 This also _works_.
@@ -32,12 +30,10 @@ This * doesn't *.
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Completed.</para>
+        <para>Complete.</para>
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
-      <link xlink:href="d348035c-2667-432b-9084-16544290874d" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>

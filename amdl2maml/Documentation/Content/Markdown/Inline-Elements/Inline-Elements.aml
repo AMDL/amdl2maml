@@ -6,13 +6,23 @@
 <topic id="e5433304-0e12-43e3-9094-3342c62f5dc8" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>The topics in this section detail the syntax and the AMDL semantics of inline elements.</para>
+      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>inline elements</newTerm>.</para>
     </summary>
     <introduction />
     <section address="Inline Elements">
       <title>Inline Elements</title>
       <content>
         <list class="bullet">
+          <listItem>
+            <para>
+              <link xlink:href="a61bf961-b3cd-45d2-861b-ca12b59106c4" />
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />
+            </para>
+          </listItem>
           <listItem>
             <para>
               <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3" />
@@ -30,7 +40,12 @@
           </listItem>
           <listItem>
             <para>
-              <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />
+              <link xlink:href="7958aedc-83cb-417d-9c23-dd8a5be6d821" />
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <link xlink:href="35b59fef-c95a-4d45-b9b0-faa3775814c7" />
             </para>
           </listItem>
         </list>

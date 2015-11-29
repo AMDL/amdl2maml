@@ -5,29 +5,33 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
+    <summary>
+      <para>This topic details the AMDL syntax of <newTerm>strikeout</newTerm>.</para>
+    </summary>
     <introduction />
-    <section address="Status">
-      <title>Status</title>
+    <section address="Syntax">
+      <title>Syntax</title>
       <content>
-        <para>Strikeout, a.k.a. strikethrough, is absent from AMDL.</para>
+        <para>N/A.</para>
       </content>
-    </section>
-    <section address="Motivation">
-      <title>Motivation</title>
-      <content>
-        <list class="ordered">
-          <listItem>
-            <para>It is not standard Markdown.</para>
-          </listItem>
-          <listItem>
-            <para>No MAML counterpart is known to exist.</para>
-          </listItem>
-          <listItem>
-            <para>A trivial workaround exists, see <link xlink:href="#Workaround">below</link>.</para>
-          </listItem>
-        </list>
-      </content>
+      <sections>
+        <section address="Motivation">
+          <title>Motivation</title>
+          <content>
+            <list class="ordered">
+              <listItem>
+                <para>It is not standard Markdown.</para>
+              </listItem>
+              <listItem>
+                <para>No MAML counterpart is known to exist.</para>
+              </listItem>
+              <listItem>
+                <para>A trivial workaround exists, see <link xlink:href="#Workaround">Workaround</link>.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
     </section>
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
@@ -57,7 +61,7 @@
       <title>Workaround</title>
       <content>
         <code language="HTML">
-&lt;s&gt;Strikeout&lt;/s&gt;
+This element will be &lt;s&gt;deleted&lt;/s&gt;
 </code>
       </content>
     </section>

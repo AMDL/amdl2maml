@@ -3,10 +3,10 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="841b9bfc-e30c-4eb2-acf9-b3d1f2f9f54d" revisionNumber="1">
+<topic id="35b59fef-c95a-4d45-b9b0-faa3775814c7" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the AMDL syntax and semantics of <newTerm>subscript</newTerm>.</para>
+      <para>This topic details the AMDL syntax and semantics of <newTerm>special weak emphasis</newTerm>.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -23,52 +23,46 @@
         <para>TBD. <!-- TODO --></para>
       </content>
     </section>
-    <section address="Example">
-      <title>Example</title>
+    <section address="Examples">
+      <title>Examples</title>
       <content>
         <code language="none" title="AMDL">
-    The most widely known chemical reaction is 
-    2H~2~ + O~2~ -&gt; 2H~2~O
+This is a _*special weak emphasis*_.
+</code>
+        <code language="none" title="AMDL">
+This _* isn't *_.
 </code>
       </content>
     </section>
     <section address="Example Output">
       <title>Example Output</title>
       <content>
-        <para>The most widely known chemical reaction is
-2H<subscript>2</subscript> + O<subscript>2</subscript> -&gt; 2H<subscript>2</subscript>O</para>
+        <para>This is a <legacyUnderline>special weak emphasis</legacyUnderline>.</para>
+        <para>This <legacyItalic>* isn't *</legacyItalic>.</para>
       </content>
     </section>
     <section address="Differences from PM">
       <title>Differences from PM</title>
       <content>
-        <para>N/A.</para>
+        <list class="ordered">
+          <listItem>
+            <para>No special weak emphasis exists in PM.</para>
+          </listItem>
+        </list>
       </content>
     </section>
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Partial.</para>
+        <para>Complete.</para>
       </content>
-      <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
-          <content>
-            <list class="ordered">
-              <listItem>
-                <para>Inline spaces are accepted.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-      </sections>
     </section>
     <relatedTopics>
-      <link xlink:href="225a03f7-69e1-44f6-b7b5-8f14f373a75c" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="c7ff7df3-d4f7-42a8-a70e-8739421ee5fb" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
-        <linkUri>http://pandoc.org/README.html#superscripts-and-subscripts</linkUri>
-        <linkText>Pandoc's Markdown: Superscripts and Subscripts</linkText>
+        <linkUri>http://pandoc.org/README.html#emphasis</linkUri>
+        <linkText>Pandoc's Markdown: Emphasis</linkText>
       </externalLink>
     </relatedTopics>
   </developerConceptualDocument>

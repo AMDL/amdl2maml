@@ -5,7 +5,9 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
+    <summary>
+      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>block elements</newTerm>.</para>
+    </summary>
     <introduction />
     <section address="Block Elements">
       <title>Block Elements</title>

@@ -6,7 +6,7 @@
 <topic id="e1613da4-e793-4fac-9728-6f52e04ee4ea" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the AMDL syntax and semantics of section headers.</para>
+      <para>This topic details the AMDL syntax and semantics of <newTerm>section headers</newTerm>.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />

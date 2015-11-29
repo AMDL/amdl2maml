@@ -9,7 +9,7 @@
       <para>The sections in this topics detail the various AMDL-related procedures.</para>
     </summary>
     <introduction>
-      <para>The bulk of AMDL development currently happens in two venues, namely</para>
+      <para>The bulk of AMDL development currently progresses in two veins, namely</para>
       <list class="ordered">
         <listItem>
           <para>the <link xlink:href="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" />, a.k.a. <codeInline>amdl2maml</codeInline> and</para>

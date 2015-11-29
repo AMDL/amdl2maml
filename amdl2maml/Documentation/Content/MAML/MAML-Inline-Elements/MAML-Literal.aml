@@ -3,28 +3,14 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="d348035c-2667-432b-9084-16544290874d" revisionNumber="1">
+<topic id="ff2ec834-0d79-49a5-a7ac-8e2ec695f9ce" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;legacyBold&gt;</codeInline> element maps to <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939" />.</para>
-      </content>
-    </section>
-    <section address="Examples">
-      <title>Examples</title>
-      <content>
-        <code language="none" title="AMDL">
-This is an **ordinary strong emphasis**.
-</code>
-        <code language="none" title="AMDL">
-This also __works__.
-</code>
-        <code language="none" title="AMDL">
-This ** doesn't **.
-</code>
+        <para>The <codeInline>&lt;literal&gt;</codeInline> element maps to <link xlink:href="7958aedc-83cb-417d-9c23-dd8a5be6d821" />.</para>
       </content>
     </section>
     <section address="amdl2maml Support">
