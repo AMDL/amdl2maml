@@ -66,7 +66,7 @@
       </Topic>
     </Topic>
     <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Image" />
-    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="True" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
+    <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="False" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>
   </Topic>
