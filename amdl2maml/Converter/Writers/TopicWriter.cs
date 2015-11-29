@@ -459,20 +459,16 @@ namespace Amdl.Maml.Converter.Writers
                     await WriteEndElementAsync();
                     break;
 
-                case InlineTag.Emphasis:
-                    await WriteStartElementAsync("legacyItalic");
-                    await WriteChildInlinesAsync(inline);
-                    await WriteEndElementAsync();
-                    break;
-
                 case InlineTag.RawHtml:
                     await WriteMarkupInlineAsync(inline);
                     break;
 
+                case InlineTag.Emphasis:
+                    await WriteWeakEmphasisAsync(inline);
+                    break;
+
                 case InlineTag.Strong:
-                    await WriteStartElementAsync("legacyBold");
-                    await WriteChildInlinesAsync(inline);
-                    await WriteEndElementAsync();
+                    await WriteStrongEmphasisAsync(inline);
                     break;
 
                 case InlineTag.Subscript:
@@ -525,6 +521,54 @@ namespace Amdl.Maml.Converter.Writers
             }
             inlineState = InlineState.None;
             await WriteEndMarkupInlineAsync();
+        }
+
+        private async Task WriteWeakEmphasisAsync(Inline inline)
+        {
+            if (inline.FirstChild != null && inline.FirstChild.Tag == InlineTag.Emphasis && inline.FirstChild.LastSibling == inline.FirstChild)
+            {
+                await WriteSpecialEmphasisAsync(inline);
+                return;
+            }
+            await WriteStartElementAsync("legacyItalic");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //legacyItalic
+        }
+
+        private async Task WriteStrongEmphasisAsync(Inline inline)
+        {
+            await WriteStartElementAsync("legacyBold");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //legacyBold
+        }
+
+        private async Task WriteSpecialEmphasisAsync(Inline inline)
+        {
+            switch (inline.DelimiterCharacter)
+            {
+                case '_':
+                    await WriteSpecialWeakEmphasisAsync(inline.FirstChild);
+                    return;
+                case '*':
+                    await WriteSpecialStrongEmphasisAsync(inline.FirstChild);
+                    return;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        private async Task WriteSpecialWeakEmphasisAsync(Inline inline)
+        {
+            await WriteStartElementAsync("legacyUnderline");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //legacyUnderline
+        }
+
+        private async Task WriteSpecialStrongEmphasisAsync(Inline inline)
+        {
+            await WriteStartElementAsync("literal");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //literal
         }
 
         private async Task WriteStrikethroughAsync(Inline inline)
