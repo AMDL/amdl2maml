@@ -55,7 +55,6 @@
     <Compile Include="TopicData.cs" />
     <Compile Include="TopicParser.cs" />
     <Compile Include="TopicParserResult.cs" />
-    <Compile Include="TopicType.cs" />
     <Compile Include="TopicUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +78,10 @@
     <ProjectReference Include="..\Maml\Maml.csproj">
       <Project>{4a1574bf-dd28-4a82-b88d-f27e040eeaca}</Project>
       <Name>Maml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metadata\Metadata.csproj">
+      <Project>{8519be7b-0b30-41fd-8c74-b1e7c9c82e04}</Project>
+      <Name>Metadata</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

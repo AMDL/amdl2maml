@@ -1,4 +1,5 @@
-﻿using CommonMark.Syntax;
+﻿using Amdl.Metadata;
+using CommonMark.Syntax;
 using System;
 using System.Collections.Generic;
 using System.IO;
