@@ -663,8 +663,12 @@ namespace Amdl.Maml.Converter.Writers
             }
 
             await WriteEndSectionsAsync(block.HeaderLevel);
-            var state = await DoWriteStartSectionAsync(block, title);
-            sectionStates.Push(state);
+
+            while (block.HeaderLevel > SectionLevel)
+            {
+                var state = await DoWriteStartSectionAsync(block, title);
+                sectionStates.Push(state);
+            }
         }
 
         internal virtual async Task<SectionState> DoWriteStartSectionAsync(Block block, string title)
@@ -678,8 +682,11 @@ namespace Amdl.Maml.Converter.Writers
             }
 
             await WriteStartElementAsync("section");
-            await WriteAttributeStringAsync("address", title);
-            await WriteTitleAsync(block);
+            if (block.HeaderLevel == SectionLevel + 1)
+            {
+                await WriteAttributeStringAsync("address", title);
+                await WriteTitleAsync(block);
+            }
             await WriteStartElementAsync("content");
             await WriteAutoOutlineAsync(block);
 
