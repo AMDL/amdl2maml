@@ -36,7 +36,7 @@ namespace Amdl.Maml.Converter.Writers
 
             //TODO procedure?
             await WriteStartElementAsync("steps");
-            await WriteListClassAsync(block, "bullet");
+            await WriteListClassAsync(block, ListClass.Bullet);
             SetSectionState(SectionState.Sections);
             await WriteChildBlocksAsync(block);
             await WriteEndElementAsync(); //steps

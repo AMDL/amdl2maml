@@ -106,6 +106,13 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Nested Types
 
+        internal enum ListClass
+        {
+            NoBullet,
+            Bullet,
+            Ordered,
+        }
+
         enum TopicState
         {
             None,
@@ -120,6 +127,12 @@ namespace Amdl.Maml.Converter.Writers
             Content,
             Sections,
             SeeAlso,
+        }
+
+        enum BlockState
+        {
+            None,
+            Start,
         }
 
         enum InlineState
@@ -175,6 +188,7 @@ namespace Amdl.Maml.Converter.Writers
 
         private TopicState topicState;
         private Stack<SectionState> sectionStates;
+        private BlockState blockState;
         private InlineState inlineState;
         private MarkupState markupState;
         private SeeAlsoGroupType seeAlsoGroup;
@@ -433,7 +447,11 @@ namespace Amdl.Maml.Converter.Writers
         private async Task WriteParagraphAsync(Block block)
         {
             if (GetSectionState() != SectionState.SeeAlso)
+            {
                 await WriteStartElementAsync("para");
+                if (blockState == BlockState.None)
+                    blockState = BlockState.Start;
+            }
             await WriteChildInlinesAsync(block);
             if (GetSectionState() != SectionState.SeeAlso)
                 await WriteEndElementAsync(); //para
@@ -689,6 +707,8 @@ namespace Amdl.Maml.Converter.Writers
             }
             await WriteStartElementAsync("content");
             await WriteAutoOutlineAsync(block);
+
+            blockState = BlockState.None;
 
             return SectionState.Content;
         }
@@ -988,10 +1008,22 @@ namespace Amdl.Maml.Converter.Writers
 
         internal virtual async Task WriteListAsync(Block block)
         {
+            var listClass = GetListClass(block);
+            var isParagraph = SectionLevel > 2 && blockState == BlockState.None
+                && (listClass == ListClass.Ordered || listClass == ListClass.Bullet);
+            if (isParagraph)
+            {
+                await WriteStartElementAsync("para");
+                blockState = BlockState.Start;
+            }
+
             await WriteStartElementAsync("list");
-            await WriteListClassAsync(block);
+            await WriteListClassAsync(listClass);
             await WriteChildBlocksAsync(block);
             await WriteEndElementAsync(); //list
+
+            if (isParagraph)
+                await WriteEndElementAsync(); //para
         }
 
         internal virtual async Task WriteListItemAsync(Block block)
@@ -1001,24 +1033,29 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //listItem
         }
 
-        internal async Task WriteListClassAsync(Block block, string defaultClass = null)
+        internal async Task WriteListClassAsync(Block block, ListClass? defaultClass = null)
         {
             var listClass = GetListClass(block, defaultClass);
-            if (listClass != null)
-                await WriteAttributeStringAsync("class", listClass);
+            await WriteListClassAsync(listClass);
         }
 
-        private static string GetListClass(Block block, string defaultClass)
+        private async Task WriteListClassAsync(ListClass? listClass)
+        {
+            if (listClass != null)
+                await WriteAttributeStringAsync("class", listClass.ToString().ToLowerInvariant());
+        }
+
+        private static ListClass? GetListClass(Block block, ListClass? defaultClass = null)
         {
             switch (block.ListData.ListType)
             {
                 case ListType.Bullet:
                     if (block.ListData.BulletChar == '*')
-                        return "bullet";
-                    return "nobullet";
+                        return ListClass.Bullet;
+                    return ListClass.NoBullet;
 
                 case ListType.Ordered:
-                    return "ordered";
+                    return ListClass.Ordered;
 
                 default:
                     return defaultClass;
