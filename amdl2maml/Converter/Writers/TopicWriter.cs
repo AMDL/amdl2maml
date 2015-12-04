@@ -746,9 +746,9 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteIndentedCodeAsync(Block block)
         {
-            var content = block.StringContent.ToString();
+            var content = block.StringContent.ToString().Trim('\n');
             if (!content.Cast<char>().Contains('\n'))
-                await WriteCommandAsync(block);
+                await WriteCommandAsync(content);
             else
                 await WriteCodeAsync(content, null);
         }
@@ -760,11 +760,13 @@ namespace Amdl.Maml.Converter.Writers
             await WriteCodeAsync(content, info);
         }
 
-        private async Task WriteCommandAsync(Block block)
+        private async Task WriteCommandAsync(string content)
         {
+            await WriteStartElementAsync("para");
             await WriteStartElementAsync("command");
-            await WriteStringAsync(block.StringContent.ToString());
+            await WriteStringAsync(content);
             await WriteEndElementAsync(); //command
+            await WriteEndElementAsync(); //para
         }
 
         private async Task WriteCodeAsync(string content, string info)
