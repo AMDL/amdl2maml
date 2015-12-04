@@ -372,9 +372,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case BlockTag.BlockQuote:
-                    await WriteStartElementAsync("quote");
-                    await WriteChildBlocksAsync(block);
-                    await WriteEndElementAsync(); //quote
+                    await WriteQuoteAsync(block);
                     break;
 
                 case BlockTag.HtmlBlock:
@@ -439,6 +437,13 @@ namespace Amdl.Maml.Converter.Writers
             await WriteChildInlinesAsync(block);
             if (GetSectionState() != SectionState.SeeAlso)
                 await WriteEndElementAsync(); //para
+        }
+
+        private async Task WriteQuoteAsync(Block block)
+        {
+            await WriteStartElementAsync("quote");
+            await WriteChildBlocksAsync(block);
+            await WriteEndElementAsync(); //quote
         }
 
         #endregion Block
