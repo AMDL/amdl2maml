@@ -746,29 +746,50 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteIndentedCodeAsync(Block block)
         {
-            await WriteStartElementAsync("code");
-            await WriteAttributeStringAsync("language", "none");
-            await WriteRawAsync("\n");
-            await WriteStringAsync(block.StringContent.ToString());
-            await WriteEndElementAsync(); //code
+            var content = block.StringContent.ToString();
+            if (!content.Cast<char>().Contains('\n'))
+                await WriteCommandAsync(block);
+            else
+                await WriteCodeAsync(content, null);
         }
 
         private async Task WriteFencedCodeAsync(Block block)
         {
-            await WriteStartElementAsync("code");
-            if (!string.IsNullOrEmpty(block.FencedCodeData.Info))
-            {
-                if (Languages.Contains(block.FencedCodeData.Info))
-                    await WriteAttributeStringAsync("language", block.FencedCodeData.Info);
-                else
-                {
-                    await WriteAttributeStringAsync("language", "none");
-                    await WriteAttributeStringAsync("title", block.FencedCodeData.Info);
-                }
-            }
-            await WriteRawAsync("\n");
+            var content = block.StringContent.ToString();
+            var info = block.FencedCodeData.Info;
+            await WriteCodeAsync(content, info);
+        }
+
+        private async Task WriteCommandAsync(Block block)
+        {
+            await WriteStartElementAsync("command");
             await WriteStringAsync(block.StringContent.ToString());
+            await WriteEndElementAsync(); //command
+        }
+
+        private async Task WriteCodeAsync(string content, string info)
+        {
+            await WriteStartElementAsync("code");
+            await WriteCodeAttributesAsync(info);
+            await WriteRawAsync("\n");
+            await WriteStringAsync(content.ToString());
             await WriteEndElementAsync(); //code
+        }
+
+        private async Task WriteCodeAttributesAsync(string info)
+        {
+            if (!string.IsNullOrEmpty(info))
+            {
+                if (Languages.Contains(info))
+                {
+                    await WriteAttributeStringAsync("language", info);
+                    return;
+                }
+
+                await WriteAttributeStringAsync("title", info);
+            }
+
+            await WriteAttributeStringAsync("language", "none");
         }
 
         #endregion Code
