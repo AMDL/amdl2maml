@@ -454,9 +454,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.Code:
-                    await WriteStartElementAsync("codeInline");
-                    await WriteStringAsync(inline.LiteralContent);
-                    await WriteEndElementAsync();
+                    await WriteCodeInlineAsync(inline);
                     break;
 
                 case InlineTag.RawHtml:
@@ -472,15 +470,11 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.Subscript:
-                    await WriteStartElementAsync("subscript");
-                    await WriteChildInlinesAsync(inline);
-                    await WriteEndElementAsync(); //subscript;
+                    await WriteSubscriptAsync(inline);
                     break;
 
                 case InlineTag.Superscript:
-                    await WriteStartElementAsync("superscript");
-                    await WriteChildInlinesAsync(inline);
-                    await WriteEndElementAsync(); //superscript;
+                    await WriteSuperscriptAsync(inline);
                     break;
 
                 case InlineTag.SoftBreak:
@@ -492,11 +486,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 
                 case InlineTag.Link:
-                    //TODO Move to parser
-                    if (inline.TargetUrl.StartsWith("@"))
-                        await WriteNewTermAsync(inline);
-                    else
-                        await WriteLinkAsync(inline);
+                    await WriteLinkAsync(inline);
                     break;
 
                 case InlineTag.Image:
@@ -522,6 +512,24 @@ namespace Amdl.Maml.Converter.Writers
             inlineState = InlineState.None;
             await WriteEndMarkupInlineAsync();
         }
+
+        private async Task WriteChildInlinesAsync(Inline inline)
+        {
+            for (var child = inline.FirstChild; child != null; child = child.NextSibling)
+                await WriteInlineAsync(child);
+        }
+
+        internal static string GetAllLiteralContent(Inline inline)
+        {
+            var content = string.Empty;
+            for (; inline != null; inline = inline.NextSibling)
+                content += inline.LiteralContent;
+            return content;
+        }
+
+        #endregion Inline
+
+        #region Emphasis
 
         private async Task WriteWeakEmphasisAsync(Inline inline)
         {
@@ -571,6 +579,31 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //literal
         }
 
+        #endregion Emphasis
+
+        #region Misc
+
+        private async Task WriteCodeInlineAsync(Inline inline)
+        {
+            await WriteStartElementAsync("codeInline");
+            await WriteStringAsync(inline.LiteralContent);
+            await WriteEndElementAsync();
+        }
+
+        private async Task WriteSubscriptAsync(Inline inline)
+        {
+            await WriteStartElementAsync("subscript");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //subscript;
+        }
+
+        private async Task WriteSuperscriptAsync(Inline inline)
+        {
+            await WriteStartElementAsync("superscript");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //superscript;
+        }
+
         private async Task WriteStrikethroughAsync(Inline inline)
         {
             await WriteStartMarkupInlineAsync();
@@ -595,21 +628,7 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private async Task WriteChildInlinesAsync(Inline inline)
-        {
-            for (var child = inline.FirstChild; child != null; child = child.NextSibling)
-                await WriteInlineAsync(child);
-        }
-
-        internal static string GetAllLiteralContent(Inline inline)
-        {
-            var content = string.Empty;
-            for (; inline != null; inline = inline.NextSibling)
-                content += inline.LiteralContent;
-            return content;
-        }
-
-        #endregion Inline
+        #endregion Misc
 
         #region Section
 
@@ -754,13 +773,11 @@ namespace Amdl.Maml.Converter.Writers
         private async Task WriteLinkAsync(Inline inline)
         {
             var target = inline.TargetUrl;
-            var extTargetUrl = GetExternalLinkTarget(target);
-            if (extTargetUrl != null)
-                await WriteExternalLinkAsync(inline, extTargetUrl);
-            else if (target.Length >= 2 && target[1] == ':')
-                await WriteCodeLinkAsync(inline);
+            //TODO Move to parser
+            if (target.StartsWith("@"))
+                await WriteNewTermAsync(inline);
             else
-                await WriteConceptualLinkAsync(inline);
+                await WriteLinkAsync(inline, target);
         }
 
         private async Task WriteNewTermAsync(Inline inline)
@@ -768,6 +785,17 @@ namespace Amdl.Maml.Converter.Writers
             await WriteStartElementAsync("newTerm");
             await WriteChildInlinesAsync(inline);
             await WriteEndElementAsync(); //newTerm
+        }
+
+        private async Task WriteLinkAsync(Inline inline, string target)
+        {
+            var extTargetUrl = GetExternalLinkTarget(target);
+            if (extTargetUrl != null)
+                await WriteExternalLinkAsync(inline, extTargetUrl);
+            else if (target.Length >= 2 && target[1] == ':')
+                await WriteCodeLinkAsync(inline);
+            else
+                await WriteConceptualLinkAsync(inline);
         }
 
         internal virtual async Task WriteConceptualLinkAsync(Inline inline)
