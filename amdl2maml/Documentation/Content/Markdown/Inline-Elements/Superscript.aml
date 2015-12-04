@@ -26,7 +26,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
     Sure, I'd love to explain *E = mc^2^* to you.
     Let me start by noting that both *m* (the mass) and *c* (the speed of light) are lowercase.
 </code>

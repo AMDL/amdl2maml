@@ -16,7 +16,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This is a block image:
 
 ![Sandcastle](Castle.png "Pirate Sandcastle")

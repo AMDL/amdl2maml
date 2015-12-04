@@ -33,7 +33,7 @@ If no link text is specified, a captionless image <legacyItalic>should</legacyIt
         <section address="1. Inline image 1:">
           <title>1. Inline image 1:</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 This is an inline image:
 ![](Castle.png "Pirate Sandcastle")
 </code>
@@ -42,7 +42,7 @@ This is an inline image:
         <section address="2. Inline image 2:">
           <title>2. Inline image 2:</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 ![](Castle.png "Pirate Sandcastle")
 is also an inline image.
 </code>
@@ -51,7 +51,7 @@ is also an inline image.
         <section address="3. Block image:">
           <title>3. Block image:</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 This is a block image:
 
 ![Sandcastle](Castle.png "Pirate Sandcastle")

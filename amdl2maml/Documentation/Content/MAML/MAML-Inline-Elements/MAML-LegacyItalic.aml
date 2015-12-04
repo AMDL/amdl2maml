@@ -16,13 +16,13 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This is an *ordinary weak emphasis*.
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This also _works_.
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This * doesn't *.
 </code>
       </content>

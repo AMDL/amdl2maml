@@ -10,10 +10,10 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 [N:Amdl.Maml.Converter]
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 [AMDL To MAML Converter classes and enumerations](N:Amdl.Maml.Converter)
 </code>
       </content>
@@ -48,7 +48,7 @@
         <section address="Current Workaround">
           <title>Current Workaround</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 [](N:Amdl.Maml.Converter)
 </code>
           </content>

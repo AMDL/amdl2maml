@@ -10,10 +10,10 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 [F:Amdl.Maml.Converter.TopicType.General]
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 [General topic](F:Amdl.Maml.Converter.TopicType.General)
 </code>
       </content>
@@ -48,7 +48,7 @@
         <section address="Current Workaround">
           <title>Current Workaround</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 [](F:Amdl.Maml.Converter.TopicType.General)
 </code>
           </content>

@@ -42,7 +42,7 @@
     <section address="Example">
       <title>Example</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 ~~Any content enclosed in double tildes is interpreted as subscript within subscript.~~
 </code>
       </content>

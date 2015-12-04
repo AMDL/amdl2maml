@@ -26,13 +26,13 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This is an **ordinary strong emphasis**.
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This also __works__.
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This ** doesn't **.
 </code>
       </content>

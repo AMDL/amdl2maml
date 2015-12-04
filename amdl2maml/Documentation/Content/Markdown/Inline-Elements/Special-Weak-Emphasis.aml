@@ -26,10 +26,10 @@
     <section address="Examples">
       <title>Examples</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This is a _*special weak emphasis*_.
 </code>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 This _* isn't *_.
 </code>
       </content>

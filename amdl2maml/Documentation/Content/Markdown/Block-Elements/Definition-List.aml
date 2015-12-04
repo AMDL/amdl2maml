@@ -53,7 +53,7 @@ A <legacyItalic>definition list item</legacyItalic> consists of</para>
     <section address="Example">
       <title>Example</title>
       <content>
-        <code language="none" title="AMDL">
+        <code title="AMDL" language="none">
 Term
 :	Definition
 </code>
@@ -82,7 +82,7 @@ Term
         <section address="Current Workaround:">
           <title>Current Workaround:</title>
           <content>
-            <code language="none" title="AMDL">
+            <code title="AMDL" language="none">
 ### Term
 - Definition
 </code>

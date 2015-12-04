@@ -10,7 +10,7 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <code language="none" title="YAML">
+        <code title="YAML" language="none">
 type: orientation
 </code>
       </content>
