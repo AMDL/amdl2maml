@@ -876,7 +876,7 @@ namespace Amdl.Maml.Converter.Writers
             if (extTargetUrl != null)
                 await WriteExternalLinkAsync(inline, extTargetUrl);
             else if (target.Length >= 2 && target[1] == ':')
-                await WriteCodeLinkAsync(inline);
+                await WriteCodeLinkAsync(inline, target);
             else
                 await WriteConceptualLinkAsync(inline);
         }
@@ -894,7 +894,22 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndElementAsync(); //link
         }
 
-        private async Task WriteCodeLinkAsync(Inline inline)
+        private async Task WriteCodeLinkAsync(Inline inline, string target)
+        {
+            if (target[0] == 'U')
+                await WriteUnmanagedCodeLinkAsync(target.Substring(2));
+            else
+                await WriteManagedCodeLinkAsync(inline);
+        }
+
+        private async Task WriteUnmanagedCodeLinkAsync(string target)
+        {
+            await WriteStartElementAsync("unmanagedCodeEntityReference");
+            await WriteStringAsync(target);
+            await WriteEndElementAsync(); //unmanagedCodeEntityReference
+        }
+
+        private async Task WriteManagedCodeLinkAsync(Inline inline)
         {
             await WriteStartElementAsync("codeEntityReference");
             var linkText = GetAllLiteralContent(inline.FirstChild);
