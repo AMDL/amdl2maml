@@ -32,7 +32,7 @@
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <IndentHtml>False</IndentHtml>
-    <KeepLogFile>True</KeepLogFile>
+    <KeepLogFile>False</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CleanIntermediates>True</CleanIntermediates>
     <HelpFileVersion>1.0.0</HelpFileVersion>
@@ -98,6 +98,10 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-CodeInline.aml" />
+    <None Include="Content\Markdown\Inline-Elements\Inline-Code.aml" />
+    <None Include="Content\Markdown\Inline-Elements\Math.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-Math.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-UnmanagedCodeEntityReference.aml" />
     <None Include="Content\Markdown\Links\Code-Links\Unmanaged-Link.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Title.aml" />

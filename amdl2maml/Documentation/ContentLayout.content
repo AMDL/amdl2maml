@@ -20,16 +20,18 @@
     </Topic>
     <Topic id="41249bf2-dc38-4072-b367-4e13526f29a7" visible="True" isExpanded="true" title="MAML Inline Elements" tocTitle="Inline Elements">
       <Topic id="7e481063-7390-4e4b-a2d6-006764a1a5b6" visible="True" title="&lt;command&gt;" />
+      <Topic id="482215cc-37a2-489b-be05-48edde4d1851" visible="True" isSelected="true" title="&lt;codeInline&gt;" />
       <Topic id="d348035c-2667-432b-9084-16544290874d" visible="True" title="&lt;legacyBold&gt;" />
       <Topic id="0d1b5b1e-59ed-4111-b976-0f8dbcd435a8" visible="True" title="&lt;legacyItalic&gt;" />
       <Topic id="c7ff7df3-d4f7-42a8-a70e-8739421ee5fb" visible="True" title="&lt;legacyUnderline&gt;" />
       <Topic id="ff2ec834-0d79-49a5-a7ac-8e2ec695f9ce" visible="True" title="&lt;literal&gt;" />
+      <Topic id="5b750e6b-fc9d-4db8-af89-c8722c28745d" visible="True" title="&lt;math&gt;" />
       <Topic id="6ca4512f-9b5d-4fe4-9131-0c892d068dde" visible="True" title="&lt;newTerm&gt;" />
       <Topic id="99c6c320-a72e-457e-8ef8-42656484d3c2" visible="True" title="&lt;replaceable&gt;" />
       <Topic id="225a03f7-69e1-44f6-b7b5-8f14f373a75c" visible="True" title="&lt;subscript&gt;" />
       <Topic id="76f41a0c-9f41-40b4-81f5-e3f264d795ab" visible="True" title="&lt;superscript&gt;" />
       <Topic id="11204e44-240f-4ea3-8348-dd22ceec41ae" visible="True" title="&lt;system&gt;" />
-      <Topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" visible="True" isSelected="true" title="&lt;unmanagedCodeEntityReference&gt;" />
+      <Topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" visible="True" title="&lt;unmanagedCodeEntityReference&gt;" />
     </Topic>
     <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" title="MAML Media Elements" tocTitle="Media Elements">
       <Topic id="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" visible="True" title="&lt;mediaLink&gt;" />
@@ -60,6 +62,8 @@
       <Topic id="c620a7ed-7c50-4eab-864e-aaefe7725a6c" visible="True" title="Indented Code" />
     </Topic>
     <Topic id="e5433304-0e12-43e3-9094-3342c62f5dc8" visible="True" isExpanded="true" title="Inline Elements">
+      <Topic id="ed745174-03e2-4af4-a001-10d84b0a0fdb" visible="True" title="Code" />
+      <Topic id="9e536771-09e5-4490-908c-1fd06eb54459" visible="True" title="Math" />
       <Topic id="a61bf961-b3cd-45d2-861b-ca12b59106c4" visible="True" title="New Term" />
       <Topic id="ae554dc8-9444-4d91-a205-333b799a6939" visible="True" title="Ordinary Strong Emphasis" />
       <Topic id="9bd38298-3699-4415-9853-dd58f9b5a5a3" visible="True" title="Ordinary Weak Emphasis" />

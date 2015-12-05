@@ -10,7 +10,7 @@
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;unmanagedCodeEntityReference&gt;</codeInline> directly maps to <link xlink:href="cc445173-77d6-4367-b061-643eff15caa6" />.</para>
+        <para>The <codeInline>&lt;unmanagedCodeEntityReference&gt;</codeInline> element directly maps to <link xlink:href="cc445173-77d6-4367-b061-643eff15caa6" />.</para>
       </content>
     </section>
     <section address="amdl2maml Support">
