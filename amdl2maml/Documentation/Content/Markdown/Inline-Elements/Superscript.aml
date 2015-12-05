@@ -54,11 +54,13 @@ Let me start by noting that both <legacyItalic>m</legacyItalic> (the mass) and <
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Inline spaces are accepted.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Inline spaces are accepted.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>

@@ -38,11 +38,13 @@ This is a block image:
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Alt text is discarded.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Alt text is discarded.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
         <section address="Current Workaround">

@@ -34,72 +34,76 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>Two header syntaxes are accepted:</para>
+        <para>Two header syntaxes are defined:</para>
       </content>
       <sections>
-        <section address="1. setext-Style Section Header:">
-          <title>1. setext-Style Section Header:</title>
+        <section address="1. :">
+          <title>1. <newTerm>setext-Style Section Header</newTerm>:</title>
           <content>
-            <list class="nobullet">
-              <listItem>
-                <para>A line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>zero to three space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>text, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, an attribute enclosure,</para>
-                  </listItem>
-                </list>
-              </listItem>
-              <listItem>
-                <para>followed by a line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>zero to three space characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>one or more <codeInline>-</codeInline> characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, any number of space characters.</para>
-                  </listItem>
-                </list>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>zero to three space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>text, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, an attribute enclosure;</para>
+                    </listItem>
+                  </list>
+                </listItem>
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>zero to three space characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>one or more <codeInline>-</codeInline> characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, any number of space characters.</para>
+                    </listItem>
+                  </list>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
-        <section address="2. ATX-Style Section Header:">
-          <title>2. ATX-Style Section Header:</title>
+        <section address="2. :">
+          <title>2. <newTerm>ATX-Style Section Header</newTerm>:</title>
           <content>
-            <list class="nobullet">
-              <listItem>
-                <para>A line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>optionally, up to three space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>two to six <codeInline>#</codeInline> characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>one or more space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>text, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, any number of space characters followed by any number of <codeInline>#</codeInline> characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, an attribute enclosure.</para>
-                  </listItem>
-                </list>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>optionally, up to three space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>two to six <codeInline>#</codeInline> characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>one or more space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>text, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, any number of space characters followed by any number of <codeInline>#</codeInline> characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, an attribute enclosure.</para>
+                    </listItem>
+                  </list>
+                </listItem>
+              </list>
+            </para>
             <para>In both syntaxes the text must be XML-escaped, i.e.</para>
             <list class="bullet">
               <listItem>
@@ -158,19 +162,10 @@ Examples
       <title>Attributes</title>
       <content>
         <para>Sections can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
-        <code title="AMDL" language="none">
-	{#identifier .class1 .class2 name1=value1 name2=value2 ...}
-</code>
-        <para>All attribute values containing spaces, braces (<codeInline>{</codeInline> and <codeInline>}</codeInline>), or backslashes (<codeInline>\</codeInline>) <legacyItalic>must</legacyItalic> either</para>
-        <list class="ordered">
-          <listItem>
-            <para>be enclosed in matching <codeInline>'</codeInline> or <codeInline>"</codeInline> characters, or</para>
-          </listItem>
-          <listItem>
-            <para>have all occurrences of these characters escaped, i.e. preceded by a <codeInline>\</codeInline> character.</para>
-          </listItem>
-        </list>
-        <para>Section headers define the following attributes:</para>
+        <para>
+          <command>{#identifier .class1 .class2 name1="value1" name2="value2" ...}</command>
+        </para>
+        <para>The following attributes are defined:</para>
       </content>
       <sections>
         <section address="identifier">
@@ -263,17 +258,20 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Attributes are unsupported.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Attributes are unsupported.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>
     </section>
     <relatedTopics>
       <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="6d46de4d-af1f-4b1d-9022-2d2a15f88482" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>

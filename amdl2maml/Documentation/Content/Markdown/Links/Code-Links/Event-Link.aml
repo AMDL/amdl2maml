@@ -7,6 +7,13 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
+    <section address="Syntax">
+      <title>Syntax</title>
+      <content>
+        <para>TBD.</para>
+        <alert>The link target cannot contain spaces.</alert>
+      </content>
+    </section>
     <section address="Examples">
       <title>Examples</title>
       <content>
@@ -38,11 +45,13 @@
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="bullet">
-              <listItem>
-                <para>Reference-style links are unsupported.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="bullet">
+                <listItem>
+                  <para>Reference-style links are unsupported.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
         <section address="Current Workaround">

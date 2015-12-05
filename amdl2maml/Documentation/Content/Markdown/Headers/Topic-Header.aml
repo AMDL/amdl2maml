@@ -31,72 +31,76 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>Two header syntaxes are accepted:</para>
+        <para>Two header syntaxes are defined:</para>
       </content>
       <sections>
-        <section address="1. setext-Style Topic Header:">
-          <title>1. setext-Style Topic Header:</title>
+        <section address="1. :">
+          <title>1. <newTerm>setext-Style Topic Header</newTerm>:</title>
           <content>
-            <list class="nobullet">
-              <listItem>
-                <para>A line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>zero to three space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>unformatted text, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, an attribute enclosure,</para>
-                  </listItem>
-                </list>
-              </listItem>
-              <listItem>
-                <para>followed by a line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>zero to three space characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>one or more <codeInline>=</codeInline> characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, any number of space characters.</para>
-                  </listItem>
-                </list>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>zero to three space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>unformatted text, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, an attribute enclosure;</para>
+                    </listItem>
+                  </list>
+                </listItem>
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>zero to three space characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>one or more <codeInline>=</codeInline> characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, any number of space characters.</para>
+                    </listItem>
+                  </list>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
-        <section address="2. ATX-Style Topic Header:">
-          <title>2. ATX-Style Topic Header:</title>
+        <section address="2. :">
+          <title>2. <newTerm>ATX-Style Topic Header</newTerm>:</title>
           <content>
-            <list class="nobullet">
-              <listItem>
-                <para>A line consisting of:</para>
-                <list class="ordered">
-                  <listItem>
-                    <para>optionally, up to three space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>a <codeInline>#</codeInline> character, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>one or more space characters, followed by</para>
-                  </listItem>
-                  <listItem>
-                    <para>unformatted text, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, any number of space characters followed by any number of <codeInline>#</codeInline> characters, followed by,</para>
-                  </listItem>
-                  <listItem>
-                    <para>optionally, an attribute enclosure.</para>
-                  </listItem>
-                </list>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>a line consisting of</para>
+                  <list class="ordered">
+                    <listItem>
+                      <para>optionally, up to three space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>a <codeInline>#</codeInline> character, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>one or more space characters, followed by</para>
+                    </listItem>
+                    <listItem>
+                      <para>unformatted text, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, any number of space characters followed by any number of <codeInline>#</codeInline> characters, followed by,</para>
+                    </listItem>
+                    <listItem>
+                      <para>optionally, an attribute enclosure.</para>
+                    </listItem>
+                  </list>
+                </listItem>
+              </list>
+            </para>
             <para>In both syntaxes the text must be XML-escaped, i.e.</para>
             <list class="bullet">
               <listItem>
@@ -154,19 +158,10 @@ Topic Header
       <title>Attributes</title>
       <content>
         <para>Topics can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
-        <code title="AMDL" language="none">
-	{#identifier .class1 .class2 name1=value1 name2=value2 ...}
-</code>
-        <para>All attribute values containing spaces, braces (<codeInline>{</codeInline> and <codeInline>}</codeInline>), or backslashes (<codeInline>\</codeInline>) <legacyItalic>must</legacyItalic> either</para>
-        <list class="ordered">
-          <listItem>
-            <para>be enclosed in matching <codeInline>'</codeInline> or <codeInline>"</codeInline> characters, or</para>
-          </listItem>
-          <listItem>
-            <para>have all occurrences of these characters escaped, i.e. preceded by a <codeInline>\</codeInline> character.</para>
-          </listItem>
-        </list>
-        <para>Topic headers define the following attributes:</para>
+        <para>
+          <command>{#identifier .class1 .class2 name1="value1" name2="value2" ...}</command>
+        </para>
+        <para>The following attributes are defined:</para>
       </content>
       <sections>
         <section address="identifier">
@@ -178,44 +173,6 @@ Topic Header
               <listItem>
                 <para>a globally unique string value used for resolving internal links to the topic.
 If no value is specified, a unique identifier will be assigned based on the topic file name; detailed algorithm TBD.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="tocOrder">
-          <title>
-            <codeInline>tocOrder</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>an integer value that will be used for determining the topic's placement in the Table of Contents.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="tocTitle">
-          <title>
-            <codeInline>tocTitle</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a string value that will be rendered as the link text in the link to the topic in the Table of Contents.
-If no attribute value is specified, the topic title will be used.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="linkText">
-          <title>
-            <codeInline>linkText</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a string value that will be rendered as the link text in internal links to the topic.
-If no attribute value is specified, the topic title will be used.</para>
               </listItem>
             </list>
           </content>
@@ -300,19 +257,22 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Topic titles are only read from the content file.</para>
-              </listItem>
-              <listItem>
-                <para>Attributes are unsupported.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Topic titles are only read from the content file.</para>
+                </listItem>
+                <listItem>
+                  <para>Attributes are unsupported.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>
     </section>
     <relatedTopics>
+      <link xlink:href="f744d653-f95c-412f-b281-80be77f4913e" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="4092517c-098d-4680-9efe-eaf5bb5019c0" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="e1613da4-e793-4fac-9728-6f52e04ee4ea" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />

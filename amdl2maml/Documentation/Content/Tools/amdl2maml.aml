@@ -95,7 +95,15 @@
                 <para>Ordered, bulleted and unbulleted lists.</para>
               </listItem>
               <listItem>
-                <para>Fenced, indented and inline code.</para>
+                <para>
+                  <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">Fenced</link> and <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">indented</link> code blocks.</para>
+              </listItem>
+              <listItem>
+                <para>
+                  <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">Commands</link> with <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">parameters</link> and <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">switches</link>.</para>
+              </listItem>
+              <listItem>
+                <para>Inline code.</para>
               </listItem>
               <listItem>
                 <para>Inline internal, local and code links.</para>
@@ -142,20 +150,19 @@
     <section address="Notice">
       <title>Notice</title>
       <content>
-        <para>Copyright © Dmitry Shechtman 2015</para>
-        <para>Licensed under the Apache License, Version 2.0 (the "License").
-You may obtain a copy of the License at</para>
-        <para>
-          <externalLink>
-            <linkUri>http://www.apache.org/licenses/LICENSE-2.0</linkUri>
-            <linkText>http://www.apache.org/licenses/LICENSE-2.0</linkText>
-          </externalLink>
-        </para>
-        <para>Unless required by applicable law or agreed to in writing, software
+        <code language="none">
+Copyright © Dmitry Shechtman 2015
+
+Licensed under the Apache License, Version 2.0 (the "License").
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
-limitations under the License.</para>
+limitations under the License.</code>
       </content>
     </section>
     <relatedTopics>

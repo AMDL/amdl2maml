@@ -30,11 +30,13 @@
         <section address="Limitations">
           <title>Limitations</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Inline spaces don't break superscript.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Inline spaces don't break superscript.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>

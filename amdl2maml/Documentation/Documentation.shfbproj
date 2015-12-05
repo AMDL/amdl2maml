@@ -90,6 +90,7 @@
     <Folder Include="Content\Markdown\Links" />
     <Folder Include="Content\Markdown\Links\Code-Links" />
     <Folder Include="Content\Structure" />
+    <Folder Include="Content\Structure\Metadata" />
     <Folder Include="Content\Structure\Topic-Types" />
     <Folder Include="Content\Tools" />
     <Folder Include="Content\VersionHistory" />
@@ -97,6 +98,18 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-UnmanagedCodeEntityReference.aml" />
+    <None Include="Content\Markdown\Links\Code-Links\Unmanaged-Link.aml" />
+    <None Include="Content\MAML\MAML-Block-Elements\MAML-Title.aml" />
+    <None Include="Content\MAML\MAML-Block-Elements\MAML-Alert.aml" />
+    <None Include="Content\Markdown\Block-Elements\Alert.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-System.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-Replaceable.aml" />
+    <None Include="Content\MAML\MAML-Inline-Elements\MAML-Command.aml" />
+    <None Include="Content\Markdown\Block-Elements\Indented-Code.aml" />
+    <None Include="Content\Structure\Metadata\Topic-Metadata.aml" />
+    <None Include="Content\MAML\MAML-Block-Elements\MAML-Code.aml" />
+    <None Include="Content\Markdown\Block-Elements\Fenced-Code.aml" />
     <None Include="Content\Markdown\Inline-Elements\Special-Weak-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Special-Strong-Emphasis.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-Literal.aml" />

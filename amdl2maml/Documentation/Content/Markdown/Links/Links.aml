@@ -6,11 +6,11 @@
 <topic id="4650d9b1-92cc-46dc-88ee-4b234fd1af78" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>links</newTerm>.</para>
+      <para>The topics in this section detail the AMDL syntax and semantics of <newTerm>link</newTerm> elements.</para>
     </summary>
     <introduction />
-    <section address="Links">
-      <title>Links</title>
+    <section address="Link Elements">
+      <title>Link Elements</title>
       <content>
         <list class="bullet">
           <listItem>

@@ -8,9 +8,8 @@
     <summary />
     <introduction>
       <para>The topics in this section detail the AMDL syntax and semantics of its <newTerm>Markdown elements</newTerm>.</para>
-      <para>
-        <legacyBold>Note:</legacyBold> In all occurrences of <legacyItalic>Syntax</legacyItalic> section contents contradicting any part of <externalLink><linkUri>http://spec.commonmark.org/0.22/</linkUri><linkText>The CommonMark Specification, Revision 0.22</linkText></externalLink>
-the latter shall take precedence, unless explicitly noted otherwise.</para>
+      <alert class="note">In all occurrences of <legacyItalic>Syntax</legacyItalic> section contents contradicting any part of <externalLink><linkUri>http://spec.commonmark.org/0.22/</linkUri><linkText>The CommonMark Specification, Revision 0.22</linkText></externalLink>
+the latter shall take precedence, unless explicitly noted otherwise.</alert>
     </introduction>
     <section address="Elements Shared by AMDL and PM">
       <title>Elements Shared by AMDL and PM</title>
@@ -54,6 +53,11 @@ the latter shall take precedence, unless explicitly noted otherwise.</para>
       <title>AMDL Elements Added on Top of PM</title>
       <content>
         <list class="bullet">
+          <listItem>
+            <para>
+              <link xlink:href="172094ac-632c-41d2-89a5-9b4263932d8c" />
+            </para>
+          </listItem>
           <listItem>
             <para>
               <link xlink:href="35b59fef-c95a-4d45-b9b0-faa3775814c7" />

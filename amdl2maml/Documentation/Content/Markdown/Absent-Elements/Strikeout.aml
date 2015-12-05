@@ -18,17 +18,19 @@
         <section address="Motivation">
           <title>Motivation</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>It is not standard Markdown.</para>
-              </listItem>
-              <listItem>
-                <para>No MAML counterpart is known to exist.</para>
-              </listItem>
-              <listItem>
-                <para>A trivial workaround exists, see <link xlink:href="#Workaround">Workaround</link>.</para>
-              </listItem>
-            </list>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>It is not standard Markdown.</para>
+                </listItem>
+                <listItem>
+                  <para>No MAML counterpart is known to exist.</para>
+                </listItem>
+                <listItem>
+                  <para>A trivial workaround exists, see <link xlink:href="#Workaround">Workaround</link>.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>

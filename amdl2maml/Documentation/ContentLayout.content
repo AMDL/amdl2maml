@@ -10,19 +10,26 @@
     <Topic id="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" visible="True" title="MAML File Types" tocTitle="File Types">
       <Topic id="f3a5769b-14ba-479d-b1b8-411a49dd09cb" visible="True" title="Topic File" />
     </Topic>
-    <Topic id="7304a0d6-08bc-4ff6-83b5-7ea97b5c70cf" visible="True" title="MAML Block Elements" tocTitle="Block Elements">
+    <Topic id="7304a0d6-08bc-4ff6-83b5-7ea97b5c70cf" visible="True" isExpanded="true" title="MAML Block Elements" tocTitle="Block Elements">
+      <Topic id="cc3f9eaa-6fc5-43a6-951f-c775b8911975" visible="True" title="&lt;alert&gt;" />
+      <Topic id="c811c110-0cb2-4737-abd7-3b3239ec3169" visible="True" title="&lt;code&gt;" />
       <Topic id="632e17ce-26cf-4455-a6ee-31e9dac8f05a" visible="True" title="&lt;definitionTable&gt;, &lt;definedTerm&gt;, &lt;definition&gt;" />
       <Topic id="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" visible="True" title="&lt;introduction&gt;" />
       <Topic id="4092517c-098d-4680-9efe-eaf5bb5019c0" visible="True" title="&lt;summary&gt;" />
+      <Topic id="6d46de4d-af1f-4b1d-9022-2d2a15f88482" visible="True" title="&lt;title&gt;" />
     </Topic>
-    <Topic id="41249bf2-dc38-4072-b367-4e13526f29a7" visible="True" title="MAML Inline Elements" tocTitle="Inline Elements">
+    <Topic id="41249bf2-dc38-4072-b367-4e13526f29a7" visible="True" isExpanded="true" title="MAML Inline Elements" tocTitle="Inline Elements">
+      <Topic id="7e481063-7390-4e4b-a2d6-006764a1a5b6" visible="True" title="&lt;command&gt;" />
       <Topic id="d348035c-2667-432b-9084-16544290874d" visible="True" title="&lt;legacyBold&gt;" />
       <Topic id="0d1b5b1e-59ed-4111-b976-0f8dbcd435a8" visible="True" title="&lt;legacyItalic&gt;" />
       <Topic id="c7ff7df3-d4f7-42a8-a70e-8739421ee5fb" visible="True" title="&lt;legacyUnderline&gt;" />
       <Topic id="ff2ec834-0d79-49a5-a7ac-8e2ec695f9ce" visible="True" title="&lt;literal&gt;" />
       <Topic id="6ca4512f-9b5d-4fe4-9131-0c892d068dde" visible="True" title="&lt;newTerm&gt;" />
+      <Topic id="99c6c320-a72e-457e-8ef8-42656484d3c2" visible="True" title="&lt;replaceable&gt;" />
       <Topic id="225a03f7-69e1-44f6-b7b5-8f14f373a75c" visible="True" title="&lt;subscript&gt;" />
       <Topic id="76f41a0c-9f41-40b4-81f5-e3f264d795ab" visible="True" title="&lt;superscript&gt;" />
+      <Topic id="11204e44-240f-4ea3-8348-dd22ceec41ae" visible="True" title="&lt;system&gt;" />
+      <Topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" visible="True" isSelected="true" title="&lt;unmanagedCodeEntityReference&gt;" />
     </Topic>
     <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" title="MAML Media Elements" tocTitle="Media Elements">
       <Topic id="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" visible="True" title="&lt;mediaLink&gt;" />
@@ -30,6 +37,9 @@
     </Topic>
   </Topic>
   <Topic id="0ff091f1-423f-486c-99fc-777c8aa8bad7" visible="True" isExpanded="true" title="Structure">
+    <Topic id="8cd895fd-8b7b-43c2-82ad-83f8e20b5111" visible="True" noFile="true" isExpanded="true" title="Metadata">
+      <Topic id="f744d653-f95c-412f-b281-80be77f4913e" visible="True" title="Topic Metadata" />
+    </Topic>
     <Topic id="3f8f2890-4623-4559-a188-11688942c6e2" visible="True" isExpanded="true" title="Topic Types">
       <Topic id="3df186a0-8f72-4d95-a987-2fed5cfe5cc6" visible="True" title="Empty Topic" />
       <Topic id="a7cc2634-ecd5-4902-8738-52fff958500f" visible="True" title="General Topic" />
@@ -43,8 +53,11 @@
       <Topic id="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" visible="True" title="Topic Header" />
       <Topic id="e1613da4-e793-4fac-9728-6f52e04ee4ea" visible="True" title="Section Header" />
     </Topic>
-    <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" title="Block Elements">
+    <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" isExpanded="true" title="Block Elements">
+      <Topic id="172094ac-632c-41d2-89a5-9b4263932d8c" visible="True" title="Alert" />
       <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
+      <Topic id="9d0d5628-0c3f-4774-957c-101597bb8245" visible="True" title="Fenced Code" />
+      <Topic id="c620a7ed-7c50-4eab-864e-aaefe7725a6c" visible="True" title="Indented Code" />
     </Topic>
     <Topic id="e5433304-0e12-43e3-9094-3342c62f5dc8" visible="True" isExpanded="true" title="Inline Elements">
       <Topic id="a61bf961-b3cd-45d2-861b-ca12b59106c4" visible="True" title="New Term" />
@@ -55,7 +68,7 @@
       <Topic id="7958aedc-83cb-417d-9c23-dd8a5be6d821" visible="True" title="Special Strong Emphasis" />
       <Topic id="35b59fef-c95a-4d45-b9b0-faa3775814c7" visible="True" title="Special Weak Emphasis" />
     </Topic>
-    <Topic id="4650d9b1-92cc-46dc-88ee-4b234fd1af78" visible="True" isExpanded="true" title="Links">
+    <Topic id="4650d9b1-92cc-46dc-88ee-4b234fd1af78" visible="True" isExpanded="true" title="Link Elements">
       <Topic id="36f3beb8-5259-44e2-a41e-43080fdf28b9" visible="True" isExpanded="true" title="Code Links">
         <Topic id="1e88e196-f485-4b80-b559-0499e03dec54" visible="True" title="Namespace Link" />
         <Topic id="d38f5687-e8c7-4035-9e3f-28e9f7b569ec" visible="True" title="Type Link" />
@@ -63,6 +76,7 @@
         <Topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" visible="True" title="Event Link" />
         <Topic id="35365556-1d87-4621-bad3-ff5309b10cc2" visible="True" title="Property Link" />
         <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" title="Method Link" />
+        <Topic id="cc445173-77d6-4367-b061-643eff15caa6" visible="True" title="Unmanaged Link" />
       </Topic>
     </Topic>
     <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Image" />
@@ -71,11 +85,11 @@
     </Topic>
   </Topic>
   <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
-    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" apiParentMode="InsertAsChild" title="AMDL to MAML Converter">
-      <Topic id="b5a804b7-2daa-42a5-b578-c604cc17f3a2" visible="True" title="Apache License, Version 2.0" />
+    <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" isExpanded="true" apiParentMode="InsertAsChild" title="AMDL to MAML Converter">
+      <Topic id="b5a804b7-2daa-42a5-b578-c604cc17f3a2" visible="True" title="Apache License, Version 2.0" tocTitle="License" />
     </Topic>
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />
-    <Topic id="d3a86f89-4c0f-4425-9ff1-3f9f02f4e31d" visible="True" isSelected="true" title="AMDL Editor" />
+    <Topic id="d3a86f89-4c0f-4425-9ff1-3f9f02f4e31d" visible="True" title="AMDL Editor" />
   </Topic>
   <Topic id="60c732b5-2209-435f-b01e-d111d6bdf6e1" visible="True" isExpanded="true" title="How To">
     <Topic id="f7e99efb-6f44-4a9c-9e91-91ff96bd603f" visible="True" title="How To Discuss AMDL" tocTitle="Discuss AMDL" linkText="How To Discuss AMDL" />

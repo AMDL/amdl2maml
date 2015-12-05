@@ -3,7 +3,7 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" revisionNumber="1">
+<topic id="cc445173-77d6-4367-b061-643eff15caa6" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
@@ -12,16 +12,14 @@
       <content>
         <para>TBD.</para>
         <alert>The link target cannot contain spaces.</alert>
+        <alert>This element does not result in an actual link to the referenced item.</alert>
       </content>
     </section>
-    <section address="Examples">
-      <title>Examples</title>
+    <section address="Example">
+      <title>Example</title>
       <content>
         <code title="AMDL" language="none">
-[M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)]
-</code>
-        <code title="AMDL" language="none">
-[Indexes the input folder](M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken))
+[U:SetWindowPlacement]
 </code>
       </content>
     </section>
@@ -29,10 +27,7 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)</codeEntityReference>
-        </para>
-        <para>
-          <codeEntityReference linkText="Indexes the input folder">M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)</codeEntityReference>
+          <unmanagedCodeEntityReference>SetWindowPlacement</unmanagedCodeEntityReference>
         </para>
       </content>
     </section>
@@ -58,13 +53,14 @@
           <title>Current Workaround</title>
           <content>
             <code title="AMDL" language="none">
-[](M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken))
+[](U:SetWindowPlacement)
 </code>
           </content>
         </section>
       </sections>
     </section>
     <relatedTopics>
+      <link xlink:href="69590c8c-f7e2-4e3e-8456-4ac38517c894" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="36f3beb8-5259-44e2-a41e-43080fdf28b9" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
     </relatedTopics>
   </developerConceptualDocument>

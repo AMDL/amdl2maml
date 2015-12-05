@@ -3,30 +3,20 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="522d44b1-5cd7-4403-987a-6f097fdc56ff" revisionNumber="1">
+<topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;mediaLinkInline&gt;</codeInline> element maps to <legacyItalic>Inline Image</legacyItalic>, see <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />.</para>
-      </content>
-    </section>
-    <section address="Example">
-      <title>Example</title>
-      <content>
-        <code title="AMDL" language="none">
-This is an inline image:
-![](Castle.png "Pirate Sandcastle")
-
-</code>
+        <para>The <codeInline>&lt;unmanagedCodeEntityReference&gt;</codeInline> directly maps to <link xlink:href="cc445173-77d6-4367-b061-643eff15caa6" />.</para>
       </content>
     </section>
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Limited.</para>
+        <para>Partial, pending parser modification.</para>
       </content>
       <sections>
         <section address="Limitations">
@@ -35,7 +25,7 @@ This is an inline image:
             <para>
               <list class="ordered">
                 <listItem>
-                  <para>Alt text is discarded.</para>
+                  <para>Reference-style links are unsupported.</para>
                 </listItem>
               </list>
             </para>
@@ -44,14 +34,15 @@ This is an inline image:
         <section address="Current Workaround">
           <title>Current Workaround</title>
           <content>
-            <para>Manually edit the image properties in the SHFB project.</para>
+            <code title="AMDL" language="none">
+[](U:SetWindowPlacement)
+</code>
           </content>
         </section>
       </sections>
     </section>
     <relatedTopics>
-      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
-      <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

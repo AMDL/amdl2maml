@@ -121,34 +121,35 @@ under this Public License. Your has a corresponding meaning.</para>
         <section address="a. License grant.">
           <title>a. License grant.</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Subject to the terms and conditions of this Public License, the Licensor
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Subject to the terms and conditions of this Public License, the Licensor
 hereby grants You a worldwide, royalty-free, non-sublicensable, non-
 exclusive, irrevocable license to exercise the Licensed Rights in the
 Licensed Material to:</para>
-                <list class="nobullet">
-                  <listItem>
-                    <para>A. reproduce and Share the Licensed Material, in whole or in part; and</para>
-                  </listItem>
-                  <listItem>
-                    <para>B. produce, reproduce, and Share Adapted Material.</para>
-                  </listItem>
-                </list>
-              </listItem>
-              <listItem>
-                <para>
-                  <legacyUnderline>Exceptions and Limitations</legacyUnderline>. For the avoidance of doubt, where
+                  <list class="nobullet">
+                    <listItem>
+                      <para>A. reproduce and Share the Licensed Material, in whole or in part; and</para>
+                    </listItem>
+                    <listItem>
+                      <para>B. produce, reproduce, and Share Adapted Material.</para>
+                    </listItem>
+                  </list>
+                </listItem>
+                <listItem>
+                  <para>
+                    <legacyUnderline>Exceptions and Limitations</legacyUnderline>. For the avoidance of doubt, where
 Exceptions and Limitations apply to Your use, this Public License does not
 apply, and You do not need to comply with its terms and conditions.</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <legacyUnderline>Term</legacyUnderline>. The term of this Public License is specified in Section 6(a).</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <legacyUnderline>Media and formats; technical modifications allowed</legacyUnderline>. The Licensor
+                </listItem>
+                <listItem>
+                  <para>
+                    <legacyUnderline>Term</legacyUnderline>. The term of this Public License is specified in Section 6(a).</para>
+                </listItem>
+                <listItem>
+                  <para>
+                    <legacyUnderline>Media and formats; technical modifications allowed</legacyUnderline>. The Licensor
 authorizes You to exercise the Licensed Rights in all media and formats
 whether now known or hereafter created, and to make technical modifications
 necessary to do so. The Licensor waives and/or agrees not to assert any
@@ -157,66 +158,69 @@ necessary to exercise the Licensed Rights, including technical
 modifications necessary to circumvent Effective Technological Measures. For
 purposes of this Public License, simply making modifications authorized by
 this Section 2(a)(4) never produces Adapted Material.</para>
-              </listItem>
-              <listItem>
-                <para>
-                  <legacyUnderline>Downstream recipients</legacyUnderline>.</para>
-                <list class="nobullet">
-                  <listItem>
-                    <para>A. <legacyUnderline>Offer from the Licensor – Licensed Material</legacyUnderline>. Every recipient of
+                </listItem>
+                <listItem>
+                  <para>
+                    <legacyUnderline>Downstream recipients</legacyUnderline>.</para>
+                  <list class="nobullet">
+                    <listItem>
+                      <para>A. <legacyUnderline>Offer from the Licensor – Licensed Material</legacyUnderline>. Every recipient of
 the Licensed Material automatically receives an offer from the
 Licensor to exercise the Licensed Rights under the terms and
 conditions of this Public License.</para>
-                  </listItem>
-                  <listItem>
-                    <para>B. <legacyUnderline>Additional offer from the Licensor – Adapted Material</legacyUnderline>. Every
+                    </listItem>
+                    <listItem>
+                      <para>B. <legacyUnderline>Additional offer from the Licensor – Adapted Material</legacyUnderline>. Every
 recipient of Adapted Material from You automatically receives an offer
 from the Licensor to exercise the Licensed Rights in the Adapted
 Material under the conditions of the Adapter’s License You apply.</para>
-                  </listItem>
-                  <listItem>
-                    <para>C. <legacyUnderline>No downstream restrictions</legacyUnderline>. You may not offer or impose any
+                    </listItem>
+                    <listItem>
+                      <para>C. <legacyUnderline>No downstream restrictions</legacyUnderline>. You may not offer or impose any
 additional or different terms or conditions on, or apply any Effective
 Technological Measures to, the Licensed Material if doing so restricts
 exercise of the Licensed Rights by any recipient of the Licensed
 Material.</para>
-                  </listItem>
-                </list>
-              </listItem>
-              <listItem>
-                <para>
-                  <legacyUnderline>No endorsement</legacyUnderline>. Nothing in this Public License constitutes or may be
+                    </listItem>
+                  </list>
+                </listItem>
+                <listItem>
+                  <para>
+                    <legacyUnderline>No endorsement</legacyUnderline>. Nothing in this Public License constitutes or may be
 construed as permission to assert or imply that You are, or that Your use
 of the Licensed Material is, connected with, or sponsored, endorsed, or
 granted official status by, the Licensor or others designated to receive
 attribution as provided in Section 3(a)(1)(A)(i).</para>
-              </listItem>
-            </list>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
         <section address="b. Other rights.">
           <title>b. Other rights.</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>Moral rights, such as the right of integrity, are not licensed under this
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Moral rights, such as the right of integrity, are not licensed under this
 Public License, nor are publicity, privacy, and/or other similar
 personality rights; however, to the extent possible, the Licensor waives
 and/or agrees not to assert any such rights held by the Licensor to the
 limited extent necessary to allow You to exercise the Licensed Rights, but
 not otherwise.</para>
-              </listItem>
-              <listItem>
-                <para>Patent and trademark rights are not licensed under this Public License.</para>
-              </listItem>
-              <listItem>
-                <para>To the extent possible, the Licensor waives any right to collect royalties
+                </listItem>
+                <listItem>
+                  <para>Patent and trademark rights are not licensed under this Public License.</para>
+                </listItem>
+                <listItem>
+                  <para>To the extent possible, the Licensor waives any right to collect royalties
 from You for the exercise of the Licensed Rights, whether directly or
 through a collecting society under any voluntary or waivable statutory or
 compulsory licensing scheme. In all other cases the Licensor expressly
 reserves any right to collect such royalties.</para>
-              </listItem>
-            </list>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>
@@ -231,62 +235,64 @@ following conditions.</para>
         <section address="a. Attribution.">
           <title>a. Attribution.</title>
           <content>
-            <list class="ordered">
-              <listItem>
-                <para>If You Share the Licensed Material (including in modified form), You must:</para>
-                <list class="nobullet">
-                  <listItem>
-                    <para>A. retain the following if it is supplied by the Licensor with the
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>If You Share the Licensed Material (including in modified form), You must:</para>
+                  <list class="nobullet">
+                    <listItem>
+                      <para>A. retain the following if it is supplied by the Licensor with the
 Licensed Material:</para>
-                    <list class="nobullet">
-                      <listItem>
-                        <para>i.  identification of the creator(s) of the Licensed Material and
+                      <list class="nobullet">
+                        <listItem>
+                          <para>i.  identification of the creator(s) of the Licensed Material and
 any others designated to receive attribution, in any reasonable
 manner requested by the Licensor (including by pseudonym if
 designated);</para>
-                      </listItem>
-                      <listItem>
-                        <para>ii. a copyright notice;</para>
-                      </listItem>
-                      <listItem>
-                        <para>iii.a notice that refers to this Public License;</para>
-                      </listItem>
-                      <listItem>
-                        <para>iv. a notice that refers to the disclaimer of warranties;</para>
-                      </listItem>
-                      <listItem>
-                        <para>v.  a URI or hyperlink to the Licensed Material to the extent
+                        </listItem>
+                        <listItem>
+                          <para>ii. a copyright notice;</para>
+                        </listItem>
+                        <listItem>
+                          <para>iii.a notice that refers to this Public License;</para>
+                        </listItem>
+                        <listItem>
+                          <para>iv. a notice that refers to the disclaimer of warranties;</para>
+                        </listItem>
+                        <listItem>
+                          <para>v.  a URI or hyperlink to the Licensed Material to the extent
 reasonably practicable;</para>
-                      </listItem>
-                    </list>
-                  </listItem>
-                  <listItem>
-                    <para>B. indicate if You modified the Licensed Material and retain an
+                        </listItem>
+                      </list>
+                    </listItem>
+                    <listItem>
+                      <para>B. indicate if You modified the Licensed Material and retain an
 indication of any previous modifications; and</para>
-                  </listItem>
-                  <listItem>
-                    <para>C. indicate the Licensed Material is licensed under this Public License,
+                    </listItem>
+                    <listItem>
+                      <para>C. indicate the Licensed Material is licensed under this Public License,
 and include the text of, or the URI or hyperlink to, this Public
 License.</para>
-                  </listItem>
-                </list>
-              </listItem>
-              <listItem>
-                <para>You may satisfy the conditions in Section 3(a)(1) in any reasonable manner
+                    </listItem>
+                  </list>
+                </listItem>
+                <listItem>
+                  <para>You may satisfy the conditions in Section 3(a)(1) in any reasonable manner
 based on the medium, means, and context in which You Share the Licensed
 Material. For example, it may be reasonable to satisfy the conditions by
 providing a URI or hyperlink to a resource that includes the required
 information.</para>
-              </listItem>
-              <listItem>
-                <para>If requested by the Licensor, You must remove any of the information
+                </listItem>
+                <listItem>
+                  <para>If requested by the Licensor, You must remove any of the information
 required by Section 3(a)(1)(A) to the extent reasonably practicable.</para>
-              </listItem>
-            </list>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
-        <section address="c. ShareAlike.">
-          <title>c. ShareAlike.</title>
+        <section address="b. ShareAlike.">
+          <title>b. ShareAlike.</title>
           <content>
             <para>In addition to the conditions in Section 3(a), if You Share Adapted Material
 You produce, the following conditions also apply.</para>
