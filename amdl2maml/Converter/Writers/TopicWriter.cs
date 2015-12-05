@@ -422,6 +422,9 @@ namespace Amdl.Maml.Converter.Writers
                     await WriteTableCellAsync(block);
                     break;
 #endif
+                case BlockTag.CustomContainer:
+                    await WriteAlertAsync(block);
+                    break;
 
                 case BlockTag.ReferenceDefinition:
                     break;
@@ -446,6 +449,14 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteParagraphAsync(Block block)
         {
+#if NOTE_WORKAROUND
+            var inline = block.InlineContent;
+            if (inline.Tag == InlineTag.Strong && "Note:".Equals(inline.FirstChild.LiteralContent))
+            {
+                await WriteAlertAsync(inline, "note");
+                return;
+            }
+#endif
             if (GetSectionState() != SectionState.SeeAlso)
             {
                 await WriteStartElementAsync("para");
@@ -456,6 +467,27 @@ namespace Amdl.Maml.Converter.Writers
             if (GetSectionState() != SectionState.SeeAlso)
                 await WriteEndElementAsync(); //para
         }
+
+        private async Task WriteAlertAsync(Block block)
+        {
+            await WriteStartElementAsync("alert");
+            var info = block.FencedCodeData.Info;
+            if (!string.IsNullOrEmpty(info))
+                await WriteAttributeStringAsync("class", info);
+            await WriteChildInlinesAsync(block);
+            await WriteEndElementAsync(); //alert
+        }
+
+#if NOTE_WORKAROUND
+        private async Task WriteAlertAsync(Inline inline, string @class)
+        {
+            await WriteStartElementAsync("alert");
+            await WriteAttributeStringAsync("class", @class);
+            for (inline = inline.NextSibling; inline != null; inline = inline.NextSibling)
+                await WriteInlineAsync(inline);
+            await WriteEndElementAsync(); //alert
+        }
+#endif
 
         private async Task WriteQuoteAsync(Block block)
         {
