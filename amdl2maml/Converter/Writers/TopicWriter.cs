@@ -208,6 +208,7 @@ namespace Amdl.Maml.Converter.Writers
             this.topic = topic;
             this.name2topic = name2topic;
             this.writer = writer;
+            this.commandWriter = new Lazy<Writers.CommandWriter>(CreateCommandWriter);
         }
 
         #endregion
@@ -1219,10 +1220,15 @@ namespace Amdl.Maml.Converter.Writers
             get { return Topic.Id; }
         }
 
-        private CommandWriter commandWriter;
+        private Lazy<CommandWriter> commandWriter;
         private CommandWriter CommandWriter
         {
-            get { return commandWriter ?? (commandWriter = new CommandWriter(writer)); }
+            get { return commandWriter.Value; }
+        }
+
+        private Writers.CommandWriter CreateCommandWriter()
+        {
+            return new CommandWriter(writer);
         }
 
         #endregion
