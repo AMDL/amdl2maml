@@ -16,22 +16,8 @@
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Partial, pending parser modification.</para>
+        <para>Complete.</para>
       </content>
-      <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
-          <content>
-            <para>
-              <list class="ordered">
-                <listItem>
-                  <para>Opening digits are accepted.</para>
-                </listItem>
-              </list>
-            </para>
-          </content>
-        </section>
-      </sections>
     </section>
     <relatedTopics>
       <link xlink:href="41249bf2-dc38-4072-b367-4e13526f29a7" />

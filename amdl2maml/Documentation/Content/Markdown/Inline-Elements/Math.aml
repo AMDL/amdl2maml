@@ -14,20 +14,33 @@
     <section address="Function">
       <title>Function</title>
       <content>
-        <para>TBD.</para>
+        <para>Denote a mathematical expression.</para>
       </content>
     </section>
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>TBD.</para>
+        <para>A math element consists of:</para>
+        <list class="ordered">
+          <listItem>
+            <para>a <codeInline>$</codeInline> character, followed by</para>
+          </listItem>
+          <listItem>
+            <para>
+              <legacyItalic>formatted text</legacyItalic>, followed by</para>
+          </listItem>
+          <listItem>
+            <para>a <codeInline>$</codeInline> character.</para>
+          </listItem>
+        </list>
+        <alert>The formatted text must not start with space, a digit or a <codeInline>$</codeInline> character, and it must not end with space.</alert>
       </content>
     </section>
     <section address="Example">
       <title>Example</title>
       <content>
         <code title="AMDL" language="none">
-$E=mc^2^$
+$Just my $0.02$.
 </code>
       </content>
     </section>
@@ -35,8 +48,7 @@ $E=mc^2^$
       <title>Example Output</title>
       <content>
         <para>
-          <math>E=mc<superscript>2</superscript></math>
-        </para>
+          <math>Just my $0.02</math>.</para>
       </content>
     </section>
     <section address="Differences from PM">
@@ -44,7 +56,7 @@ $E=mc^2^$
       <content>
         <list class="ordered">
           <listItem>
-            <para>PM treats the contents of <legacyItalic>math</legacyItalic> elements as having TeX syntax.</para>
+            <para>PM treats the contents of math elements as having TeX syntax.</para>
           </listItem>
         </list>
       </content>
@@ -52,22 +64,8 @@ $E=mc^2^$
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Partial.</para>
+        <para>Complete.</para>
       </content>
-      <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
-          <content>
-            <para>
-              <list class="ordered">
-                <listItem>
-                  <para>Opening digits are accepted.</para>
-                </listItem>
-              </list>
-            </para>
-          </content>
-        </section>
-      </sections>
     </section>
     <relatedTopics>
       <link xlink:href="5b750e6b-fc9d-4db8-af89-c8722c28745d" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />

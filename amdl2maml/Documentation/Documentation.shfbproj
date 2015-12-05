@@ -82,7 +82,6 @@
     <Folder Include="Content\MAML\MAML-Media-Elements" />
     <Folder Include="Content\Markdown" />
     <Folder Include="Content\Markdown\Image" />
-    <Folder Include="Content\Markdown\Headers" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
@@ -98,6 +97,8 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Block-Elements\Topic-Header.aml" />
+    <None Include="Content\Markdown\Block-Elements\Section-Header.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-CodeInline.aml" />
     <None Include="Content\Markdown\Inline-Elements\Inline-Code.aml" />
     <None Include="Content\Markdown\Inline-Elements\Math.aml" />
@@ -120,7 +121,6 @@
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-NewTerm.aml" />
     <None Include="Content\Markdown\Inline-Elements\New-Term.aml" />
     <None Include="Content\Tools\amdl-Editor.aml" />
-    <None Include="Content\How-I-Created-AMDL.aml" />
     <None Include="Content\Structure\Topic-Types\Orientation-Topic.aml" />
     <None Include="Content\Structure\Topic-Types\How-To-Topic.aml" />
     <None Include="Content\Structure\Topic-Types\Glossary-Topic.aml" />
@@ -158,9 +158,6 @@
     <None Include="Content\Markdown\Block-Elements\Definition-List.aml" />
     <None Include="Content\Markdown\Absent-Elements\Absent-Elements.aml" />
     <None Include="Content\Markdown\Absent-Elements\Strikeout.aml" />
-    <None Include="Content\Markdown\Headers\Headers.aml" />
-    <None Include="Content\Markdown\Headers\Section-Header.aml" />
-    <None Include="Content\Markdown\Headers\Topic-Header.aml" />
     <None Include="Content\Markdown\Inline-Elements\Ordinary-Weak-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Inline-Elements.aml" />
     <None Include="Content\Markdown\Inline-Elements\Ordinary-Strong-Emphasis.aml" />

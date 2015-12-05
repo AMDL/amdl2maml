@@ -149,7 +149,7 @@ Topic Header
             <para>This topic's header.</para>
           </listItem>
           <listItem>
-            <para>The header of the <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" /> topic.</para>
+            <para>The header of the <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" /> topic.</para>
           </listItem>
         </list>
       </content>
@@ -157,22 +157,38 @@ Topic Header
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>Topics can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <para>Topics may be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
         <para>
-          <command>{#identifier .class1 .class2 name1="value1" name2="value2" ...}</command>
+          <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>
         <para>The following attributes are defined:</para>
       </content>
       <sections>
-        <section address="identifier">
+        <section address="">
           <title>
-            <codeInline>identifier</codeInline>
+            <legacyItalic>
+              <codeInline>identifier</codeInline>
+            </legacyItalic>
           </title>
           <content>
             <list class="nobullet">
               <listItem>
                 <para>a globally unique string value used for resolving internal links to the topic.
 If no value is specified, a unique identifier will be assigned based on the topic file name; detailed algorithm TBD.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="">
+          <title>
+            <legacyItalic>
+              <codeInline>class</codeInline>
+            </legacyItalic>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>Ignored.</para>
               </listItem>
             </list>
           </content>
@@ -184,7 +200,7 @@ If no value is specified, a unique identifier will be assigned based on the topi
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a boolean value indicating whether an automatic topic outline should be generated.
+                <para>a Boolean value indicating whether an automatic topic outline should be generated.
 If no attribute value is specified, a topic outline <legacyItalic>should</legacyItalic> be generated for a topic with a setext-style header,
 and <legacyItalic>should not</legacyItalic> be generated for a section with an ATX-style header.</para>
               </listItem>
@@ -225,12 +241,11 @@ If no attribute value is specified, a default lead-in text <legacyItalic>may</le
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a boolean value indicating whether the top-level <legacyItalic>See Also</legacyItalic> section will be excluded from the automatic topic outline, if both are generated.
+                <para>a Boolean value indicating whether the top-level <legacyItalic>See Also</legacyItalic> section will be excluded from the automatic topic outline, if both are generated.
 If no attribute value is specified, the top-level <legacyItalic>See Also</legacyItalic> section <legacyItalic>should</legacyItalic> be excluded if it has an ATX-style header,
 and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style header.</para>
               </listItem>
             </list>
-            <para>Class specifications <legacyItalic>should</legacyItalic> be ignored, but <legacyItalic>must</legacyItalic> be accepted as valid input.</para>
           </content>
         </section>
       </sections>
@@ -273,7 +288,7 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
     </section>
     <relatedTopics>
       <link xlink:href="f744d653-f95c-412f-b281-80be77f4913e" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
-      <link xlink:href="ee6bbac9-d239-468a-8e3f-c3512a5dbef0" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="4092517c-098d-4680-9efe-eaf5bb5019c0" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="e1613da4-e793-4fac-9728-6f52e04ee4ea" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>

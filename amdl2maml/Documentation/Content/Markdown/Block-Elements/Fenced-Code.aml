@@ -137,16 +137,18 @@ Tilde code block
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>Fenced code blocks can be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <para>Fenced code blocks may be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
         <para>
-          <command>{#identifier .class1 .class2 name1="value1" name2="value2" ...}</command>
+          <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>
         <para>The following attributes are defined:</para>
       </content>
       <sections>
-        <section address="identifier">
+        <section address="">
           <title>
-            <codeInline>identifier</codeInline>
+            <legacyItalic>
+              <codeInline>identifier</codeInline>
+            </legacyItalic>
           </title>
           <content>
             <list class="nobullet">
@@ -169,22 +171,27 @@ If no value is specified, a unique identifier will be derived from:</para>
             </list>
           </content>
         </section>
-        <section address="class">
+        <section address="">
           <title>
-            <codeInline>class</codeInline>
+            <legacyItalic>
+              <codeInline>class</codeInline>
+            </legacyItalic>
           </title>
           <content>
-            <para>
-              <list class="bullet">
-                <listItem>
-                  <para>
-                    <codeInline>numberLines</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <link xlink:href="#numberLines"><codeInline>numberLines</codeInline></link>, or</para>
-                </listItem>
-                <listItem>
-                  <para>language - equivalent to specifying the value of <link xlink:href="#language"><codeInline>language</codeInline></link>.</para>
-                </listItem>
-              </list>
-            </para>
+            <list class="nobullet">
+              <listItem>
+                <para>any of the following:</para>
+                <list class="bullet">
+                  <listItem>
+                    <para>
+                      <codeInline>numberLines</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <link xlink:href="#numberLines"><codeInline>numberLines</codeInline></link></para>
+                  </listItem>
+                  <listItem>
+                    <para>language - equivalent to specifying the value of <link xlink:href="#language"><codeInline>language</codeInline></link>.</para>
+                  </listItem>
+                </list>
+              </listItem>
+            </list>
           </content>
         </section>
         <section address="language">
