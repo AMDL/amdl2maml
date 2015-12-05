@@ -532,6 +532,10 @@ namespace Amdl.Maml.Converter.Writers
                     await WriteSuperscriptAsync(inline);
                     break;
 
+                case InlineTag.Math:
+                    await WriteMathAsync(inline);
+                    break;
+
                 case InlineTag.SoftBreak:
                     await WriteSoftLineBreakAsync();
                     break;
@@ -657,6 +661,13 @@ namespace Amdl.Maml.Converter.Writers
             await WriteStartElementAsync("superscript");
             await WriteChildInlinesAsync(inline);
             await WriteEndElementAsync(); //superscript;
+        }
+
+        private async Task WriteMathAsync(Inline inline)
+        {
+            await WriteStartElementAsync("math");
+            await WriteChildInlinesAsync(inline);
+            await WriteEndElementAsync(); //math;
         }
 
         private async Task WriteStrikethroughAsync(Inline inline)
