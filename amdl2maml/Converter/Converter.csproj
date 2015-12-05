@@ -36,6 +36,8 @@
     <DocumentationFile>bin\Release\Amdl.Maml.Converter.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Writers\BlockWriter.cs" />
+    <Compile Include="Writers\CommandWriter.cs" />
     <Compile Include="Writers\GeneralTopicWriter.cs" />
     <Compile Include="Writers\EmptyTopicWriter.cs" />
     <Compile Include="Writers\GlossaryTopicWriter.cs" />

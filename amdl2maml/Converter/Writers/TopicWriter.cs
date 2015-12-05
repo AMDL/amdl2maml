@@ -773,9 +773,9 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteIndentedCodeAsync(Block block)
         {
-            var content = block.StringContent.ToString().Trim('\n');
+            var content = GetAllLiteralContent(block.InlineContent);
             if (!content.Cast<char>().Contains('\n'))
-                await WriteCommandAsync(content);
+                await WriteCommandAsync(block);
             else
                 await WriteCodeAsync(content, null);
         }
@@ -787,13 +787,9 @@ namespace Amdl.Maml.Converter.Writers
             await WriteCodeAsync(content, info);
         }
 
-        private async Task WriteCommandAsync(string content)
+        private async Task WriteCommandAsync(Block block)
         {
-            await WriteStartElementAsync("para");
-            await WriteStartElementAsync("command");
-            await WriteStringAsync(content);
-            await WriteEndElementAsync(); //command
-            await WriteEndElementAsync(); //para
+            await CommandWriter.WriteAsync(block);
         }
 
         private async Task WriteCodeAsync(string content, string info)
@@ -1163,6 +1159,12 @@ namespace Amdl.Maml.Converter.Writers
         private Guid Id
         {
             get { return Topic.Id; }
+        }
+
+        private CommandWriter commandWriter;
+        private CommandWriter CommandWriter
+        {
+            get { return commandWriter ?? (commandWriter = new CommandWriter(writer)); }
         }
 
         #endregion
