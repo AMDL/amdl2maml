@@ -58,6 +58,7 @@
     <Compile Include="TopicParser.cs" />
     <Compile Include="TopicParserResult.cs" />
     <Compile Include="TopicUpdater.cs" />
+    <Compile Include="Writers\WriterState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CommonMark">

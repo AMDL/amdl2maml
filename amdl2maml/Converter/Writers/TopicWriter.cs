@@ -12,6 +12,13 @@ using System.Xml;
 
 namespace Amdl.Maml.Converter.Writers
 {
+    internal enum ListClass
+    {
+        NoBullet,
+        Bullet,
+        Ordered,
+    }
+
     /// <summary>
     /// AMDL topic writer.
     /// </summary>
@@ -104,94 +111,12 @@ namespace Amdl.Maml.Converter.Writers
 
         #endregion
 
-        #region Nested Types
-
-        internal enum ListClass
-        {
-            NoBullet,
-            Bullet,
-            Ordered,
-        }
-
-        enum TopicState
-        {
-            None,
-            Summary,
-            Introduction,
-            Content,
-        }
-
-        internal enum SectionState
-        {
-            None,
-            Content,
-            Sections,
-            SeeAlso,
-        }
-
-        enum BlockState
-        {
-            None,
-            Start,
-        }
-
-        enum InlineState
-        {
-            None,
-            Start,
-        }
-
-        enum MarkupState
-        {
-            None,
-            Inline,
-        }
-
-        /// <summary>
-        /// See Also group type.
-        /// </summary>
-        enum SeeAlsoGroupType
-        {
-            /// <summary>
-            /// None.
-            /// </summary>
-            None,
-
-            /// <summary>
-            /// Concepts.
-            /// </summary>
-            Concepts,
-
-            /// <summary>
-            /// Other Resources.
-            /// </summary>
-            OtherResources,
-
-            /// <summary>
-            /// Reference.
-            /// </summary>
-            Reference,
-
-            /// <summary>
-            /// Tasks.
-            /// </summary>
-            Tasks,
-        }
-
-        #endregion
-
         #region Fields
 
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> name2topic;
         private readonly XmlWriter writer;
-
-        private TopicState topicState;
-        private Stack<SectionState> sectionStates;
-        private BlockState blockState;
-        private InlineState inlineState;
-        private MarkupState markupState;
-        private SeeAlsoGroupType seeAlsoGroup;
+        private readonly WriterState state;
 
         #endregion
 
@@ -208,6 +133,7 @@ namespace Amdl.Maml.Converter.Writers
             this.topic = topic;
             this.name2topic = name2topic;
             this.writer = writer;
+            this.state = new WriterState();
             this.commandWriter = new Lazy<Writers.CommandWriter>(CreateCommandWriter);
         }
 
@@ -279,9 +205,6 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteDocumentAsync(Block block)
         {
-            sectionStates = new Stack<SectionState>();
-            sectionStates.Push(SectionState.None);
-
             await writer.WriteStartDocumentAsync()
                 .ConfigureAwait(false);
 
@@ -316,15 +239,15 @@ namespace Amdl.Maml.Converter.Writers
         private async Task WriteStartSummaryAsync()
         {
             await WriteStartElementAsync("summary");
-            topicState = TopicState.Summary;
+            TopicState = TopicState.Summary;
         }
 
         private async Task WriteEndSummaryAsync()
         {
-            if (topicState == TopicState.Summary)
+            if (TopicState == TopicState.Summary)
             {
                 await WriteEndElementAsync(); //summary
-                topicState = TopicState.Content;
+                TopicState = TopicState.Content;
             }
         }
 
@@ -333,15 +256,15 @@ namespace Amdl.Maml.Converter.Writers
             await WriteStartElementAsync("introduction");
             await WriteAutoOutlineAsync(block);
 
-            topicState = TopicState.Introduction;
+            TopicState = TopicState.Introduction;
         }
 
         internal virtual async Task WriteEndIntroductionAsync()
         {
-            if (topicState == TopicState.Introduction)
+            if (TopicState == TopicState.Introduction)
             {
                 await WriteEndElementAsync(); //introduction
-                topicState = TopicState.Content;
+                TopicState = TopicState.Content;
             }
         }
 
@@ -349,7 +272,7 @@ namespace Amdl.Maml.Converter.Writers
         {
             await DoWriteStartSeeAlso(level);
             SetSectionState(SectionState.SeeAlso);
-            seeAlsoGroup = SeeAlsoGroupType.None;
+            SeeAlsoGroup = SeeAlsoGroupType.None;
         }
 
         internal virtual async Task DoWriteStartSeeAlso(int level)
@@ -364,9 +287,9 @@ namespace Amdl.Maml.Converter.Writers
         {
             SeeAlsoGroupType group;
             if (SeeAlsoGroups.TryGetValue(title, out group))
-                seeAlsoGroup = group;
+                SeeAlsoGroup = group;
             else
-                seeAlsoGroup = SeeAlsoGroupType.None;
+                SeeAlsoGroup = SeeAlsoGroupType.None;
         }
 
         #endregion
@@ -461,8 +384,8 @@ namespace Amdl.Maml.Converter.Writers
             if (GetSectionState() != SectionState.SeeAlso)
             {
                 await WriteStartElementAsync("para");
-                if (blockState == BlockState.None)
-                    blockState = BlockState.Start;
+                if (BlockState == BlockState.None)
+                    BlockState = BlockState.Start;
             }
             await WriteChildInlinesAsync(block);
             if (GetSectionState() != SectionState.SeeAlso)
@@ -567,9 +490,9 @@ namespace Amdl.Maml.Converter.Writers
             for (var inline = block.InlineContent; inline != null; inline = inline.NextSibling)
             {
                 await WriteInlineAsync(inline);
-                inlineState = InlineState.Start;
+                InlineState = InlineState.Start;
             }
-            inlineState = InlineState.None;
+            InlineState = InlineState.None;
             await WriteEndMarkupInlineAsync();
         }
 
@@ -729,13 +652,13 @@ namespace Amdl.Maml.Converter.Writers
             while (block.HeaderLevel > SectionLevel)
             {
                 var state = await DoWriteStartSectionAsync(block, title);
-                sectionStates.Push(state);
+                SectionStates.Push(state);
             }
         }
 
         internal virtual async Task<SectionState> DoWriteStartSectionAsync(Block block, string title)
         {
-            var state = sectionStates.Peek();
+            var state = GetSectionState();
             if (state == SectionState.Content)
             {
                 await WriteEndElementAsync(); //content
@@ -752,7 +675,7 @@ namespace Amdl.Maml.Converter.Writers
             await WriteStartElementAsync("content");
             await WriteAutoOutlineAsync(block);
 
-            blockState = BlockState.None;
+            BlockState = BlockState.None;
 
             return SectionState.Content;
         }
@@ -782,9 +705,9 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteEndSectionsAsync(int level)
         {
-            while (sectionStates.Count() >= level)
+            while (SectionStates.Count() >= level)
             {
-                var state = sectionStates.Pop();
+                var state = SectionStates.Pop();
                 await WriteEndSectionAsync(state);
             }
         }
@@ -797,18 +720,18 @@ namespace Amdl.Maml.Converter.Writers
 
         internal void SetSectionState(SectionState state)
         {
-            sectionStates.Pop();
-            sectionStates.Push(state);
+            SectionStates.Pop();
+            SectionStates.Push(state);
         }
 
         internal SectionState GetSectionState()
         {
-            return sectionStates.Peek();
+            return SectionStates.Peek();
         }
 
         internal int SectionLevel
         {
-            get { return sectionStates.Count(); }
+            get { return SectionStates.Count(); }
         }
 
         #endregion Section
@@ -1014,16 +937,16 @@ namespace Amdl.Maml.Converter.Writers
 
         private Guid GetGroupId()
         {
-            return SeeAlsoGroupIds[seeAlsoGroup];
+            return SeeAlsoGroupIds[SeeAlsoGroup];
         }
 
-        #endregion
+        #endregion Link
 
         #region Image
 
         private async Task WriteImageAsync(Inline inline)
         {
-            if (inlineState == InlineState.Start || inline.NextSibling != null)
+            if (InlineState == InlineState.Start || inline.NextSibling != null)
                 await WriteInlineImageAsync(inline);
             else
                 await WriteBlockImageAsync(inline);
@@ -1064,12 +987,12 @@ namespace Amdl.Maml.Converter.Writers
         internal virtual async Task WriteListAsync(Block block)
         {
             var listClass = GetListClass(block);
-            var isParagraph = SectionLevel > 2 && blockState == BlockState.None
+            var isParagraph = SectionLevel > 2 && BlockState == BlockState.None
                 && (listClass == ListClass.Ordered || listClass == ListClass.Bullet);
             if (isParagraph)
             {
                 await WriteStartElementAsync("para");
-                blockState = BlockState.Start;
+                BlockState = BlockState.Start;
             }
 
             await WriteStartElementAsync("list");
@@ -1188,7 +1111,7 @@ namespace Amdl.Maml.Converter.Writers
             if (!IsInMarkupInline)
             {
                 await WriteStartElementAsync("markup");
-                markupState = MarkupState.Inline;
+                MarkupState = MarkupState.Inline;
             }
         }
 
@@ -1197,7 +1120,7 @@ namespace Amdl.Maml.Converter.Writers
             if (IsInMarkupInline)
             {
                 await WriteEndElementAsync(); //markup
-                markupState = MarkupState.None;
+                MarkupState = MarkupState.None;
             }
         }
 
@@ -1207,7 +1130,7 @@ namespace Amdl.Maml.Converter.Writers
 
         private bool IsInMarkupInline
         {
-            get { return markupState == MarkupState.Inline; }
+            get { return MarkupState == MarkupState.Inline; }
         }
 
         private TopicData Topic
@@ -1218,6 +1141,90 @@ namespace Amdl.Maml.Converter.Writers
         private Guid Id
         {
             get { return Topic.Id; }
+        }
+
+        private TopicState TopicState
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.TopicState;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                state.TopicState = value;
+            }
+        }
+
+        private Stack<SectionState> SectionStates
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.SectionStates;
+            }
+        }
+
+        private BlockState BlockState
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.BlockState;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                state.BlockState = value;
+            }
+        }
+
+        private InlineState InlineState
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.InlineState;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                state.InlineState = value;
+            }
+        }
+
+        private MarkupState MarkupState
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.MarkupState;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                state.MarkupState = value;
+            }
+        }
+
+        private SeeAlsoGroupType SeeAlsoGroup
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return state.SeeAlsoGroup;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                state.SeeAlsoGroup = value;
+            }
         }
 
         private Lazy<CommandWriter> commandWriter;
