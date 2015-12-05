@@ -373,23 +373,18 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteParagraphAsync(Block block)
         {
-#if NOTE_WORKAROUND
-            var inline = block.InlineContent;
-            if (inline.Tag == InlineTag.Strong && "Note:".Equals(inline.FirstChild.LiteralContent))
-            {
-                await WriteAlertAsync(inline, "note");
-                return;
-            }
-#endif
             if (GetSectionState() != SectionState.SeeAlso)
-            {
-                await WriteStartElementAsync("para");
-                if (BlockState == BlockState.None)
-                    BlockState = BlockState.Start;
-            }
+                await WriteStartParagraphAsync();
             await WriteChildInlinesAsync(block);
             if (GetSectionState() != SectionState.SeeAlso)
                 await WriteEndElementAsync(); //para
+        }
+
+        private async Task WriteStartParagraphAsync()
+        {
+            await WriteStartElementAsync("para");
+            if (BlockState == BlockState.None)
+                BlockState = BlockState.Start;
         }
 
         private async Task WriteAlertAsync(Block block)
@@ -401,17 +396,6 @@ namespace Amdl.Maml.Converter.Writers
             await WriteChildInlinesAsync(block);
             await WriteEndElementAsync(); //alert
         }
-
-#if NOTE_WORKAROUND
-        private async Task WriteAlertAsync(Inline inline, string @class)
-        {
-            await WriteStartElementAsync("alert");
-            await WriteAttributeStringAsync("class", @class);
-            for (inline = inline.NextSibling; inline != null; inline = inline.NextSibling)
-                await WriteInlineAsync(inline);
-            await WriteEndElementAsync(); //alert
-        }
-#endif
 
         private async Task WriteQuoteAsync(Block block)
         {
@@ -990,10 +974,7 @@ namespace Amdl.Maml.Converter.Writers
             var isParagraph = SectionLevel > 2 && BlockState == BlockState.None
                 && (listClass == ListClass.Ordered || listClass == ListClass.Bullet);
             if (isParagraph)
-            {
-                await WriteStartElementAsync("para");
-                BlockState = BlockState.Start;
-            }
+                await WriteStartParagraphAsync();
 
             await WriteStartElementAsync("list");
             await WriteListClassAsync(listClass);
