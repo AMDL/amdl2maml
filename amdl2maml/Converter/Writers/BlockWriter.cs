@@ -26,6 +26,18 @@ namespace Amdl.Maml.Converter.Writers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteAttributeStringAsync(string localName, string value)
+        {
+            return writer.WriteAttributeStringAsync(null, localName, null, value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteAttributeStringAsync(string prefix, string localName, string ns, string value)
+        {
+            return writer.WriteAttributeStringAsync(prefix, localName, ns, value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Task WriteStringAsync(string text)
         {
             return writer.WriteStringAsync(text);
