@@ -10,12 +10,12 @@
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;command&gt;</codeInline> element directly maps to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">command</link>.</para>
+        <para>The <codeInline>&lt;command&gt;</codeInline> element directly maps to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#command">command</link>.</para>
         <alert class="note">
           <externalLink>
             <linkUri>http://ewsoftware.github.io/MAMLGuide</linkUri>
             <linkText>Sandcastle MAML Guide</linkText>
-          </externalLink> lists <codeInline>&lt;command&gt;</codeInline> as an inline element, whereas AMDL interprets <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">command</link> as a block element.</alert>
+          </externalLink> lists <codeInline>&lt;command&gt;</codeInline> as an inline element, whereas AMDL interprets <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#command">command</link> as a block element.</alert>
       </content>
     </section>
     <section address="amdl2maml Support">

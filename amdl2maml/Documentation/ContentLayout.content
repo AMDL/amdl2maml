@@ -7,10 +7,11 @@
   </Topic>
   <Topic id="d8f382af-8f28-4e32-98a2-6f8e7ddf2cf5" visible="True" title="AMDL Design Principles" tocTitle="Design Principles" />
   <Topic id="580efa0a-5f59-441d-9def-b2de59d71159" visible="True" isExpanded="true" title="MAML">
-    <Topic id="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" visible="True" title="MAML File Types" tocTitle="File Types">
+    <Topic id="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" visible="True" isExpanded="true" title="MAML File Types" tocTitle="File Types" linkText="MAML File Types">
       <Topic id="f3a5769b-14ba-479d-b1b8-411a49dd09cb" visible="True" title="Topic File" />
+      <Topic id="656a514d-7624-476c-a218-b6596532e0ae" visible="True" title="Companion File" />
     </Topic>
-    <Topic id="7304a0d6-08bc-4ff6-83b5-7ea97b5c70cf" visible="True" title="MAML Block Elements" tocTitle="Block Elements">
+    <Topic id="7304a0d6-08bc-4ff6-83b5-7ea97b5c70cf" visible="True" title="MAML Block Elements" tocTitle="Block Elements" linkText="MAML Block Elements">
       <Topic id="cc3f9eaa-6fc5-43a6-951f-c775b8911975" visible="True" title="&lt;alert&gt;" />
       <Topic id="c811c110-0cb2-4737-abd7-3b3239ec3169" visible="True" title="&lt;code&gt;" />
       <Topic id="632e17ce-26cf-4455-a6ee-31e9dac8f05a" visible="True" title="&lt;definitionTable&gt;, &lt;definedTerm&gt;, &lt;definition&gt;" />
@@ -18,7 +19,7 @@
       <Topic id="4092517c-098d-4680-9efe-eaf5bb5019c0" visible="True" title="&lt;summary&gt;" />
       <Topic id="6d46de4d-af1f-4b1d-9022-2d2a15f88482" visible="True" title="&lt;title&gt;" />
     </Topic>
-    <Topic id="41249bf2-dc38-4072-b367-4e13526f29a7" visible="True" title="MAML Inline Elements" tocTitle="Inline Elements">
+    <Topic id="41249bf2-dc38-4072-b367-4e13526f29a7" visible="True" title="MAML Inline Elements" tocTitle="Inline Elements" linkText="MAML Inline Elements">
       <Topic id="7e481063-7390-4e4b-a2d6-006764a1a5b6" visible="True" title="&lt;command&gt;" />
       <Topic id="482215cc-37a2-489b-be05-48edde4d1851" visible="True" title="&lt;codeInline&gt;" />
       <Topic id="d348035c-2667-432b-9084-16544290874d" visible="True" title="&lt;legacyBold&gt;" />
@@ -33,13 +34,13 @@
       <Topic id="11204e44-240f-4ea3-8348-dd22ceec41ae" visible="True" title="&lt;system&gt;" />
       <Topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" visible="True" title="&lt;unmanagedCodeEntityReference&gt;" />
     </Topic>
-    <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" title="MAML Media Elements" tocTitle="Media Elements">
+    <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" title="MAML Media Elements" tocTitle="Media Elements" linkText="MAML Media Elements">
       <Topic id="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" visible="True" title="&lt;mediaLink&gt;" />
       <Topic id="522d44b1-5cd7-4403-987a-6f097fdc56ff" visible="True" title="&lt;mediaLinkInline&gt;" />
     </Topic>
   </Topic>
   <Topic id="0ff091f1-423f-486c-99fc-777c8aa8bad7" visible="True" isExpanded="true" title="Structure">
-    <Topic id="8cd895fd-8b7b-43c2-82ad-83f8e20b5111" visible="True" noFile="true" isExpanded="true" isSelected="true" title="Metadata">
+    <Topic id="8cd895fd-8b7b-43c2-82ad-83f8e20b5111" visible="True" noFile="true" isExpanded="true" title="Metadata">
       <Topic id="f744d653-f95c-412f-b281-80be77f4913e" visible="True" title="Topic Metadata" />
     </Topic>
     <Topic id="3f8f2890-4623-4559-a188-11688942c6e2" visible="True" isExpanded="true" title="Topic Types">
@@ -81,7 +82,7 @@
         <Topic id="cc445173-77d6-4367-b061-643eff15caa6" visible="True" title="Unmanaged Link" />
       </Topic>
     </Topic>
-    <Topic id="586fceda-0136-42e4-a7be-936b1181d007" visible="True" title="Image" />
+    <Topic id="904e67be-229f-41b6-b66d-04da156f6ecf" visible="True" isSelected="true" title="Images" />
     <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="False" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>

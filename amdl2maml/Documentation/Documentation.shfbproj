@@ -81,7 +81,6 @@
     <Folder Include="Content\MAML\MAML-File-Types" />
     <Folder Include="Content\MAML\MAML-Media-Elements" />
     <Folder Include="Content\Markdown" />
-    <Folder Include="Content\Markdown\Image" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
@@ -97,6 +96,9 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Images.aml" />
+    <None Include="Content\MAML\MAML-File-Types\MAML-Topic-File.aml" />
+    <None Include="Content\MAML\MAML-File-Types\MAML-Companion-File.aml" />
     <None Include="Content\Markdown\Block-Elements\Topic-Header.aml" />
     <None Include="Content\Markdown\Block-Elements\Section-Header.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-CodeInline.aml" />
@@ -128,7 +130,6 @@
     <None Include="Content\Structure\Structure.aml" />
     <None Include="Content\Structure\Topic-Types\General-Topic.aml" />
     <None Include="Content\Structure\Topic-Types\Topic-Types.aml" />
-    <None Include="Content\Markdown\Image\Image.aml" />
     <None Include="Content\Design-Principles.aml" />
     <None Include="Content\FAQ.aml" />
     <None Include="Content\Home.aml" />
@@ -143,7 +144,6 @@
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Introduction.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Summary.aml" />
     <None Include="Content\MAML\MAML-File-Types\MAML-File-Types.aml" />
-    <None Include="Content\MAML\MAML-File-Types\Topic-File.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-Inline-Elements.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-LegacyBold.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-LegacyItalic.aml" />

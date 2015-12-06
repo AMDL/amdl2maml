@@ -285,10 +285,10 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
       </sections>
     </section>
     <relatedTopics>
-      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="6d46de4d-af1f-4b1d-9022-2d2a15f88482" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="0ab2c5b3-cad5-4abb-b5f6-6882a07b83d2" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="c7cd0e90-2bec-4560-931b-db492b7c7358" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#headers</linkUri>
         <linkText>Pandoc's Markdown: Headers</linkText>

@@ -10,7 +10,7 @@
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;system&gt;</codeInline> element directly maps to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">command switch</link>.</para>
+        <para>The <codeInline>&lt;system&gt;</codeInline> element directly maps to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#Command-Switches">command switch</link>.</para>
       </content>
     </section>
     <section address="amdl2maml Support">

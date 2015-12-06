@@ -10,7 +10,7 @@
     <section address="AMDL Mapping">
       <title>AMDL Mapping</title>
       <content>
-        <para>The <codeInline>&lt;mediaLinkInline&gt;</codeInline> element maps to <legacyItalic>Inline Image</legacyItalic>, see <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" />.</para>
+        <para>The <codeInline>&lt;mediaLinkInline&gt;</codeInline> element maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#inline-image">inline image</link>.</para>
       </content>
     </section>
     <section address="Example">
@@ -26,7 +26,7 @@ This is an inline image:
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Limited.</para>
+        <para>Partial.</para>
       </content>
       <sections>
         <section address="Limitations">
@@ -35,7 +35,7 @@ This is an inline image:
             <para>
               <list class="ordered">
                 <listItem>
-                  <para>Alt text is discarded.</para>
+                  <para>Alt text is unsupported.</para>
                 </listItem>
               </list>
             </para>
@@ -50,7 +50,6 @@ This is an inline image:
       </sections>
     </section>
     <relatedTopics>
-      <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
     </relatedTopics>
   </developerConceptualDocument>

@@ -5,8 +5,13 @@
 <!-- Copyright © Dmitry Shechtman 2015      -->
 <topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
-    <summary />
-    <introduction />
+    <summary>
+      <para>
+        <newTerm>Event links</newTerm> are used for referencing member events of managed types.</para>
+    </summary>
+    <introduction>
+      <autoOutline lead="none" excludeRelatedTopics="true" />
+    </introduction>
     <section address="Syntax">
       <title>Syntax</title>
       <content>
@@ -34,6 +39,75 @@
         <para>
           <codeEntityReference linkText="Property value changed">E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged</codeEntityReference>
         </para>
+      </content>
+    </section>
+    <section address="Attributes">
+      <title>Attributes</title>
+      <content>
+        <para>An event link may be assigned attributes through an <legacyItalic>attribute enclosure</legacyItalic> using the following syntax:</para>
+        <para>
+          <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
+        </para>
+        <para>The following attributes are defined:</para>
+      </content>
+      <sections>
+        <section address="">
+          <title>
+            <legacyItalic>
+              <codeInline>identifier</codeInline>
+            </legacyItalic>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>Ignored.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="">
+          <title>
+            <legacyItalic>
+              <codeInline>class</codeInline>
+            </legacyItalic>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>any of the following:</para>
+                <list class="bullet">
+                  <listItem>
+                    <para>
+                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <codeInline>qualifyHint</codeInline>.</para>
+                  </listItem>
+                </list>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="qualifyHint">
+          <title>
+            <codeInline>qualifyHint</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a Boolean value indicating whether the name of the defining type will be included in the link text.
+If no value is specified, the type name will be excluded.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+      </sections>
+    </section>
+    <section address="Differences from PM">
+      <title>Differences from PM</title>
+      <content>
+        <list class="ordered">
+          <listItem>
+            <para>PM does not define code link elements.</para>
+          </listItem>
+        </list>
       </content>
     </section>
     <section address="amdl2maml Support">
@@ -65,7 +139,7 @@
       </sections>
     </section>
     <relatedTopics>
-      <link xlink:href="36f3beb8-5259-44e2-a41e-43080fdf28b9" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="36f3beb8-5259-44e2-a41e-43080fdf28b9" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

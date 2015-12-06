@@ -27,13 +27,16 @@
             </para>
           </listItem>
           <listItem>
-            <para>Companion File</para>
+            <para>
+              <link xlink:href="656a514d-7624-476c-a218-b6596532e0ae" />
+            </para>
           </listItem>
         </list>
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="0ff091f1-423f-486c-99fc-777c8aa8bad7" />
+      <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" />
     </relatedTopics>
   </developerOrientationDocument>
 </topic>

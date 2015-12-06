@@ -104,7 +104,7 @@
               </listItem>
               <listItem>
                 <para>
-                  <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">Commands</link> with <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">parameters</link> and <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">switches</link>.</para>
+                  <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#command">Commands</link> with <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#command-parameters">parameters</link> and <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#command-switches">switches</link>.</para>
               </listItem>
               <listItem>
                 <para>
@@ -117,7 +117,7 @@
                 <para>Inline URI and email links.</para>
               </listItem>
               <listItem>
-                <para>Block and inline <link xlink:href="586fceda-0136-42e4-a7be-936b1181d007">images</link>.</para>
+                <para>Block and inline <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf">images</link>.</para>
               </listItem>
               <listItem>
                 <para>Ordinary <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3">weak</link> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939">strong</link> emphases.</para>
@@ -171,8 +171,8 @@ limitations under the License.</code>
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="f05b62e4-4805-491a-ad2a-85545efbf6b9" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="3aa7d932-6348-4151-80fa-f0df28976ae9" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="f05b62e4-4805-491a-ad2a-85545efbf6b9" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>https://github.com/AMDL/amdl2maml</linkUri>
         <linkText>amdl2maml on GitHub</linkText>

@@ -55,8 +55,8 @@
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
       <link xlink:href="6ca4512f-9b5d-4fe4-9131-0c892d068dde" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
+      <link xlink:href="e5433304-0e12-43e3-9094-3342c62f5dc8" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html</linkUri>
         <linkText>Pandoc's Markdown</linkText>

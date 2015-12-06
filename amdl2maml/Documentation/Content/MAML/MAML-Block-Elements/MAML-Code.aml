@@ -12,37 +12,37 @@
       <content>
         <list class="ordered">
           <listItem>
-            <para>The <codeInline>&lt;code&gt;</codeInline> element maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">fenced code</link> and to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c">non-specific code</link>.</para>
+            <para>The <codeInline>&lt;code&gt;</codeInline> element maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">fenced code</link> and to <link xlink:href="c620a7ed-7c50-4eab-864e-aaefe7725a6c#non-specific-code">non-specific code</link>.</para>
           </listItem>
           <listItem>
-            <para>Nested <codeInline>&lt;code&gt;</codeInline> elements map to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">nested code blocks</link>.</para>
+            <para>Nested <codeInline>&lt;code&gt;</codeInline> elements map to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#Nested-Code-Blocks">nested code blocks</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>language</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">language</link>.</para>
+            <para>The <codeInline>language</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#language">language</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>title</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">title</link>.</para>
+            <para>The <codeInline>title</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#title">title</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>source</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">source</link>.</para>
+            <para>The <codeInline>source</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#source">source</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>region</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">region</link>.</para>
+            <para>The <codeInline>region</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#region">region</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>removeRegionMarkers</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">noRegionMarkers</link>.</para>
+            <para>The <codeInline>removeRegionMarkers</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#noRegionMarkers">noRegionMarkers</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>tabSize</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">tabSize</link>.</para>
+            <para>The <codeInline>tabSize</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#tabSize">tabSize</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>numberLines</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">numberLines</link>.</para>
+            <para>The <codeInline>numberLines</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#numberLines">numberLines</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>outlining</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">outlining</link>.</para>
+            <para>The <codeInline>outlining</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#outlining">outlining</link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>keepSeeTags</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245">keepSeeTags</link>.</para>
+            <para>The <codeInline>keepSeeTags</codeInline> attribute maps to <link xlink:href="9d0d5628-0c3f-4774-957c-101597bb8245#keepSeeTags">keepSeeTags</link>.</para>
           </listItem>
         </list>
       </content>

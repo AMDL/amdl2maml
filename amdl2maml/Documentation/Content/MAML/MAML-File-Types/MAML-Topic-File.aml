@@ -6,12 +6,7 @@
 <topic id="f3a5769b-14ba-479d-b1b8-411a49dd09cb" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
-    <introduction>
-      <para>Quote the <externalLink><linkUri>http://ewsoftware.github.io/MAMLGuide</linkUri><linkText>Sandcastle MAML Guide</linkText></externalLink>:</para>
-      <quote>
-        <para>If you are using a tool such as the Sandcastle Help File Builder, only the topic file information will be of interest to you.</para>
-      </quote>
-    </introduction>
+    <introduction />
     <section address="Document Types">
       <title>Document Types</title>
       <content>
@@ -77,11 +72,8 @@
       </content>
     </section>
     <relatedTopics>
+      <link xlink:href="3f8f2890-4623-4559-a188-11688942c6e2" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
       <link xlink:href="a315dbfe-62a7-4b06-b0b8-1db77bbc5ec6" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />
-      <externalLink>
-        <linkUri>http://ewsoftware.github.io/MAMLGuide</linkUri>
-        <linkText>Sandcastle MAML Guide</linkText>
-      </externalLink>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

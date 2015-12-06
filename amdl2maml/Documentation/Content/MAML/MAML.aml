@@ -38,7 +38,7 @@ their mapping to AMDL (if any), and the level of support provided for them by <l
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" topicType_id="1fe70836-aa7d-4515-b54b-e10c4b516e50" />
+      <link xlink:href="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" />
       <externalLink>
         <linkUri>http://ewsoftware.github.io/MAMLGuide</linkUri>
         <linkText>Sandcastle MAML Guide</linkText>

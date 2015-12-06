@@ -7,9 +7,88 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section>
+    <section address="Parameters">
+      <title>Parameters</title>
       <content />
       <sections>
+        <section address="id">
+          <title>
+            <codeInline>id</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be used in links to the topic.
+If no value is specified, a unique identifier will be assigned based on the topic file name.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="legacy_id">
+          <title>
+            <codeInline>legacy_id</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a GUID value that will be used during conversion to MAML.
+If no value is specified, a new identifier will be assigned.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="title">
+          <title>
+            <codeInline>title</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be rendered as the topic's title.
+If no value is specified, the topic header text will be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="tocTitle">
+          <title>
+            <codeInline>tocTitle</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be rendered as the link text in the Table of Contents.
+If no value is specified, the topic title will be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="linkText">
+          <title>
+            <codeInline>linkText</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a string value that will be rendered as the link text in internal links to the topic.
+If no value is specified, the topic title will be used.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="hidden">
+          <title>
+            <codeInline>hidden</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a Boolean value indicating whether the topic will be excluded from the Table of Contents.
+If no value is specified, the topic will be visible.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
         <section address="topics">
           <title>
             <codeInline>topics</codeInline>
@@ -23,48 +102,10 @@ This value determines the order in which the topic links will be rendered in the
             </list>
           </content>
         </section>
-        <section address="title">
-          <title>
-            <codeInline>title</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a string value that will be rendered as the topic's title.
-If no value is specified, the topic header will be used.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="tocTitle">
-          <title>
-            <codeInline>tocTitle</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a string value that will be rendered as the link text in the link to the topic in the Table of Contents.
-If no attribute value is specified, the topic title will be used.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="linkText">
-          <title>
-            <codeInline>linkText</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a string value that will be rendered as the link text in internal links to the topic.
-If no attribute value is specified, the topic title will be used.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
       </sections>
     </section>
     <relatedTopics>
+      <link xlink:href="656a514d-7624-476c-a218-b6596532e0ae" />
       <link xlink:href="1d0d8c98-df89-4db8-8b85-2a8ec5e7a7ee" />
     </relatedTopics>
   </developerConceptualDocument>
