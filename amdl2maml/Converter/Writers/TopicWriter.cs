@@ -42,21 +42,30 @@ namespace Amdl.Maml.Converter.Writers
             "SQL",
         };
 
-        private static readonly IDictionary<string, SeeAlsoGroupType> SeeAlsoGroups = new Dictionary<string, SeeAlsoGroupType>
+        private static readonly IDictionary<string, SeeAlsoGroup> SeeAlsoGroups = new Dictionary<string, SeeAlsoGroup>(4)
         {
-            { Properties.Resources.ConceptsTitle, SeeAlsoGroupType.Concepts },
-            { Properties.Resources.OtherResourcesTitle, SeeAlsoGroupType.OtherResources },
-            { Properties.Resources.ReferenceTitle, SeeAlsoGroupType.Reference },
-            { Properties.Resources.TasksTitle, SeeAlsoGroupType.Tasks },
+            { Properties.Resources.ConceptsTitle, SeeAlsoGroup.Concepts },
+            { Properties.Resources.OtherResourcesTitle, SeeAlsoGroup.OtherResources },
+            { Properties.Resources.ReferenceTitle, SeeAlsoGroup.Reference },
+            { Properties.Resources.TasksTitle, SeeAlsoGroup.Tasks },
         };
 
-        private static readonly IDictionary<SeeAlsoGroupType, Guid> SeeAlsoGroupIds = new Dictionary<SeeAlsoGroupType, Guid>(5)
+        private static readonly IDictionary<SeeAlsoGroup, Guid> SeeAlsoGroupIds = new Dictionary<SeeAlsoGroup, Guid>(5)
         {
-            { SeeAlsoGroupType.None, Guid.Empty },
-            { SeeAlsoGroupType.Concepts, new Guid("1FE70836-AA7D-4515-B54B-E10C4B516E50") },
-            { SeeAlsoGroupType.OtherResources, new Guid("4A273212-0AC8-4D72-8349-EC11CD2FF8CD") },
-            { SeeAlsoGroupType.Reference, new Guid("A635375F-98C2-4241-94E7-E427B47C20B6") },
-            { SeeAlsoGroupType.Tasks, new Guid("DAC3A6A0-C863-4E5B-8F65-79EFC6A4BA09") },
+            { SeeAlsoGroup.None, Guid.Empty },
+            { SeeAlsoGroup.Concepts, new Guid("1FE70836-AA7D-4515-B54B-E10C4B516E50") },
+            { SeeAlsoGroup.OtherResources, new Guid("4A273212-0AC8-4D72-8349-EC11CD2FF8CD") },
+            { SeeAlsoGroup.Reference, new Guid("A635375F-98C2-4241-94E7-E427B47C20B6") },
+            { SeeAlsoGroup.Tasks, new Guid("DAC3A6A0-C863-4E5B-8F65-79EFC6A4BA09") },
+        };
+
+        private static readonly IDictionary<string, SeeAlsoGroup> SeeAlsoElements = new Dictionary<string, SeeAlsoGroup>(5)
+        {
+            { RelatedTopics, SeeAlsoGroup.None },
+            { ToCamelCase(SeeAlsoGroup.Concepts.ToString()), SeeAlsoGroup.Concepts },
+            { ToCamelCase(SeeAlsoGroup.OtherResources.ToString()), SeeAlsoGroup.OtherResources },
+            { ToCamelCase(SeeAlsoGroup.Reference.ToString()), SeeAlsoGroup.Reference },
+            { ToCamelCase(SeeAlsoGroup.Tasks.ToString()), SeeAlsoGroup.Tasks },
         };
 
         /// <summary>
@@ -161,7 +170,7 @@ namespace Amdl.Maml.Converter.Writers
 
         internal virtual IEnumerable<string> GetContainerElementNames()
         {
-            yield return RelatedTopics;
+            return SeeAlsoElements.Keys;
         }
 
         #endregion
@@ -237,7 +246,7 @@ namespace Amdl.Maml.Converter.Writers
         {
             await DoWriteStartSeeAlso(level);
             SetSectionState(SectionState.SeeAlso);
-            SeeAlsoGroup = SeeAlsoGroupType.None;
+            SeeAlsoGroup = SeeAlsoGroup.None;
         }
 
         internal virtual async Task DoWriteStartSeeAlso(int level)
@@ -250,11 +259,11 @@ namespace Amdl.Maml.Converter.Writers
 
         private void WriteStartSeeAlsoGroup(string title)
         {
-            SeeAlsoGroupType group;
+            SeeAlsoGroup group;
             if (SeeAlsoGroups.TryGetValue(title, out group))
                 SeeAlsoGroup = group;
             else
-                SeeAlsoGroup = SeeAlsoGroupType.None;
+                SeeAlsoGroup = SeeAlsoGroup.None;
         }
 
         #endregion
@@ -364,9 +373,12 @@ namespace Amdl.Maml.Converter.Writers
         private async Task WriteElementAsync(Block block, string name)
         {
             await WriteEndIntroductionAsync();
-            var isSeeAlso = RelatedTopics.Equals(name);
+            var isSeeAlso = SeeAlsoElements.ContainsKey(name);
             if (isSeeAlso)
+            {
                 await WriteStartSeeAlsoAsync(SectionLevel);
+                SeeAlsoGroup = SeeAlsoElements[name];
+            }
             else
                 await WriteStartElementAsync(name);
             await WriteChildInlinesAsync(block);
@@ -1185,7 +1197,7 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
-        private SeeAlsoGroupType SeeAlsoGroup
+        private SeeAlsoGroup SeeAlsoGroup
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
@@ -1204,6 +1216,11 @@ namespace Amdl.Maml.Converter.Writers
         private IEnumerable<string> ContainerElementNames
         {
             get { return containerElementNames.Value; }
+        }
+
+        private static string ToCamelCase(string groupName)
+        {
+            return char.ToLower(groupName[0]) + groupName.Substring(1);
         }
 
         private Lazy<CommandWriter> commandWriter;

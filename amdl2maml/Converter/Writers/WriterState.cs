@@ -40,7 +40,7 @@ namespace Amdl.Maml.Converter.Writers
     /// <summary>
     /// See Also group type.
     /// </summary>
-    enum SeeAlsoGroupType
+    enum SeeAlsoGroup
     {
         /// <summary>
         /// None.
@@ -116,7 +116,7 @@ namespace Amdl.Maml.Converter.Writers
             set;
         }
 
-        public SeeAlsoGroupType SeeAlsoGroup
+        public SeeAlsoGroup SeeAlsoGroup
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get;
