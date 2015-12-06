@@ -411,7 +411,7 @@ namespace Amdl.Maml.Converter.Writers
             switch (inline.Tag)
             {
                 case InlineTag.String:
-                    await WriteStringAsync(inline.LiteralContent);
+                    await WriteStringAsync(inline);
                     break;
 
                 case InlineTag.Code:

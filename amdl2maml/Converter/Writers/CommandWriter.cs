@@ -54,15 +54,6 @@ namespace Amdl.Maml.Converter.Writers
                 await WriteInlineAsync(child);
         }
 
-        private async Task WriteStringAsync(Inline inline)
-        {
-            var content = inline.LiteralContent;
-            if (string.IsNullOrWhiteSpace(content))
-                await WriteRawAsync("&#160;");
-            else
-                await WriteStringAsync(content);
-        }
-
         private async Task WriteWeakEmphasisAsync(Inline inline)
         {
             await WriteStartElementAsync("replaceable");

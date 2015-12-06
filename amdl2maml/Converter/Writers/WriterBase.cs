@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using CommonMark.Syntax;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -12,6 +13,8 @@ namespace Amdl.Maml.Converter.Writers
         {
             this.writer = writer;
         }
+
+        #region Writer
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Task WriteStartDocumentAsync()
@@ -78,5 +81,20 @@ namespace Amdl.Maml.Converter.Writers
         {
             return writer.WriteCommentAsync(text);
         }
+
+        #endregion Writer
+
+        #region Inline
+
+        internal async Task WriteStringAsync(Inline inline)
+        {
+            var content = inline.LiteralContent;
+            if (string.IsNullOrWhiteSpace(content))
+                await WriteRawAsync("&#160;");
+            else
+                await WriteStringAsync(content);
+        }
+
+        #endregion Inline
     }
 }
