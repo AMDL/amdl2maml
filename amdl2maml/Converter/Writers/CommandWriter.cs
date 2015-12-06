@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Amdl.Maml.Converter.Writers
 {
-    internal class CommandWriter : BlockWriter
+    internal class CommandWriter : WriterBase
     {
         public CommandWriter(XmlWriter writer)
             : base(writer)

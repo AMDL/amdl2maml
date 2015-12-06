@@ -4,13 +4,25 @@ using System.Xml;
 
 namespace Amdl.Maml.Converter.Writers
 {
-    class BlockWriter
+    internal abstract class WriterBase
     {
-        private readonly XmlWriter writer;
+        internal readonly XmlWriter writer;
 
-        public BlockWriter(XmlWriter writer)
+        public WriterBase(XmlWriter writer)
         {
             this.writer = writer;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteStartDocumentAsync()
+        {
+            return writer.WriteStartDocumentAsync();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteEndDocumentAsync()
+        {
+            return writer.WriteEndDocumentAsync();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -20,9 +32,21 @@ namespace Amdl.Maml.Converter.Writers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteStartElementAsync(string prefix, string localName, string ns)
+        {
+            return writer.WriteStartElementAsync(prefix, localName, ns);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Task WriteEndElementAsync()
         {
             return writer.WriteEndElementAsync();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal Task WriteElementStringAsync(string localName, string value)
+        {
+            return writer.WriteElementStringAsync(null, localName, null, value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
