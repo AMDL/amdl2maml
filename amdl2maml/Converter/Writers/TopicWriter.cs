@@ -26,6 +26,8 @@ namespace Amdl.Maml.Converter.Writers
     {
         #region Static Members
 
+        private const string RelatedTopics = "relatedTopics";
+
         private static readonly string[] Languages =
         {
             "C#", "CSharp",
@@ -135,6 +137,7 @@ namespace Amdl.Maml.Converter.Writers
             this.writer = writer;
             this.state = new WriterState();
             this.commandWriter = new Lazy<Writers.CommandWriter>(CreateCommandWriter);
+            this.containerElementNames = new Lazy<IEnumerable<string>>(GetContainerElementNames);
         }
 
         #endregion
@@ -156,6 +159,11 @@ namespace Amdl.Maml.Converter.Writers
         #region Internal Members
 
         internal abstract string GetDocElementName();
+
+        internal virtual IEnumerable<string> GetContainerElementNames()
+        {
+            yield return RelatedTopics;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Task WriteStartElementAsync(string localName)
@@ -280,7 +288,7 @@ namespace Amdl.Maml.Converter.Writers
             await WriteEndSectionsAsync(level);
             if (level > 2)
                 await WriteEndElementAsync(); //content | sections
-            await WriteStartElementAsync("relatedTopics");
+            await WriteStartElementAsync(RelatedTopics);
         }
 
         private void WriteStartSeeAlsoGroup(string title)
@@ -347,7 +355,7 @@ namespace Amdl.Maml.Converter.Writers
                     break;
 #endif
                 case BlockTag.CustomContainer:
-                    await WriteAlertAsync(block);
+                    await WriteContainerAsync(block);
                     break;
 
                 case BlockTag.ReferenceDefinition:
@@ -387,10 +395,31 @@ namespace Amdl.Maml.Converter.Writers
                 BlockState = BlockState.Start;
         }
 
-        private async Task WriteAlertAsync(Block block)
+        private async Task WriteContainerAsync(Block block)
+        {
+            var info = block.FencedCodeData.Info;
+            if (string.IsNullOrEmpty(info) || !ContainerElementNames.Contains(info))
+                await WriteAlertAsync(block, info);
+            else
+                await WriteElementAsync(block, info);
+        }
+
+        private async Task WriteElementAsync(Block block, string name)
+        {
+            await WriteEndIntroductionAsync();
+            var isSeeAlso = RelatedTopics.Equals(name);
+            if (isSeeAlso)
+                await WriteStartSeeAlsoAsync(SectionLevel);
+            else
+                await WriteStartElementAsync(name);
+            await WriteChildInlinesAsync(block);
+            if (!isSeeAlso)
+                await WriteEndElementAsync();
+        }
+
+        private async Task WriteAlertAsync(Block block, string info)
         {
             await WriteStartElementAsync("alert");
-            var info = block.FencedCodeData.Info;
             if (!string.IsNullOrEmpty(info))
                 await WriteAttributeStringAsync("class", info);
             await WriteChildInlinesAsync(block);
@@ -857,7 +886,7 @@ namespace Amdl.Maml.Converter.Writers
         internal virtual async Task WriteRelatedTopicsAsync(Block block)
         {
             if (block.ReferenceMap.Count > 0 && GetSectionState() != SectionState.SeeAlso)
-                await WriteStartElementAsync("relatedTopics");
+                await WriteStartElementAsync(RelatedTopics);
             if (block.ReferenceMap.Count > 0 || GetSectionState() == SectionState.SeeAlso)
             {
                 foreach (var reference in block.ReferenceMap.Values)
@@ -1206,6 +1235,12 @@ namespace Amdl.Maml.Converter.Writers
             {
                 state.SeeAlsoGroup = value;
             }
+        }
+
+        private Lazy<IEnumerable<string>> containerElementNames;
+        private IEnumerable<string> ContainerElementNames
+        {
+            get { return containerElementNames.Value; }
         }
 
         private Lazy<CommandWriter> commandWriter;
