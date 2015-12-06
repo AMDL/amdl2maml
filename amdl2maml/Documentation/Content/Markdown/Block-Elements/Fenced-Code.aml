@@ -33,7 +33,7 @@
                   <list class="ordered">
                     <listItem>
                       <para>
-                        <legacyItalic>n</legacyItalic> <codeInline>`</codeInline> characters where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
+                        <legacyItalic>n</legacyItalic> backticks (<codeInline>`</codeInline>) where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
                     </listItem>
                     <listItem>
                       <para>optionally, a <legacyItalic>language</legacyItalic> value, followed by,</para>
@@ -48,12 +48,12 @@
                     <legacyItalic>fenced code</legacyItalic>, consisting of any number of lines, where each line</para>
                   <list class="ordered">
                     <listItem>
-                      <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic> <codeInline>`</codeInline> characters where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
+                      <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic>&#160;<codeInline>`</codeInline> characters where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
                     </listItem>
                   </list>
                 </listItem>
                 <listItem>
-                  <para>a line starting with <legacyItalic>m</legacyItalic> <codeInline>`</codeInline> characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
+                  <para>a line starting with <legacyItalic>m</legacyItalic>&#160;<codeInline>`</codeInline> characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
                 </listItem>
               </list>
             </para>
@@ -69,7 +69,7 @@
                   <list class="ordered">
                     <listItem>
                       <para>
-                        <legacyItalic>n</legacyItalic> <codeInline>~</codeInline> characters where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
+                        <legacyItalic>n</legacyItalic> tildes (<codeInline>~</codeInline>) where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
                     </listItem>
                     <listItem>
                       <para>optionally, a <legacyItalic>language</legacyItalic> value, followed by,</para>
@@ -84,12 +84,12 @@
                     <legacyItalic>fenced code</legacyItalic>, consisting of any number of lines, where each line</para>
                   <list class="ordered">
                     <listItem>
-                      <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic> <codeInline>~</codeInline> characters where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
+                      <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic>&#160;<codeInline>~</codeInline> characters where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
                     </listItem>
                   </list>
                 </listItem>
                 <listItem>
-                  <para>a line starting with <legacyItalic>m</legacyItalic> <codeInline>~</codeInline> characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
+                  <para>a line starting with <legacyItalic>m</legacyItalic>&#160;<codeInline>~</codeInline> characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
                 </listItem>
               </list>
             </para>
@@ -364,14 +364,13 @@ If no value is specified, the <codeInline>see</codeInline> tags shall be rendere
         </section>
       </sections>
     </section>
-    <section address="">
-      <title>
-        <newTerm>Nested Code Blocks</newTerm>
-      </title>
+    <section address="Nested Code Blocks">
+      <title>Nested Code Blocks</title>
       <content>
-        <para>One or more nested blocks may be included in a fenced code block by using a different delimiter
-(i.e., <codeInline>~</codeInline> if <codeInline>`</codeInline> was used in the enclosing block, and vice versa).
+        <para>One or more <newTerm>nested code blocks</newTerm> may be included in a fenced code block by using a different delimiter
+(i.e., tildes if backticks were used in the enclosing block, and vice versa).
 This allows importing code from multiple sources/regions into a single code block.</para>
+        <alert>No nesting beyond a single level is permitted.</alert>
       </content>
       <sections>
         <section address="Example">

@@ -96,6 +96,7 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Block-Elements\Container.aml" />
     <None Include="Content\Markdown\Images.aml" />
     <None Include="Content\MAML\MAML-File-Types\MAML-Topic-File.aml" />
     <None Include="Content\MAML\MAML-File-Types\MAML-Companion-File.aml" />

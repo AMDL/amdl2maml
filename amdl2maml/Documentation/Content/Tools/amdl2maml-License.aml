@@ -7,7 +7,7 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
       <para>
-        <legacyItalic>January 2004</legacyItalic><markup><br /></markup><legacyItalic><externalLink><linkUri>http://www.apache.org/licenses/</linkUri><linkText>http://www.apache.org/licenses/</linkText></externalLink></legacyItalic></para>
+        <legacyItalic>January 2004</legacyItalic>&#160;<markup><br /></markup><legacyItalic><externalLink><linkUri>http://www.apache.org/licenses/</linkUri><linkText>http://www.apache.org/licenses/</linkText></externalLink></legacyItalic></para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
