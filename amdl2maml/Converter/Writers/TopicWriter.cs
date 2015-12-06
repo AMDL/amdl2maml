@@ -924,13 +924,19 @@ namespace Amdl.Maml.Converter.Writers
         {
             var split = target.Split('#');
             if (split[0].Length > 0)
-            {
-                TopicData topic;
-                if (!name2topic.TryGetValue(split[0], out topic))
-                    throw new InvalidOperationException("Cannot find topic " + split[0] + ", source: " + this.topic.FileName);
-                return topic.Id.ToString();
-            }
+                return GetInnerLinkTarget(target, split);
             return '#' + split[1];
+        }
+
+        private string GetInnerLinkTarget(string target, string[] split)
+        {
+            TopicData topic;
+            if (!name2topic.TryGetValue(split[0], out topic))
+                throw new InvalidOperationException("Cannot find topic " + split[0] + ", source: " + this.topic.FileName);
+            target = topic.Id.ToString();
+            if (split.Length > 1)
+                target += '#' + split[1];
+            return target;
         }
 
         private Task WriteLinkTargetAsync(string target)
