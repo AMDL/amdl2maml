@@ -34,12 +34,12 @@ namespace Amdl.Maml.Converter.Console
             var destDir = new DirectoryInfo(destPathRaw);
             var destPath = destDir.FullName;
 
-            Convert(layoutPath, srcPath, destPath, verbosity);
+            Convert(srcPath, destPath, layoutPath, verbosity);
         }
 
-        private static void Convert(string layoutPath, string srcPath, string destPath, Verbosity verbosity)
+        private static void Convert(string srcPath, string destPath, string layoutPath, Verbosity verbosity)
         {
-            var task = ConvertAsync(layoutPath, srcPath, destPath, verbosity, CancellationToken.None);
+            var task = ConvertAsync(srcPath, destPath, layoutPath, verbosity, CancellationToken.None);
             task.GetAwaiter().GetResult();
         }
 
@@ -67,7 +67,7 @@ namespace Amdl.Maml.Converter.Console
             System.Console.WriteLine();
         }
 
-        private static async Task ConvertAsync(string layoutPath, string srcPath, string destPath, Verbosity verbosity, CancellationToken cancellationToken)
+        private static async Task ConvertAsync(string srcPath, string destPath, string layoutPath, Verbosity verbosity, CancellationToken cancellationToken)
         {
             using (var stream = System.Console.OpenStandardOutput())
             using (var writer = new StreamWriter(stream))
@@ -106,12 +106,6 @@ namespace Amdl.Maml.Converter.Console
             }
         }
 
-        private static async Task<object> ConvertAsync(string srcPath, string destPath, IEnumerable<TopicData> topics, Dictionary<string, TopicData> name2topic, CancellationToken cancellationToken, IProgress<string> progress)
-        {
-            await TopicConverter.ConvertAsync(topics, srcPath, destPath, name2topic, cancellationToken, progress);
-            return null;
-        }
-
         private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
         {
             return Task.Factory.StartNew(() => TopicUpdater.Update(topics, srcPath, title2id));
@@ -120,6 +114,13 @@ namespace Amdl.Maml.Converter.Console
         private static Task<Dictionary<string, TopicData>> MapAsync(IEnumerable<TopicData> topics)
         {
             return Task.Factory.StartNew(() => topics.ToDictionary(topic => topic.Name, topic => topic));
+        }
+
+        private static async Task<object> ConvertAsync(string srcPath, string destPath, IEnumerable<TopicData> topics, Dictionary<string, TopicData> name2topic,
+            CancellationToken cancellationToken, IProgress<string> progress)
+        {
+            await TopicConverter.ConvertAsync(topics, srcPath, destPath, name2topic, cancellationToken, progress);
+            return null;
         }
 
         private static async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<string>, Task<TResult>> taskFactory,
