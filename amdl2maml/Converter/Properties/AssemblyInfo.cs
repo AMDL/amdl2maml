@@ -1,17 +1,21 @@
-﻿using System.Resources;
+﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Converter")]
+[assembly: AssemblyTitle("Amdl.Maml.Converter")]
 [assembly: AssemblyDescription("Converts AMDL to MAML")]
+
+#if DEBUG
 [assembly: AssemblyConfiguration("")]
+#else
+[assembly: AssemblyConfiguration("")]
+#endif
+
 [assembly: AssemblyCompany("Dmitry Shechtman")]
-[assembly: AssemblyProduct("Converter")]
+[assembly: AssemblyProduct("AMDL to MAML Converter")]
 [assembly: AssemblyCopyright("Copyright © Dmitry Shechtman 2015     ")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
