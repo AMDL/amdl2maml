@@ -347,10 +347,11 @@ namespace Amdl.Maml.Converter.Writers
 
         private async Task WriteParagraphAsync(Block block)
         {
-            if (GetSectionState() != SectionState.SeeAlso)
+            var isParagraph = GetSectionState() != SectionState.SeeAlso;
+            if (isParagraph)
                 await WriteStartParagraphAsync();
             await WriteChildInlinesAsync(block);
-            if (GetSectionState() != SectionState.SeeAlso)
+            if (isParagraph)
                 await WriteEndElementAsync(); //para
         }
 
