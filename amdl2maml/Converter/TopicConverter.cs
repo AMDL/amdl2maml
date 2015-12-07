@@ -23,17 +23,15 @@ namespace Amdl.Maml.Converter
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Asynchronous task.</returns>
         public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
-            CancellationToken cancellationToken = default(CancellationToken), IProgress<int> progress = null)
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<string> progress = null)
         {
             var index = 0;
-            if (progress != null)
-                progress.Report(index);
             foreach (var topic in topics)
             {
                 await ConvertAsync(topic, srcPath, destPath, name2topic, cancellationToken);
                 ++index;
                 if (progress != null)
-                    progress.Report(index);
+                    progress.Report(topic.Name);
             }
         }
 

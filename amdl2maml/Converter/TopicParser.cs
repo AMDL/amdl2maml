@@ -32,17 +32,15 @@ namespace Amdl.Maml.Converter
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Parsed topics.</returns>
         public static async Task<IEnumerable<TopicData>> ParseAsync(IEnumerable<TopicData> topics, string srcPath,
-            CancellationToken cancellationToken = default(CancellationToken), IProgress<int> progress = null)
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<string> progress = null)
         {
             var topics2 = new TopicData[topics.Count()];
             var index = 0;
-            if (progress != null)
-                progress.Report(index);
             foreach (var topic in topics)
             {
                 topics2[index++] = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
                 if (progress != null)
-                    progress.Report(index);
+                    progress.Report(topic.Name);
             }
             return topics2;
         }
