@@ -17,9 +17,8 @@ namespace Amdl.Maml.Converter
         /// <param name="topics">The topics.</param>
         /// <param name="srcPath">Source base path.</param>
         /// <param name="title2id">Gets the topic ID from the topic title.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Updated topics.</returns>
-        public static IEnumerable<TopicData> Update(IEnumerable<TopicData> topics, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken)
+        public static IEnumerable<TopicData> Update(IEnumerable<TopicData> topics, string srcPath, IDictionary<string, Guid> title2id)
         {
             return topics.Select(topic => Update(topic, title2id));
         }
