@@ -40,7 +40,10 @@ namespace Amdl.Maml.Converter
             {
                 topics2[index++] = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
                 if (progress != null)
-                    progress.Report(topic.Name);
+                {
+                    var path = Path.Combine(topic.RelativePath, topic.Name);
+                    progress.Report(path);
+                }
             }
             return topics2;
         }

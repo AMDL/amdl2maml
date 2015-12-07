@@ -25,13 +25,14 @@ namespace Amdl.Maml.Converter
         public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
             CancellationToken cancellationToken = default(CancellationToken), IProgress<string> progress = null)
         {
-            var index = 0;
             foreach (var topic in topics)
             {
                 await ConvertAsync(topic, srcPath, destPath, name2topic, cancellationToken);
-                ++index;
                 if (progress != null)
-                    progress.Report(topic.Name);
+                {
+                    var path = Path.Combine(topic.RelativePath, topic.Name);
+                    progress.Report(path);
+                }
             }
         }
 
