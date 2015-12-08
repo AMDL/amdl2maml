@@ -15,5 +15,8 @@ namespace Amdl.Maml.Converter.Console
 
         [Description("Detailed output")]
         Detailed,
+
+        [Description("Very detailed output")]
+        Insane,
     }
 }

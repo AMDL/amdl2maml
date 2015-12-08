@@ -182,9 +182,13 @@ namespace Amdl.Maml.Converter.Console
 
     sealed class Runner
     {
+        #region Fields
+
         private readonly Verbosity verbosity;
         private readonly string timeFormat;
         private readonly string durationFormat;
+        private readonly string stepPrologueFormat;
+        private readonly string stepEpilogueFormat;
         private readonly CancellationToken cancellationToken;
         private readonly TextWriter writer;
         private readonly string[] titles;
@@ -192,11 +196,17 @@ namespace Amdl.Maml.Converter.Console
         private int index;
         private readonly SemaphoreSlim _semaphore;
 
+        #endregion Fields
+
+        #region Constructor
+
         public Runner(Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string[] titles)
         {
             this.verbosity = parameters.Verbosity;
             this.timeFormat = GetTimeFormat(parameters);
             this.durationFormat = GetDurationFormat(parameters);
+            this.stepPrologueFormat = GetStepPrologueFormat(parameters);
+            this.stepEpilogueFormat = GetStepEpilogueFormat(parameters);
             this.cancellationToken = cancellationToken;
             this.writer = writer;
             this.titles = titles;
@@ -204,6 +214,10 @@ namespace Amdl.Maml.Converter.Console
             this.index = 0;
             this._semaphore = new SemaphoreSlim(1);
         }
+
+        #endregion Constructor
+
+        #region Properties
 
         private Verbosity Verbosity
         {
@@ -219,6 +233,20 @@ namespace Amdl.Maml.Converter.Console
         {
             get { return durationFormat; }
         }
+
+        private string StepPrologueFormat
+        {
+            get { return stepPrologueFormat; }
+        }
+
+        private string StepEpilogueFormat
+        {
+            get { return stepEpilogueFormat; }
+        }
+
+        #endregion Properties
+
+        #region RunAsync
 
         public async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<Indicator>, Task<TResult>> taskFactory)
         {
@@ -245,6 +273,8 @@ namespace Amdl.Maml.Converter.Console
             return result;
         }
 
+        #endregion RunAsync
+
         #region Progress
 
         private void StartProgress(string title, out Progress<Indicator> progress, out EventHandler<Indicator> handler)
@@ -270,9 +300,12 @@ namespace Amdl.Maml.Converter.Console
         {
             if (value.Index == 0)
                 return;
+            var time = DateTime.Now;
             _semaphore.Wait(cancellationToken);
-            Write(DateTime.Now);
-            Write(" {0:000.00}%  ", 100.0 * value.Index / value.Count);
+            if (Verbosity == Verbosity.Insane)
+                Write("{0}  {1:000.00}%  ", time, 100.0 * value.Index / value.Count);
+            else
+                Write("{0}  ", time);
             Write(title);
             Write(value.Name);
             WriteLine();
@@ -317,7 +350,8 @@ namespace Amdl.Maml.Converter.Console
 
         #region Step
 
-        private const string StepPrologueFormat = " STEP {1}/{2} {0}";
+        private const string StepPrologueFormat1 = " STEP {1}/{2} {0}";
+        private const string StepPrologueFormat2 = " {0}";
 
         private async Task WriteStepPrologueAsync(string title, int index, int count, DateTime stepStartTime)
         {
@@ -329,7 +363,8 @@ namespace Amdl.Maml.Converter.Console
             _semaphore.Release();
         }
 
-        private const string StepEpilogueFormat = " FINISHED {1}IN {0}";
+        private const string StepEpilogueFormat1 = " FINISHED {1}IN {0}";
+        private const string StepEpilogueFormat2 = " {1}FINISHED IN {0}";
 
         private async Task WriteStepEpilogueAsync(string title, DateTime stepStartTime, DateTime stepEndTime)
         {
@@ -346,14 +381,9 @@ namespace Amdl.Maml.Converter.Console
 
         #region Write
 
-        private void Write(DateTime time)
-        {
-            Write("{0} ", TimeFormat, writer.Write, time);
-        }
-
         private void Write(string format, params object[] args)
         {
-            writer.Write(format, args);
+            Write(format, TimeFormat, writer.Write, args);
         }
 
         private void Write(string value)
@@ -416,6 +446,20 @@ namespace Amdl.Maml.Converter.Console
                     durationFormat += init[index++];
             }
             return durationFormat;
+        }
+
+        private static string GetStepPrologueFormat(Parameters parameters)
+        {
+            return parameters.Verbosity == Verbosity.Insane
+                ? StepPrologueFormat1
+                : StepPrologueFormat2;
+        }
+
+        private static string GetStepEpilogueFormat(Parameters parameters)
+        {
+            return parameters.Verbosity == Verbosity.Insane
+                ? StepEpilogueFormat1
+                : StepEpilogueFormat2;
         }
 
         private static void Write(string format, string reFormat, Action<string> write, params object[] args)
