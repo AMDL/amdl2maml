@@ -59,26 +59,26 @@ namespace Amdl.Maml.Converter
             var destFolder = await FileSystem.Current.LocalStorage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);
             var destFile = await destFolder.CreateFileAsync(destName, CreationCollisionOption.ReplaceExisting, cancellationToken);
 
-            await ConvertAsync(topic, name2topic, cancellationToken, srcFile, destFile);
+            await ConvertAsync(topic, name2topic, srcPath, srcFile, destFile, cancellationToken);
 
             Indicator.Report(progress, count, index + 1, () => Path.Combine(topic.RelativePath, topic.Name));
         }
 
-        private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken, IFile srcFile, IFile destFile)
+        private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, string srcPath, IFile srcFile, IFile destFile, CancellationToken cancellationToken)
         {
             using (var srcStream = await srcFile.OpenAsync(FileAccess.Read, cancellationToken))
             using (var destStream = await destFile.OpenAsync(FileAccess.ReadAndWrite, cancellationToken))
             {
-                await ConvertAsync(topic, srcStream, destStream, name2topic);
+                await ConvertAsync(topic, srcStream, destStream, name2topic, srcPath, cancellationToken);
             }
         }
 
-        private static async Task ConvertAsync(TopicData topic, Stream srcStream, Stream destStream, IDictionary<string, TopicData> name2topic)
+        private static async Task ConvertAsync(TopicData topic, Stream srcStream, Stream destStream, IDictionary<string, TopicData> name2topic, string srcPath, CancellationToken cancellationToken)
         {
             using (var reader = new StreamReader(srcStream))
             using (var writer = new StreamWriter(destStream))
             {
-                await Writers.TopicWriter.WriteAsync(topic, name2topic, reader, writer);
+                await Writers.TopicWriter.WriteAsync(topic, name2topic, reader, writer, srcPath, cancellationToken);
             }
         }
     }

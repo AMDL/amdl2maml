@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -85,9 +86,16 @@ namespace Amdl.Maml.Converter.Writers
         /// <param name="writer">Writer.</param>
         /// <param name="topic">The topic.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
+        /// <param name="srcPath">Source path.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Asynchronous task.</returns>
-        public static Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer)
+        public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer, string srcPath, CancellationToken cancellationToken)
         {
+            if (topic.ParserResult == null)
+            {
+                topic = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
+            }
+
             var xmlSettings = new XmlWriterSettings
             {
                 Async = true,
@@ -97,7 +105,7 @@ namespace Amdl.Maml.Converter.Writers
             using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
             {
                 var topicWriter = TopicWriter.Create(topic, name2topic, xmlWriter);
-                return topicWriter.WriteAsync(reader);
+                await topicWriter.WriteAsync(reader);
             }
         }
 

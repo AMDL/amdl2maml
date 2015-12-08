@@ -9,6 +9,10 @@ namespace Amdl.Maml.Converter
     /// </summary>
     public class TopicData
     {
+#if WEAK_RESULT
+        private WeakReference<TopicParserResult> parserResult;
+#endif
+
         /// <summary>
         /// Creates a new instance of the <see cref="TopicData"/> class.
         /// </summary>
@@ -20,6 +24,9 @@ namespace Amdl.Maml.Converter
             FileName = fileName;
             Type = type;
             RelativePath = relativePath;
+#if WEAK_RESULT
+            parserResult = new WeakReference<TopicParserResult>(null, true);
+#endif
         }
 
         /// <summary>
@@ -68,6 +75,23 @@ namespace Amdl.Maml.Converter
         /// Gets or sets the parser result.
         /// </summary>
         /// <value>Parser result.</value>
-        public TopicParserResult ParserResult { get; set; }
+        public TopicParserResult ParserResult
+        {
+#if WEAK_RESULT
+            get
+            {
+                TopicParserResult value;
+                parserResult.TryGetTarget(out value);
+                return value;
+            }
+            set
+            {
+                parserResult.SetTarget(value);
+            }
+#else
+            get;
+            set;
+#endif
+        }
     }
 }
