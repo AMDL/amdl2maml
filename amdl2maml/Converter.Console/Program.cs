@@ -60,7 +60,8 @@ namespace Amdl.Maml.Converter.Console
         {
             try
             {
-                var task = ConvertAsync(parameters, CancellationToken.None);
+                var paths = GetPaths(parameters);
+                var task = ConvertAsync(paths, parameters, CancellationToken.None);
                 task.GetAwaiter().GetResult();
 
             }
@@ -96,18 +97,17 @@ namespace Amdl.Maml.Converter.Console
             if (!dest.Exists)
             {
                 var format = isDirectory
-                    ? "Directory not found: {0}"
-                    : "File not found: {0}";
+                    ? "Directory not found: {0}."
+                    : "File not found: {0}.";
                 throw new ArgumentException(string.Format(format, rawPath));
             }
             return dest.FullName;
         }
 
-        private static async Task<CancellationToken> ConvertAsync(Parameters parameters, CancellationToken cancellationToken)
+        private static async Task<CancellationToken> ConvertAsync(Paths paths, Parameters parameters, CancellationToken cancellationToken)
         {
             var titles = new[]
             {
-                "Prepping",
                 "Reading",
                 "Indexing",
                 "Parsing",
@@ -124,9 +124,6 @@ namespace Amdl.Maml.Converter.Console
                 var startTime = DateTime.Now;
 
                 await runner.WritePrologueAsync(startTime);
-
-                var paths = await runner.RunAsync((t, _) =>
-                    GetPathsAsync(parameters));
 
                 var srcPath = paths.Source;
                 var destPath = paths.Destination;
@@ -155,11 +152,6 @@ namespace Amdl.Maml.Converter.Console
                 await runner.WriteEpilogueAsync(startTime, endTime);
             }
             return cancellationToken;
-        }
-
-        private static Task<Paths> GetPathsAsync(Parameters parameters)
-        {
-            return Task.Factory.StartNew(() => GetPaths(parameters));
         }
 
         private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
