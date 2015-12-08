@@ -105,39 +105,50 @@ namespace Amdl.Maml.Converter.Console
 
         private static async Task<CancellationToken> ConvertAsync(Parameters parameters, CancellationToken cancellationToken)
         {
+            var titles = new[]
+            {
+                "Prepping",
+                "Reading",
+                "Indexing",
+                "Parsing",
+                "Updating",
+                "Mapping",
+                "Writing",
+            };
+
             using (var stream = System.Console.OpenStandardOutput())
             using (var writer = new StreamWriter(stream))
             {
-                var runner = new Runner(parameters, cancellationToken, writer);
+                var runner = new Runner(parameters, cancellationToken, writer, titles);
 
                 var startTime = DateTime.Now;
 
                 await runner.WritePrologueAsync(startTime);
 
                 var paths = await runner.RunAsync((t, _) =>
-                    GetPathsAsync(parameters), "PREPPING");
+                    GetPathsAsync(parameters));
 
                 var srcPath = paths.Source;
                 var destPath = paths.Destination;
                 var layoutPath = paths.ContentLayout;
 
                 var title2id = await runner.RunAsync((t, p) =>
-                    LayoutIndexer.IndexAsync(layoutPath, t, p), "READING ");
+                    LayoutIndexer.IndexAsync(layoutPath, t, p));
 
                 var topics = await runner.RunAsync((t, p) =>
-                    FolderIndexer.IndexAsync(srcPath, t, p), "INDEXING");
+                    FolderIndexer.IndexAsync(srcPath, t, p));
 
                 topics = await runner.RunAsync((t, p) =>
-                    TopicParser.ParseAsync(topics, srcPath, t, p), "PARSING ");
+                    TopicParser.ParseAsync(topics, srcPath, t, p));
 
                 topics = await runner.RunAsync((t, _) =>
-                    UpdateAsync(srcPath, title2id, topics), "UPDATING");
+                    UpdateAsync(srcPath, title2id, topics));
 
                 var name2topic = await runner.RunAsync((t, _) =>
-                    MapAsync(topics), "MAPPING ");
+                    MapAsync(topics));
 
                 await runner.RunAsync((t, p) =>
-                    ConvertAsync(srcPath, destPath, topics, name2topic, t, p), "WRITING ");
+                    ConvertAsync(srcPath, destPath, topics, name2topic, t, p));
 
                 var endTime = DateTime.Now;
 
@@ -176,15 +187,21 @@ namespace Amdl.Maml.Converter.Console
         private readonly string durationFormat;
         private readonly CancellationToken cancellationToken;
         private readonly TextWriter writer;
+        private readonly string[] titles;
+        private readonly int maxLength;
+        private int index;
         private readonly SemaphoreSlim _semaphore;
 
-        public Runner(Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
+        public Runner(Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string[] titles)
         {
             this.verbosity = parameters.Verbosity;
             this.timeFormat = GetTimeFormat(parameters);
             this.durationFormat = GetDurationFormat(parameters);
             this.cancellationToken = cancellationToken;
             this.writer = writer;
+            this.titles = titles;
+            this.maxLength = titles.Max(s => s.Length);
+            this.index = 0;
             this._semaphore = new SemaphoreSlim(1);
         }
 
@@ -203,15 +220,19 @@ namespace Amdl.Maml.Converter.Console
             get { return durationFormat; }
         }
 
-        public async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<Indicator>, Task<TResult>> taskFactory, string title)
+        public async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<Indicator>, Task<TResult>> taskFactory)
         {
+            var title = titles[index++];
+            var indent = GetIndent(title);
+            var titleUpper = title.ToUpperInvariant() + indent;
+
             var stepStartTime = DateTime.Now;
 
-            await WriteStepPrologueAsync(title, stepStartTime);
+            await WriteStepPrologueAsync(titleUpper, index, titles.Length, stepStartTime);
 
             Progress<Indicator> progress;
             EventHandler<Indicator> handler;
-            StartProgress(title, out progress, out handler);
+            StartProgress(title + indent, out progress, out handler);
 
             var result = await taskFactory(cancellationToken, progress);
 
@@ -219,7 +240,7 @@ namespace Amdl.Maml.Converter.Console
 
             StopProgress(progress, handler);
 
-            await WriteStepEpilogueAsync(title, stepStartTime, stepEndTime);
+            await WriteStepEpilogueAsync(titleUpper, stepStartTime, stepEndTime);
 
             return result;
         }
@@ -251,10 +272,14 @@ namespace Amdl.Maml.Converter.Console
             Write(DateTime.Now);
             Write(" {0:000.00}%  ", 100.0 * value.Index / value.Count);
             Write(title);
-            Write(" ");
             Write(value.Name);
             WriteLine();
             _semaphore.Release();
+        }
+
+        private string GetIndent(string title)
+        {
+            return new string(Enumerable.Repeat(' ', maxLength - title.Length + 1).ToArray());
         }
 
         #endregion Progress
@@ -274,7 +299,7 @@ namespace Amdl.Maml.Converter.Console
             _semaphore.Release();
         }
 
-        private const string EpilogueFormat = "TOTAL    {0}";
+        private const string EpilogueFormat = " TOTAL    {0}";
 
         public async Task WriteEpilogueAsync(DateTime startTime, DateTime endTime)
         {
@@ -286,23 +311,23 @@ namespace Amdl.Maml.Converter.Console
             _semaphore.Release();
         }
 
-        private const string StepPrologueFormat = " STARTED  {0}";
-
         #endregion Prologue/Epilogue
 
         #region Step
 
-        private async Task WriteStepPrologueAsync(string title, DateTime stepStartTime)
+        private const string StepPrologueFormat = " STEP {1}/{2} {0}";
+
+        private async Task WriteStepPrologueAsync(string title, int index, int count, DateTime stepStartTime)
         {
             if (Verbosity < Verbosity.Normal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
             await WriteAsync(stepStartTime);
-            await WriteLineAsync(string.Format(StepPrologueFormat, title));
+            await WriteLineAsync(string.Format(StepPrologueFormat, title, index, count));
             _semaphore.Release();
         }
 
-        private const string StepEpilogueFormat = " FINISHED {1} IN {0}";
+        private const string StepEpilogueFormat = " FINISHED {1}IN {0}";
 
         private async Task WriteStepEpilogueAsync(string title, DateTime stepStartTime, DateTime stepEndTime)
         {
