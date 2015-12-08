@@ -126,9 +126,9 @@ namespace Amdl.Maml.Converter.Console
                     LayoutIndexer.IndexAsync(layoutPath, t),
                     parameters, cancellationToken, writer, "READING ");
 
-                var topics = await RunAsync((t, _) =>
-                    FolderIndexer.IndexAsync(srcPath, t),
-                    parameters, cancellationToken, writer, "INDEXING");
+                var topics = await RunAsync((t, p) =>
+                    FolderIndexer.IndexAsync(srcPath, t, p),
+                    parameters, cancellationToken, writer, "INDEXING", "Indexing {0}");
 
                 topics = await RunAsync((t, p) =>
                     TopicParser.ParseAsync(topics, srcPath, t, p),
