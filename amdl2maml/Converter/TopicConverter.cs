@@ -28,6 +28,7 @@ namespace Amdl.Maml.Converter
         {
             var topicsArray = topics.ToArray();
             var count = topicsArray.Length;
+            Indicator.Report(progress, count);
             for (var index = 0; index < count; index++)
                 await ConvertAsync(topicsArray[index], srcPath, destPath, name2topic, cancellationToken, progress, index, count);
         }
@@ -60,11 +61,7 @@ namespace Amdl.Maml.Converter
 
             await ConvertAsync(topic, name2topic, cancellationToken, srcFile, destFile);
 
-            if (progress != null)
-            {
-                var path = Path.Combine(topic.RelativePath, topic.Name);
-                progress.Report(Indicator.Create(path, index + 1, count));
-            }
+            Indicator.Report(progress, count, index + 1, () => Path.Combine(topic.RelativePath, topic.Name));
         }
 
         private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken, IFile srcFile, IFile destFile)

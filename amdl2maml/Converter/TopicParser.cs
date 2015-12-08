@@ -35,6 +35,7 @@ namespace Amdl.Maml.Converter
         {
             var topicsArray = topics.ToArray();
             var count = topicsArray.Length;
+            Indicator.Report(progress, count);
             var tasks = Enumerable.Range(0, count).Select(index =>
                 ParseAsync(topicsArray[index], srcPath, cancellationToken, progress, index, count));
             return await Task.WhenAll(tasks);
@@ -50,11 +51,7 @@ namespace Amdl.Maml.Converter
             using (var reader = new StreamReader(stream))
             {
                 topic.ParserResult = TopicParser.Parse(reader);
-                if (progress != null)
-                {
-                    var path = Path.Combine(topic.RelativePath, topic.Name);
-                    progress.Report(Indicator.Create(path, index + 1, count));
-                }
+                Indicator.Report(progress, count, index + 1, () => Path.Combine(topic.RelativePath, topic.Name));
                 return topic;
             }
         }

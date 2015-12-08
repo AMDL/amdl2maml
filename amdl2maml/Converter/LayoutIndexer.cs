@@ -38,8 +38,10 @@ namespace Amdl.Maml.Converter
 
         private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic[] topics, IProgress<Indicator> progress)
         {
-            for (var index = 0; index < topics.Length; index++)
-                title2id = Index(title2id, topics[index], progress, index, topics.Length);
+            var count = topics.Length;
+            Indicator.Report(progress, count);
+            for (var index = 0; index < count; index++)
+                title2id = Index(title2id, topics[index], progress, index, count);
             return title2id;
         }
 
@@ -47,8 +49,7 @@ namespace Amdl.Maml.Converter
         {
             title2id.Add(topic.Title, topic.Id);
             var result = Index(title2id, topic.Topics, null);
-            if (progress != null)
-                progress.Report(Indicator.Create(topic.Title ?? topic.Id.ToString(), index + 1, count));
+            Indicator.Report(progress, count, index + 1, topic.Title ?? topic.Id.ToString());
             return result;
         }
     }

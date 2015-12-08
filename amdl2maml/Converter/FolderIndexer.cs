@@ -77,6 +77,7 @@ namespace Amdl.Maml.Converter
             var folders = await folder.GetFoldersAsync(cancellationToken);
             var foldersArray = folders.Where(IsTopic).ToArray();
             var count = foldersArray.Count();
+            Indicator.Report(progress, count);
             var folderTopics = Enumerable.Range(0, count).Select(index =>
                 IndexFolderAsync(foldersArray[index], relativePath, cancellationToken, progress, index, count));
             var topicsMany = await Task.WhenAll(folderTopics);
@@ -86,8 +87,7 @@ namespace Amdl.Maml.Converter
         private static Task<IEnumerable<TopicData>> IndexFolderAsync(IFolder folder, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress, int index, int count)
         {
             relativePath = Path.Combine(relativePath, folder.Name);
-            if (progress != null)
-                progress.Report(Indicator.Create(relativePath, index, count));
+            Indicator.Report(progress, count, index + 1, relativePath);
             return IndexAsync(folder.Path, relativePath, cancellationToken, null);
         }
 

@@ -268,6 +268,8 @@ namespace Amdl.Maml.Converter.Console
 
         private void WriteProgress(string title, Indicator value)
         {
+            if (value.Index == 0)
+                return;
             _semaphore.Wait(cancellationToken);
             Write(DateTime.Now);
             Write(" {0:000.00}%  ", 100.0 * value.Index / value.Count);
