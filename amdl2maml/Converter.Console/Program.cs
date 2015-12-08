@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace Amdl.Maml.Converter.Console
 {
+    struct Paths
+    {
+        public string Source;
+        public string Destination;
+        public string ContentLayout;
+    }
+
     class Program
     {
         private static SemaphoreSlim _semaphore = new SemaphoreSlim(1);
@@ -55,10 +62,7 @@ namespace Amdl.Maml.Converter.Console
         {
             try
             {
-                var srcPath = GetPath(parameters.SourcePath, true);
-                var destPath = GetPath(parameters.DestinationPath, true);
-                var layoutPath = GetPath(parameters.ContentLayoutPath, false);
-                var task = ConvertAsync(srcPath, destPath, layoutPath, parameters, CancellationToken.None);
+                var task = ConvertAsync(parameters, CancellationToken.None);
                 task.GetAwaiter().GetResult();
 
             }
@@ -76,6 +80,16 @@ namespace Amdl.Maml.Converter.Console
             }
         }
 
+        private static Paths GetPaths(Parameters parameters)
+        {
+            return new Paths
+            {
+                Source = GetPath(parameters.SourcePath, true),
+                Destination = GetPath(parameters.DestinationPath, true),
+                ContentLayout = GetPath(parameters.ContentLayoutPath, false),
+            };
+        }
+
         private static string GetPath(string rawPath, bool isDirectory)
         {
             var dest = isDirectory
@@ -91,7 +105,7 @@ namespace Amdl.Maml.Converter.Console
             return dest.FullName;
         }
 
-        private static async Task<CancellationToken> ConvertAsync(string srcPath, string destPath, string layoutPath, Parameters parameters, CancellationToken cancellationToken)
+        private static async Task<CancellationToken> ConvertAsync(Parameters parameters, CancellationToken cancellationToken)
         {
             using (var stream = System.Console.OpenStandardOutput())
             using (var writer = new StreamWriter(stream))
@@ -99,6 +113,14 @@ namespace Amdl.Maml.Converter.Console
                 var startTime = DateTime.Now;
 
                 await WritePrologueAsync(startTime, parameters, cancellationToken, writer);
+
+                var paths = await RunAsync((t, _) =>
+                    GetPathsAsync(parameters),
+                    parameters, cancellationToken, writer, "PREPPING");
+
+                var srcPath = paths.Source;
+                var destPath = paths.Destination;
+                var layoutPath = paths.ContentLayout;
 
                 var title2id = await RunAsync((t, _) =>
                     LayoutIndexer.IndexAsync(layoutPath, t),
@@ -129,6 +151,11 @@ namespace Amdl.Maml.Converter.Console
                 await WriteEpilogueAsync(startTime, endTime, parameters, cancellationToken, writer);
             }
             return cancellationToken;
+        }
+
+        private static Task<Paths> GetPathsAsync(Parameters parameters)
+        {
+            return Task.Factory.StartNew(() => GetPaths(parameters));
         }
 
         private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
@@ -221,7 +248,6 @@ namespace Amdl.Maml.Converter.Console
             if (parameters.Verbosity < Verbosity.Minimal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
-            await writer.WriteLineAsync();
             await WriteAsync(endTime, parameters, writer);
             await WriteLineAsync(EpilogueFormat, parameters, writer, endTime - startTime);
             _semaphore.Release();
