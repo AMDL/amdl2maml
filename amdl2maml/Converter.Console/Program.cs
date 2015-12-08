@@ -22,7 +22,7 @@ namespace Amdl.Maml.Converter.Console
             var parameters = ParseParameters(args);
             if (parameters == null)
             {
-                CommandLine<Parameters>.WriteUsage(System.Console.Out);
+                CommandLine.WriteHelp(parameters, System.Console.Out);
                 return;
             }
             Convert(parameters);
@@ -33,7 +33,7 @@ namespace Amdl.Maml.Converter.Console
             try
             {
                 Parameters parameters = null;
-                var results = CommandLine<Parameters>.Parse(args, out parameters);
+                var results = CommandLine.TryParse(args, out parameters);
                 if (results.Any() || parameters.Help)
                 {
                     if (results.Any(r => r != null))
