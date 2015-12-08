@@ -14,38 +14,81 @@ namespace Amdl.Maml.Converter.Console
 
         static void Main(string[] args)
         {
-            Parameters parameters;
-            var results = CommandLine<Parameters>.TryParse(args, out parameters);
-            if (results.Any() || parameters.Help)
+            var parameters = ParseParameters(args);
+            if (parameters == null)
             {
-                foreach (var result in results)
-                    System.Console.Error.WriteLine(result.ErrorMessage);
-                if (results.Any())
-                    System.Console.Out.WriteLine();
                 CommandLine<Parameters>.WriteUsage(System.Console.Out);
                 return;
             }
             Convert(parameters);
         }
 
+        private static Parameters ParseParameters(string[] args)
+        {
+            try
+            {
+                Parameters parameters = null;
+                var results = CommandLine<Parameters>.Parse(args, out parameters);
+                if (results.Any() || parameters.Help)
+                {
+                    if (results.Any(r => r != null))
+                    {
+                        foreach (var result in results.Where(r => r != null))
+                            System.Console.Error.WriteLine(result.ErrorMessage);
+                        System.Console.Error.WriteLine();
+                    }
+                    return null;
+                }
+                return parameters;
+            }
+            catch (AggregateException ex)
+            {
+                ex.Flatten();
+                foreach (var ex2 in ex.InnerExceptions)
+                    System.Console.Error.WriteLine(ex2.Message);
+                System.Console.Error.WriteLine();
+                return null;
+            }
+        }
+
         private static void Convert(Parameters parameters)
         {
-            var srcPath = GetPath(parameters.SourcePath, true);
-            var destPath = GetPath(parameters.DestinationPath, true);
-            var layoutPath = GetPath(parameters.ContentLayoutPath, false);
-            var timeFormat = parameters.TimeFormat;
-            var verbosity = parameters.Verbosity;
+            try
+            {
+                var srcPath = GetPath(parameters.SourcePath, true);
+                var destPath = GetPath(parameters.DestinationPath, true);
+                var layoutPath = GetPath(parameters.ContentLayoutPath, false);
+                var task = ConvertAsync(srcPath, destPath, layoutPath, parameters, CancellationToken.None);
+                task.GetAwaiter().GetResult();
 
-            var task = ConvertAsync(srcPath, destPath, layoutPath, parameters, CancellationToken.None);
-            task.GetAwaiter().GetResult();
+            }
+            catch (AggregateException ex)
+            {
+                ex.Flatten();
+                foreach (var ex2 in ex.InnerExceptions)
+                    System.Console.Error.WriteLine(ex2.Message);
+                System.Console.Error.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                System.Console.Error.WriteLine(ex.Message);
+                System.Console.Error.WriteLine();
+            }
         }
 
         private static string GetPath(string rawPath, bool isDirectory)
         {
-            var destDir = isDirectory
+            var dest = isDirectory
                 ? new DirectoryInfo(rawPath)
                 : (FileSystemInfo)new FileInfo(rawPath);
-            return destDir.FullName;
+            if (!dest.Exists)
+            {
+                var format = isDirectory
+                    ? "Directory not found: {0}"
+                    : "File not found: {0}";
+                throw new ArgumentException(string.Format(format, rawPath));
+            }
+            return dest.FullName;
         }
 
         private static async Task<CancellationToken> ConvertAsync(string srcPath, string destPath, string layoutPath, Parameters parameters, CancellationToken cancellationToken)
@@ -180,8 +223,7 @@ namespace Amdl.Maml.Converter.Console
             await _semaphore.WaitAsync(cancellationToken);
             await writer.WriteLineAsync();
             await WriteAsync(endTime, parameters, writer);
-            await WriteAsync(EpilogueFormat, parameters, writer, endTime - startTime);
-            await writer.WriteLineAsync();
+            await WriteLineAsync(EpilogueFormat, parameters, writer, endTime - startTime);
             _semaphore.Release();
         }
 
@@ -220,11 +262,6 @@ namespace Amdl.Maml.Converter.Console
             return WriteAsync("{0} ", GetTimeFormat(parameters), writer.WriteAsync, time);
         }
 
-        private static Task WriteAsync(string format, Parameters parameters, TextWriter writer, params object[] args)
-        {
-            return WriteAsync(format, GetDurationFormat(parameters), writer.WriteAsync, args);
-        }
-
         private static Task WriteLineAsync(string format, Parameters parameters, TextWriter writer, params object[] args)
         {
             return WriteAsync(format, GetDurationFormat(parameters), writer.WriteLineAsync, args);
@@ -238,7 +275,7 @@ namespace Amdl.Maml.Converter.Console
         private static string GetDurationFormat(Parameters parameters)
         {
             var init = parameters.DurationFormat.Trim();
-            var split = parameters.DurationFormat.Split(':', '.', ',', '-', ' ');
+            var split = parameters.DurationFormat.Split(':', '.', ',', '-', '/', ' ');
             int index = 0;
             string durationFormat = null;
             foreach (var s in split)
@@ -256,16 +293,18 @@ namespace Amdl.Maml.Converter.Console
 
         private static void Write(string format, string reFormat, Action<string> write, params object[] args)
         {
-            format = format.Replace("{0}", reFormat);
-            var value = string.Format(format, args);
-            write(value);
+            write(Format(format, reFormat, args));
         }
 
         private static Task WriteAsync(string format, string reFormat, Func<string, Task> write, params object[] args)
         {
+            return write(Format(format, reFormat, args));
+        }
+
+        private static string Format(string format, string reFormat, object[] args)
+        {
             format = format.Replace("{0}", reFormat);
-            var value = string.Format(format, args);
-            return write(value);
+            return string.Format(format, args);
         }
 
         private static string Reformat(string s)
