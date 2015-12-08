@@ -20,9 +20,8 @@ namespace Amdl.Maml.Converter
         /// </summary>
         /// <param name="layoutPath">Layout path.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <param name="progress">Progress indicator.</param>
         /// <returns>Mapping from topic title to its ID.</returns>
-        public static async Task<IDictionary<string, Guid>> IndexAsync(string layoutPath, CancellationToken cancellationToken, IProgress<Indicator> progress = null)
+        public static async Task<IDictionary<string, Guid>> IndexAsync(string layoutPath, CancellationToken cancellationToken)
         {
             ContentLayout layout;
             var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken)
@@ -33,24 +32,18 @@ namespace Amdl.Maml.Converter
                 var serializer = new XmlSerializer(typeof(ContentLayout));
                 layout = (ContentLayout)serializer.Deserialize(reader);
             }
-            return Index(new Dictionary<string, Guid>(), layout.Topics, progress);
+            return Index(new Dictionary<string, Guid>(), layout.Topics);
         }
 
-        private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic[] topics, IProgress<Indicator> progress)
+        private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic[] topics)
         {
-            var count = topics.Length;
-            Indicator.Report(progress, count);
-            for (var index = 0; index < count; index++)
-                title2id = Index(title2id, topics[index], progress, index, count);
-            return title2id;
+            return topics.Aggregate(title2id, Index);
         }
 
-        private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic topic, IProgress<Indicator> progress, int index, int count)
+        private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic topic)
         {
             title2id.Add(topic.Title, topic.Id);
-            var result = Index(title2id, topic.Topics, null);
-            Indicator.Report(progress, count, index + 1, topic.Title ?? topic.Id.ToString());
-            return result;
+            return Index(title2id, topic.Topics);
         }
     }
 }

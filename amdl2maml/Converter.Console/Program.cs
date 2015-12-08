@@ -132,8 +132,8 @@ namespace Amdl.Maml.Converter.Console
                 var destPath = paths.Destination;
                 var layoutPath = paths.ContentLayout;
 
-                var title2id = await runner.RunAsync((t, p) =>
-                    LayoutIndexer.IndexAsync(layoutPath, t, p));
+                var title2id = await runner.RunAsync((t, _) =>
+                    LayoutIndexer.IndexAsync(layoutPath, t));
 
                 var topics = await runner.RunAsync((t, p) =>
                     FolderIndexer.IndexAsync(srcPath, t, p));
