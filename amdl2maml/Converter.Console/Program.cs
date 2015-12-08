@@ -122,17 +122,17 @@ namespace Amdl.Maml.Converter.Console
                 var destPath = paths.Destination;
                 var layoutPath = paths.ContentLayout;
 
-                var title2id = await RunAsync((t, _) =>
-                    LayoutIndexer.IndexAsync(layoutPath, t),
+                var title2id = await RunAsync((t, p) =>
+                    LayoutIndexer.IndexAsync(layoutPath, t, p),
                     parameters, cancellationToken, writer, "READING ");
 
                 var topics = await RunAsync((t, p) =>
                     FolderIndexer.IndexAsync(srcPath, t, p),
-                    parameters, cancellationToken, writer, "INDEXING", "Indexing {0}");
+                    parameters, cancellationToken, writer, "INDEXING");
 
                 topics = await RunAsync((t, p) =>
                     TopicParser.ParseAsync(topics, srcPath, t, p),
-                    parameters, cancellationToken, writer, "PARSING ", "Parsing  {0}");
+                    parameters, cancellationToken, writer, "PARSING ");
 
                 topics = await RunAsync((t, _) =>
                     UpdateAsync(srcPath, title2id, topics),
@@ -144,7 +144,7 @@ namespace Amdl.Maml.Converter.Console
 
                 await RunAsync((t, p) =>
                     ConvertAsync(srcPath, destPath, topics, name2topic, t, p),
-                    parameters, cancellationToken, writer, "WRITING ", "Writing  {0}");
+                    parameters, cancellationToken, writer, "WRITING ");
 
                 var endTime = DateTime.Now;
 
@@ -169,22 +169,22 @@ namespace Amdl.Maml.Converter.Console
         }
 
         private static async Task<object> ConvertAsync(string srcPath, string destPath, IEnumerable<TopicData> topics, Dictionary<string, TopicData> name2topic,
-            CancellationToken cancellationToken, IProgress<string> progress)
+            CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
             await TopicConverter.ConvertAsync(topics, srcPath, destPath, name2topic, cancellationToken, progress);
             return null;
         }
 
-        private static async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<string>, Task<TResult>> taskFactory,
-            Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string title, string format = null)
+        private static async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<Indicator>, Task<TResult>> taskFactory,
+            Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string title)
         {
             var stepStartTime = DateTime.Now;
 
             await WriteStepPrologueAsync(title, stepStartTime, parameters, cancellationToken, writer);
 
-            Progress<string> progress;
-            EventHandler<string> handler;
-            StartProgress(format, parameters, cancellationToken, writer, out progress, out handler);
+            Progress<Indicator> progress;
+            EventHandler<Indicator> handler;
+            StartProgress(title, parameters, cancellationToken, writer, out progress, out handler);
 
             var result = await taskFactory(cancellationToken, progress);
 
@@ -199,20 +199,20 @@ namespace Amdl.Maml.Converter.Console
 
         #region Progress
 
-        private static void StartProgress(string format, Parameters parameters, CancellationToken cancellationToken, TextWriter writer, out Progress<string> progress, out EventHandler<string> handler)
+        private static void StartProgress(string title, Parameters parameters, CancellationToken cancellationToken, TextWriter writer, out Progress<Indicator> progress, out EventHandler<Indicator> handler)
         {
-            if (format == null || parameters.Verbosity < Verbosity.Detailed)
+            if (parameters.Verbosity < Verbosity.Detailed)
             {
                 handler = null;
                 progress = null;
                 return;
             }
-            handler = new EventHandler<string>((_, v) => WriteProgress(format, v, parameters, cancellationToken, writer));
-            progress = new Progress<string>();
+            handler = new EventHandler<Indicator>((_, v) => WriteProgress(title, v, parameters, cancellationToken, writer));
+            progress = new Progress<Indicator>();
             progress.ProgressChanged += handler;
         }
 
-        private static void StopProgress(Progress<string> progress, EventHandler<string> handler)
+        private static void StopProgress(Progress<Indicator> progress, EventHandler<Indicator> handler)
         {
             if (progress != null)
                 progress.ProgressChanged -= handler;
@@ -220,15 +220,19 @@ namespace Amdl.Maml.Converter.Console
 
         #endregion Progress
 
-        private static void WriteProgress(string format, string value, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
+        private static void WriteProgress(string title, Indicator value, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
             _semaphore.Wait(cancellationToken);
             Write(DateTime.Now, parameters, writer);
-            writer.WriteLine(format, value);
+            writer.Write(" {0:000.00}%  ", 100.0 * value.Index / value.Count);
+            writer.Write(title);
+            writer.Write(' ');
+            writer.Write(value.Name);
+            writer.WriteLine();
             _semaphore.Release();
         }
 
-        private const string PrologueFormat = "STARTED";
+        private const string PrologueFormat = " STARTED";
 
         private static async Task WritePrologueAsync(DateTime startTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
@@ -253,7 +257,7 @@ namespace Amdl.Maml.Converter.Console
             _semaphore.Release();
         }
 
-        private const string StepPrologueFormat = "STARTED  {0}";
+        private const string StepPrologueFormat = " STARTED  {0}";
 
         private static async Task WriteStepPrologueAsync(string stepTitle, DateTime stepStartTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
@@ -265,7 +269,7 @@ namespace Amdl.Maml.Converter.Console
             _semaphore.Release();
         }
 
-        private const string StepEpilogueFormat = "FINISHED {1} IN {0}";
+        private const string StepEpilogueFormat = " FINISHED {1} IN {0}";
 
         private static async Task WriteStepEpilogueAsync(string stepTitle, DateTime stepStartTime, DateTime stepEndTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {

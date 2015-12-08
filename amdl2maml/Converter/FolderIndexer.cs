@@ -25,12 +25,12 @@ namespace Amdl.Maml.Converter
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Topic data.</returns>
-        public static async Task<IEnumerable<TopicData>> IndexAsync(string path, CancellationToken cancellationToken, IProgress<string> progress = null)
+        public static async Task<IEnumerable<TopicData>> IndexAsync(string path, CancellationToken cancellationToken, IProgress<Indicator> progress = null)
         {
             return await IndexAsync(path, string.Empty, cancellationToken, progress);
         }
 
-        private static Task<IEnumerable<TopicData>> IndexAsync(string path, string relativePath, CancellationToken cancellationToken, IProgress<string> progress)
+        private static Task<IEnumerable<TopicData>> IndexAsync(string path, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
             var converter = new FolderIndexer(path, relativePath);
             return converter.IndexAsync(cancellationToken, progress);
@@ -63,7 +63,7 @@ namespace Amdl.Maml.Converter
                 this.folderName = Path.GetFileName(relativePath);
         }
 
-        private async Task<IEnumerable<TopicData>> IndexAsync(CancellationToken cancellationToken, IProgress<string> progress)
+        private async Task<IEnumerable<TopicData>> IndexAsync(CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
             var folder = await FileSystem.Current.GetFolderFromPathAsync(this.path, cancellationToken)
                 .ConfigureAwait(false);
@@ -72,21 +72,23 @@ namespace Amdl.Maml.Converter
             return topics.Concat(subfolderTopics);
         }
 
-        private async Task<IEnumerable<TopicData>> IndexFoldersAsync(IFolder folder, CancellationToken cancellationToken, IProgress<string> progress)
+        private async Task<IEnumerable<TopicData>> IndexFoldersAsync(IFolder folder, CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
             var folders = await folder.GetFoldersAsync(cancellationToken);
-            var folderTopics = folders.Where(IsTopic)
-                .Select(f => IndexFolderAsync(f, relativePath, cancellationToken, progress));
+            var foldersArray = folders.Where(IsTopic).ToArray();
+            var count = foldersArray.Count();
+            var folderTopics = Enumerable.Range(0, count).Select(index =>
+                IndexFolderAsync(foldersArray[index], relativePath, cancellationToken, progress, index, count));
             var topicsMany = await Task.WhenAll(folderTopics);
             return topicsMany.SelectMany(t => t);
         }
 
-        private static Task<IEnumerable<TopicData>> IndexFolderAsync(IFolder folder, string relativePath, CancellationToken cancellationToken, IProgress<string> progress)
+        private static Task<IEnumerable<TopicData>> IndexFolderAsync(IFolder folder, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress, int index, int count)
         {
             relativePath = Path.Combine(relativePath, folder.Name);
             if (progress != null)
-                progress.Report(relativePath);
-            return IndexAsync(folder.Path, relativePath, cancellationToken, progress);
+                progress.Report(Indicator.Create(relativePath, index, count));
+            return IndexAsync(folder.Path, relativePath, cancellationToken, null);
         }
 
         private async Task<IEnumerable<TopicData>> IndexFilesAsync(IFolder folder, CancellationToken cancellationToken)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,17 +24,12 @@ namespace Amdl.Maml.Converter
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Asynchronous task.</returns>
         public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
-            CancellationToken cancellationToken = default(CancellationToken), IProgress<string> progress = null)
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<Indicator> progress = null)
         {
-            foreach (var topic in topics)
-            {
-                await ConvertAsync(topic, srcPath, destPath, name2topic, cancellationToken);
-                if (progress != null)
-                {
-                    var path = Path.Combine(topic.RelativePath, topic.Name);
-                    progress.Report(path);
-                }
-            }
+            var topicsArray = topics.ToArray();
+            var count = topicsArray.Length;
+            for (var index = 0; index < count; index++)
+                await ConvertAsync(topicsArray[index], srcPath, destPath, name2topic, cancellationToken, progress, index, count);
         }
 
         /// <summary>
@@ -44,8 +40,12 @@ namespace Amdl.Maml.Converter
         /// <param name="destPath">Destination base path.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
+        /// <param name="progress">Progress indicator.</param>
+        /// <param name="index">Index.</param>
+        /// <param name="count">Count.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task ConvertAsync(TopicData topic, string srcPath, string destPath, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken)
+        public static async Task ConvertAsync(TopicData topic, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
+            CancellationToken cancellationToken, IProgress<Indicator> progress = null, int index = 0, int count = 0)
         {
             var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
             var name = Path.GetFileNameWithoutExtension(srcFilePath);
@@ -59,6 +59,12 @@ namespace Amdl.Maml.Converter
             var destFile = await destFolder.CreateFileAsync(destName, CreationCollisionOption.ReplaceExisting, cancellationToken);
 
             await ConvertAsync(topic, name2topic, cancellationToken, srcFile, destFile);
+
+            if (progress != null)
+            {
+                var path = Path.Combine(topic.RelativePath, topic.Name);
+                progress.Report(Indicator.Create(path, index + 1, count));
+            }
         }
 
         private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, CancellationToken cancellationToken, IFile srcFile, IFile destFile)

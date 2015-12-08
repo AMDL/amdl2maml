@@ -1,5 +1,4 @@
 ﻿using CommonMark;
-using CommonMark.Syntax;
 using PCLStorage;
 using System;
 using System.Collections.Generic;
@@ -32,23 +31,17 @@ namespace Amdl.Maml.Converter
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Parsed topics.</returns>
         public static async Task<IEnumerable<TopicData>> ParseAsync(IEnumerable<TopicData> topics, string srcPath,
-            CancellationToken cancellationToken = default(CancellationToken), IProgress<string> progress = null)
+            CancellationToken cancellationToken = default(CancellationToken), IProgress<Indicator> progress = null)
         {
-            var topics2 = new TopicData[topics.Count()];
-            var index = 0;
-            foreach (var topic in topics)
-            {
-                topics2[index++] = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
-                if (progress != null)
-                {
-                    var path = Path.Combine(topic.RelativePath, topic.Name);
-                    progress.Report(path);
-                }
-            }
-            return topics2;
+            var topicsArray = topics.ToArray();
+            var count = topicsArray.Length;
+            var tasks = Enumerable.Range(0, count).Select(index =>
+                ParseAsync(topicsArray[index], srcPath, cancellationToken, progress, index, count));
+            return await Task.WhenAll(tasks);
         }
 
-        private static async Task<TopicData> ParseAsync(TopicData topic, string srcPath, CancellationToken cancellationToken)
+        private static async Task<TopicData> ParseAsync(TopicData topic, string srcPath, CancellationToken cancellationToken,
+            IProgress<Indicator> progress, int index, int count)
         {
             var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
             var file = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken)
@@ -57,6 +50,11 @@ namespace Amdl.Maml.Converter
             using (var reader = new StreamReader(stream))
             {
                 topic.ParserResult = TopicParser.Parse(reader);
+                if (progress != null)
+                {
+                    var path = Path.Combine(topic.RelativePath, topic.Name);
+                    progress.Report(Indicator.Create(path, index + 1, count));
+                }
                 return topic;
             }
         }
