@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ditto.CommandLine;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,101 +10,82 @@ namespace Amdl.Maml.Converter.Console
 {
     class Program
     {
-        private const string TimeFormat = "{0:yyyy-MM-dd HH:mm:ss.fff} ";
-        private const string TimeOffsetFormat = "{0:hh}:{0:mm}:{0:ss}.{0:fff}";
-
         private static SemaphoreSlim _semaphore = new SemaphoreSlim(1);
 
         static void Main(string[] args)
         {
-            var verbosity = Verbosity.Minimal;
-
-            if (args.Length < 3)
+            Parameters parameters;
+            var results = CommandLine<Parameters>.TryParse(args, out parameters);
+            if (results.Any() || parameters.Help)
             {
-                WriteUsage(verbosity);
+                foreach (var result in results)
+                    System.Console.Error.WriteLine(result.ErrorMessage);
+                if (results.Any())
+                    System.Console.Out.WriteLine();
+                CommandLine<Parameters>.WriteUsage(System.Console.Out);
                 return;
             }
-
-            var srcPath     = args[0].Trim();
-            var destPathRaw = args[1].Trim();
-            var layoutPath  = args[2].Trim();
-
-            if (args.Length > 3 && !Enum.TryParse<Verbosity>(args[3].Trim(), true, out verbosity))
-                throw new InvalidOperationException("Invalid verbosity value: " + args[3].Trim());
-
-            var destDir = new DirectoryInfo(destPathRaw);
-            var destPath = destDir.FullName;
-
-            Convert(srcPath, destPath, layoutPath, verbosity);
+            Convert(parameters);
         }
 
-        private static void Convert(string srcPath, string destPath, string layoutPath, Verbosity verbosity)
+        private static void Convert(Parameters parameters)
         {
-            var task = ConvertAsync(srcPath, destPath, layoutPath, verbosity, CancellationToken.None);
+            var srcPath = GetPath(parameters.SourcePath, true);
+            var destPath = GetPath(parameters.DestinationPath, true);
+            var layoutPath = GetPath(parameters.ContentLayoutPath, false);
+            var timeFormat = parameters.TimeFormat;
+            var verbosity = parameters.Verbosity;
+
+            var task = ConvertAsync(srcPath, destPath, layoutPath, parameters, CancellationToken.None);
             task.GetAwaiter().GetResult();
         }
 
-        private static void WriteUsage(Verbosity verbosity)
+        private static string GetPath(string rawPath, bool isDirectory)
         {
-            System.Console.WriteLine("Usage:");
-            System.Console.WriteLine();
-
-            System.Console.Write(AppDomain.CurrentDomain.FriendlyName);
-            System.Console.WriteLine(" srcPath destPath layoutPath [verbosity]");
-            System.Console.WriteLine();
-
-            System.Console.Write("\tsrcPath    ");
-            System.Console.WriteLine("Source folder path");
-
-            System.Console.Write("\tdestPath   ");
-            System.Console.WriteLine("Destination folder path");
-
-            System.Console.Write("\tlayoutPath ");
-            System.Console.WriteLine("Content layout file path");
-
-            var verbosityNames = string.Join(", ", Enum.GetNames(typeof(Verbosity)));
-            System.Console.Write("\tverbosity  ");
-            System.Console.WriteLine("{0} (the default is {1})", verbosityNames, verbosity);
-            System.Console.WriteLine();
+            var destDir = isDirectory
+                ? new DirectoryInfo(rawPath)
+                : (FileSystemInfo)new FileInfo(rawPath);
+            return destDir.FullName;
         }
 
-        private static async Task ConvertAsync(string srcPath, string destPath, string layoutPath, Verbosity verbosity, CancellationToken cancellationToken)
+        private static async Task<CancellationToken> ConvertAsync(string srcPath, string destPath, string layoutPath, Parameters parameters, CancellationToken cancellationToken)
         {
             using (var stream = System.Console.OpenStandardOutput())
             using (var writer = new StreamWriter(stream))
             {
                 var startTime = DateTime.Now;
 
-                await WritePrologueAsync(startTime, verbosity, cancellationToken, writer);
+                await WritePrologueAsync(startTime, parameters, cancellationToken, writer);
 
                 var title2id = await RunAsync((t, _) =>
                     LayoutIndexer.IndexAsync(layoutPath, t),
-                    verbosity, cancellationToken, writer, "READING ");
+                    parameters, cancellationToken, writer, "READING ");
 
                 var topics = await RunAsync((t, _) =>
                     FolderIndexer.IndexAsync(srcPath, t),
-                    verbosity, cancellationToken, writer, "INDEXING");
+                    parameters, cancellationToken, writer, "INDEXING");
 
                 topics = await RunAsync((t, p) =>
                     TopicParser.ParseAsync(topics, srcPath, t, p),
-                    verbosity, cancellationToken, writer, "PARSING ", "Parsing  {0}");
+                    parameters, cancellationToken, writer, "PARSING ", "Parsing  {0}");
 
                 topics = await RunAsync((t, _) =>
                     UpdateAsync(srcPath, title2id, topics),
-                    verbosity, cancellationToken, writer, "UPDATING");
+                    parameters, cancellationToken, writer, "UPDATING");
 
                 var name2topic = await RunAsync((t, _) =>
                     MapAsync(topics),
-                    verbosity, cancellationToken, writer, "MAPPING ");
+                    parameters, cancellationToken, writer, "MAPPING ");
 
                 await RunAsync((t, p) =>
                     ConvertAsync(srcPath, destPath, topics, name2topic, t, p),
-                    verbosity, cancellationToken, writer, "WRITING ", "Writing  {0}");
+                    parameters, cancellationToken, writer, "WRITING ", "Writing  {0}");
 
                 var endTime = DateTime.Now;
 
-                await WriteEpilogueAsync(startTime, endTime, verbosity, cancellationToken, writer);
+                await WriteEpilogueAsync(startTime, endTime, parameters, cancellationToken, writer);
             }
+            return cancellationToken;
         }
 
         private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
@@ -124,15 +106,15 @@ namespace Amdl.Maml.Converter.Console
         }
 
         private static async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<string>, Task<TResult>> taskFactory,
-            Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer, string title, string format = null)
+            Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string title, string format = null)
         {
             var stepStartTime = DateTime.Now;
 
-            await WriteStepPrologueAsync(title, stepStartTime, verbosity, cancellationToken, writer);
+            await WriteStepPrologueAsync(title, stepStartTime, parameters, cancellationToken, writer);
 
             Progress<string> progress;
             EventHandler<string> handler;
-            StartProgress(format, verbosity, cancellationToken, writer, out progress, out handler);
+            StartProgress(format, parameters, cancellationToken, writer, out progress, out handler);
 
             var result = await taskFactory(cancellationToken, progress);
 
@@ -140,22 +122,22 @@ namespace Amdl.Maml.Converter.Console
 
             StopProgress(progress, handler);
 
-            await WriteStepEpilogueAsync(title, stepStartTime, stepEndTime, verbosity, cancellationToken, writer);
+            await WriteStepEpilogueAsync(title, stepStartTime, stepEndTime, parameters, cancellationToken, writer);
 
             return result;
         }
 
         #region Progress
 
-        private static void StartProgress(string format, Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer, out Progress<string> progress, out EventHandler<string> handler)
+        private static void StartProgress(string format, Parameters parameters, CancellationToken cancellationToken, TextWriter writer, out Progress<string> progress, out EventHandler<string> handler)
         {
-            if (format == null || verbosity < Verbosity.Detailed)
+            if (format == null || parameters.Verbosity < Verbosity.Detailed)
             {
                 handler = null;
                 progress = null;
                 return;
             }
-            handler = new EventHandler<string>((_, v) => WriteProgress(format, v, cancellationToken, writer));
+            handler = new EventHandler<string>((_, v) => WriteProgress(format, v, parameters, cancellationToken, writer));
             progress = new Progress<string>();
             progress.ProgressChanged += handler;
         }
@@ -168,64 +150,127 @@ namespace Amdl.Maml.Converter.Console
 
         #endregion Progress
 
-        private static void WriteProgress(string format, string value, CancellationToken cancellationToken, TextWriter writer)
+        private static void WriteProgress(string format, string value, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
             _semaphore.Wait(cancellationToken);
-            writer.Write(TimeFormat, DateTime.Now);
+            Write(DateTime.Now, parameters, writer);
             writer.WriteLine(format, value);
             _semaphore.Release();
         }
 
         private const string PrologueFormat = "STARTED";
 
-        private static async Task WritePrologueAsync(DateTime startTime, Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer)
+        private static async Task WritePrologueAsync(DateTime startTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
-            if (verbosity < Verbosity.Minimal)
+            if (parameters.Verbosity < Verbosity.Minimal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
             await writer.WriteLineAsync();
-            await writer.WriteAsync(string.Format(TimeFormat, startTime));
+            await WriteAsync(startTime, parameters, writer);
             await writer.WriteLineAsync(PrologueFormat);
             _semaphore.Release();
         }
 
-        private const string EpilogueFormat = "TOTAL    " + TimeOffsetFormat;
+        private const string EpilogueFormat = "TOTAL    {0}";
 
-        private static async Task WriteEpilogueAsync(DateTime startTime, DateTime endTime, Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer)
+        private static async Task WriteEpilogueAsync(DateTime startTime, DateTime endTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
-            if (verbosity < Verbosity.Minimal)
+            if (parameters.Verbosity < Verbosity.Minimal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
             await writer.WriteLineAsync();
-            await writer.WriteAsync(string.Format(TimeFormat, endTime));
-            await writer.WriteAsync(string.Format(EpilogueFormat, endTime - startTime));
+            await WriteAsync(endTime, parameters, writer);
+            await WriteAsync(EpilogueFormat, parameters, writer, endTime - startTime);
             await writer.WriteLineAsync();
             _semaphore.Release();
         }
 
         private const string StepPrologueFormat = "STARTED  {0}";
 
-        private static async Task WriteStepPrologueAsync(string stepTitle, DateTime stepStartTime, Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer)
+        private static async Task WriteStepPrologueAsync(string stepTitle, DateTime stepStartTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
-            if (verbosity < Verbosity.Normal)
+            if (parameters.Verbosity < Verbosity.Normal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
-            await writer.WriteAsync(string.Format(TimeFormat, stepStartTime));
+            await WriteAsync(stepStartTime, parameters, writer);
             await writer.WriteLineAsync(string.Format(StepPrologueFormat, stepTitle));
             _semaphore.Release();
         }
 
-        private const string StepEpilogueFormat = "FINISHED {1} IN " + TimeOffsetFormat;
+        private const string StepEpilogueFormat = "FINISHED {1} IN {0}";
 
-        private static async Task WriteStepEpilogueAsync(string stepTitle, DateTime stepStartTime, DateTime stepEndTime, Verbosity verbosity, CancellationToken cancellationToken, TextWriter writer)
+        private static async Task WriteStepEpilogueAsync(string stepTitle, DateTime stepStartTime, DateTime stepEndTime, Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
         {
-            if (verbosity < Verbosity.Normal)
+            if (parameters.Verbosity < Verbosity.Normal)
                 return;
             await _semaphore.WaitAsync(cancellationToken);
-            await writer.WriteAsync(string.Format(TimeFormat, stepEndTime));
-            await writer.WriteLineAsync(string.Format(StepEpilogueFormat, stepEndTime - stepStartTime, stepTitle));
+            await WriteAsync(stepEndTime, parameters, writer);
+            await WriteLineAsync(StepEpilogueFormat, parameters, writer, stepEndTime - stepStartTime, stepTitle);
             await writer.WriteLineAsync();
             _semaphore.Release();
+        }
+
+        private static void Write(DateTime time, Parameters parameters, TextWriter writer)
+        {
+            Write("{0} ", GetTimeFormat(parameters), writer.Write, time);
+        }
+
+        private static Task WriteAsync(DateTime time, Parameters parameters, TextWriter writer)
+        {
+            return WriteAsync("{0} ", GetTimeFormat(parameters), writer.WriteAsync, time);
+        }
+
+        private static Task WriteAsync(string format, Parameters parameters, TextWriter writer, params object[] args)
+        {
+            return WriteAsync(format, GetDurationFormat(parameters), writer.WriteAsync, args);
+        }
+
+        private static Task WriteLineAsync(string format, Parameters parameters, TextWriter writer, params object[] args)
+        {
+            return WriteAsync(format, GetDurationFormat(parameters), writer.WriteLineAsync, args);
+        }
+
+        private static string GetTimeFormat(Parameters parameters)
+        {
+            return Reformat(parameters.TimeFormat);
+        }
+
+        private static string GetDurationFormat(Parameters parameters)
+        {
+            var init = parameters.DurationFormat.Trim();
+            var split = parameters.DurationFormat.Split(':', '.', ',', '-', ' ');
+            int index = 0;
+            string durationFormat = null;
+            foreach (var s in split)
+            {
+                if (!string.IsNullOrEmpty(s))
+                {
+                    durationFormat += Reformat(s);
+                    index += s.Length;
+                }
+                if (index < init.Length - 1)
+                    durationFormat += init[index++];
+            }
+            return durationFormat;
+        }
+
+        private static void Write(string format, string reFormat, Action<string> write, params object[] args)
+        {
+            format = format.Replace("{0}", reFormat);
+            var value = string.Format(format, args);
+            write(value);
+        }
+
+        private static Task WriteAsync(string format, string reFormat, Func<string, Task> write, params object[] args)
+        {
+            format = format.Replace("{0}", reFormat);
+            var value = string.Format(format, args);
+            return write(value);
+        }
+
+        private static string Reformat(string s)
+        {
+            return string.Format("{{0:{0}}}", s);
         }
     }
 }

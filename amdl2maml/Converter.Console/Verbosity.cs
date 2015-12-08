@@ -1,10 +1,19 @@
-﻿namespace Amdl.Maml.Converter.Console
+﻿using System.ComponentModel;
+
+namespace Amdl.Maml.Converter.Console
 {
     enum Verbosity
     {
-        Silent = -1,
+        [Description("No output")]
+        Silent,
+
+        [Description("Minimal output")]
         Minimal,
+
+        [Description("Normal output")]
         Normal,
+
+        [Description("Detailed output")]
         Detailed,
     }
 }
