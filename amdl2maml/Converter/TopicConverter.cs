@@ -16,17 +16,16 @@ namespace Amdl.Maml.Converter
         /// <summary>
         /// Converts the topic to MAML.
         /// </summary>
-        /// <param name="topics">Topics data.</param>
         /// <param name="srcPath">Source base path.</param>
         /// <param name="destPath">Destination base path.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task ConvertAsync(IEnumerable<TopicData> topics, string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
+        public static async Task ConvertAsync(string srcPath, string destPath, IDictionary<string, TopicData> name2topic,
             CancellationToken cancellationToken = default(CancellationToken), IProgress<Indicator> progress = null)
         {
-            var topicsArray = topics.ToArray();
+            var topicsArray = name2topic.Values.ToArray();
             var count = topicsArray.Length;
             Indicator.Report(progress, count);
             for (var index = 0; index < count; index++)

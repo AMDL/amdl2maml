@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,7 +57,7 @@ namespace Amdl.Maml.Converter
             this.stepProgress = stepProgress;
         }
 
-        private const int StepCount = 6;
+        private const int StepCount = 4;
 
         private async Task ConvertAsync()
         {
@@ -73,37 +71,16 @@ namespace Amdl.Maml.Converter
             Report("Indexing");
             var topics = await FolderIndexer.IndexAsync(srcPath, cancellationToken, stepProgress);
 
-            Report("Parsing");
-            topics = await TopicParser.ParseAsync(topics, srcPath, cancellationToken, stepProgress);
-
-            Report("Updating");
-            topics = await UpdateAsync(srcPath, title2id, topics);
-
-            Report("Mapping");
-            var name2topic = await MapAsync(topics);
+            Report("Matching");
+            var name2topic = await TopicMatcher.MatchAsync(topics, srcPath, title2id, cancellationToken, stepProgress);
 
             Report("Writing");
-            await ConvertAsync(srcPath, destPath, topics, name2topic);
+            await TopicConverter.ConvertAsync(srcPath, destPath, name2topic, cancellationToken, stepProgress);
         }
 
         private void Report(string title)
         {
             Indicator.Report(progress, StepCount, index++, title);
-        }
-
-        private Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
-        {
-            return Task.Factory.StartNew(() => TopicUpdater.Update(topics, srcPath, title2id));
-        }
-
-        private Task<Dictionary<string, TopicData>> MapAsync(IEnumerable<TopicData> topics)
-        {
-            return Task.Factory.StartNew(() => topics.ToDictionary(topic => topic.Name, topic => topic));
-        }
-
-        private Task ConvertAsync(string srcPath, string destPath, IEnumerable<TopicData> topics, Dictionary<string, TopicData> name2topic)
-        {
-            return TopicConverter.ConvertAsync(topics, srcPath, destPath, name2topic, cancellationToken, stepProgress);
         }
     }
 }

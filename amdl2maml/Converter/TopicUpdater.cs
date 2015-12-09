@@ -1,8 +1,6 @@
 ﻿using CommonMark.Syntax;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace Amdl.Maml.Converter
 {
@@ -12,18 +10,12 @@ namespace Amdl.Maml.Converter
     public static class TopicUpdater
     {
         /// <summary>
-        /// Updates the topics with their IDs from content layout.
+        /// Updates the topic with its ID from content layout.
         /// </summary>
-        /// <param name="topics">The topics.</param>
-        /// <param name="srcPath">Source base path.</param>
+        /// <param name="topic">The topic.</param>
         /// <param name="title2id">Gets the topic ID from the topic title.</param>
-        /// <returns>Updated topics.</returns>
-        public static IEnumerable<TopicData> Update(IEnumerable<TopicData> topics, string srcPath, IDictionary<string, Guid> title2id)
-        {
-            return topics.Select(topic => Update(topic, title2id));
-        }
-
-        private static TopicData Update(TopicData topic, IDictionary<string, Guid> title2id)
+        /// <returns>Updated topic.</returns>
+        public static TopicData Update(TopicData topic, IDictionary<string, Guid> title2id)
         {
             var block = GetHeaderBlock(topic.ParserResult);
             topic.Title = GetTitle(topic, block);
