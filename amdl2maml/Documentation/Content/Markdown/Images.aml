@@ -99,7 +99,8 @@ is also an inline image.</para>
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>_Image <legacyItalic>attributes</legacyItalic> may be specified using the following syntax:</para>
+        <para>
+          <legacyItalic>Image attributes</legacyItalic> may be specified using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>
