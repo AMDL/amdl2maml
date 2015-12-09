@@ -16,18 +16,18 @@ namespace Amdl.Maml.Converter
             this.taskFactory = taskFactory;
         }
 
-        private async Task<T> RunAsync(T data, IProgress<Indicator> progress, int index, int count)
+        private async Task<T> ExecuteAsync(T data, IProgress<Indicator> progress, int index, int count)
         {
             Indicator.Report(progress, count, index, title);
             return await taskFactory(data);
         }
 
-        public static async Task<T> RunAllAsync(T data, IEnumerable<Step<T>> steps, IProgress<Indicator> progress)
+        public static async Task<T> ExecuteAllAsync(T data, IEnumerable<Step<T>> steps, IProgress<Indicator> progress)
         {
             var stepsArray = steps.ToArray();
             var count = stepsArray.Length;
             for (int index = 0; index < count; index++)
-                data = await stepsArray[index].RunAsync(data, progress, index, count);
+                data = await stepsArray[index].ExecuteAsync(data, progress, index, count);
             return data;
         }
     }

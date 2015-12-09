@@ -59,7 +59,7 @@ namespace Amdl.Maml.Converter
 
         private Task ConvertAsync(IProgress<Indicator> progress)
         {
-            return Step<Data>.RunAllAsync(new Data(), steps, progress);
+            return Step<Data>.ExecuteAllAsync(new Data(), steps, progress);
         }
 
         private IEnumerable<Step<Data>> CreateSteps()
