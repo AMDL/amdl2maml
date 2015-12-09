@@ -113,19 +113,21 @@ namespace Amdl.Maml.Converter
                 return TopicType.Empty;
 
             var name = Path.GetFileNameWithoutExtension(file.Name);
-            if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase)) //TODO
+            if (name.Equals(folderName, StringComparison.OrdinalIgnoreCase))
                 return TopicType.Orientation;
 
             var split = name.Split('-', ' ');
             if (split.Any())
             {
-                if (split.First().Equals("HowTo", StringComparison.OrdinalIgnoreCase)) //TODO
+                var first = split.First();
+                if (first.Equals(Properties.Resources.HowToNameFirst, StringComparison.CurrentCultureIgnoreCase))
                     return TopicType.HowTo;
 
-                if (split.Last().Equals("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
+                var last = split.Last();
+                if (last.Equals(Properties.Resources.GlossaryNameLast, StringComparison.CurrentCultureIgnoreCase))
                     return TopicType.Glossary;
 
-                if (split.Last().Equals("Orientation", StringComparison.OrdinalIgnoreCase)) //TODO
+                if (last.Equals(Properties.Resources.OrientationNameLast, StringComparison.CurrentCultureIgnoreCase))
                     return TopicType.Orientation;
             }
             

@@ -120,6 +120,15 @@
   <data name="ConceptsTitle" xml:space="preserve">
     <value>Concepts</value>
   </data>
+  <data name="GlossaryNameLast" xml:space="preserve">
+    <value>Glossary</value>
+  </data>
+  <data name="HowToNameFirst" xml:space="preserve">
+    <value>HowTo</value>
+  </data>
+  <data name="OrientationNameLast" xml:space="preserve">
+    <value>Orientation</value>
+  </data>
   <data name="OtherResourcesTitle" xml:space="preserve">
     <value>Other Resources</value>
   </data>

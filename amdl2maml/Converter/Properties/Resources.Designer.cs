@@ -71,6 +71,33 @@ namespace Amdl.Maml.Converter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Glossary.
+        /// </summary>
+        internal static string GlossaryNameLast {
+            get {
+                return ResourceManager.GetString("GlossaryNameLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HowTo.
+        /// </summary>
+        internal static string HowToNameFirst {
+            get {
+                return ResourceManager.GetString("HowToNameFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orientation.
+        /// </summary>
+        internal static string OrientationNameLast {
+            get {
+                return ResourceManager.GetString("OrientationNameLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other Resources.
         /// </summary>
         internal static string OtherResourcesTitle {
