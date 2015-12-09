@@ -15,6 +15,15 @@ namespace Amdl.Maml.Converter.Console
         public string ContentLayout;
     }
 
+    struct Formats
+    {
+        public string Time;
+        public string Duration;
+        public string StepPrologue;
+        public string StepEpilogue;
+        public string StepProgress;
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -106,52 +115,46 @@ namespace Amdl.Maml.Converter.Console
 
         private static async Task<CancellationToken> ConvertAsync(Paths paths, Parameters parameters, CancellationToken cancellationToken)
         {
-            var titles = new[]
-            {
-                "Reading",
-                "Indexing",
-                "Parsing",
-                "Updating",
-                "Mapping",
-                "Writing",
-            };
-
             using (var stream = System.Console.OpenStandardOutput())
             using (var writer = new StreamWriter(stream))
             {
-                var runner = new Runner(parameters, cancellationToken, writer, titles);
-
-                var startTime = DateTime.Now;
-
-                await runner.WritePrologueAsync(startTime);
-
-                var srcPath = paths.Source;
-                var destPath = paths.Destination;
-                var layoutPath = paths.ContentLayout;
-
-                var title2id = await runner.RunAsync((t, _) =>
-                    LayoutIndexer.IndexAsync(layoutPath, t));
-
-                var topics = await runner.RunAsync((t, p) =>
-                    FolderIndexer.IndexAsync(srcPath, t, p));
-
-                topics = await runner.RunAsync((t, p) =>
-                    TopicParser.ParseAsync(topics, srcPath, t, p));
-
-                topics = await runner.RunAsync((t, _) =>
-                    UpdateAsync(srcPath, title2id, topics));
-
-                var name2topic = await runner.RunAsync((t, _) =>
-                    MapAsync(topics));
-
-                await runner.RunAsync((t, p) =>
-                    ConvertAsync(srcPath, destPath, topics, name2topic, t, p));
-
-                var endTime = DateTime.Now;
-
-                await runner.WriteEpilogueAsync(startTime, endTime);
+                var runner = new Runner(parameters, cancellationToken, writer);
+                await runner.RunAsync((t, p1, p2) => ConvertAsync(paths, t, p1, p2));
             }
             return cancellationToken;
+        }
+
+        private const int StepCount = 6;
+        private static int stepIndex = 0;
+
+        private static async Task ConvertAsync(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> progress, IProgress<Indicator> stepProgress)
+        {
+            var srcPath = paths.Source;
+            var destPath = paths.Destination;
+            var layoutPath = paths.ContentLayout;
+
+            Report(progress, "Reading");
+            var title2id = await LayoutIndexer.IndexAsync(layoutPath, cancellationToken);
+
+            Report(progress, "Indexing");
+            var topics = await FolderIndexer.IndexAsync(srcPath, cancellationToken, stepProgress);
+
+            Report(progress, "Parsing");
+            topics = await TopicParser.ParseAsync(topics, srcPath, cancellationToken, stepProgress);
+
+            Report(progress, "Updating");
+            topics = await UpdateAsync(srcPath, title2id, topics);
+
+            Report(progress, "Mapping");
+            var name2topic = await MapAsync(topics);
+
+            Report(progress, "Writing");
+            await ConvertAsync(srcPath, destPath, topics, name2topic, cancellationToken, stepProgress);
+        }
+
+        private static void Report(IProgress<Indicator> progress, string title)
+        {
+            Indicator.Report(progress, StepCount, stepIndex++, title);
         }
 
         private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
@@ -172,249 +175,164 @@ namespace Amdl.Maml.Converter.Console
         }
     }
 
-    sealed class Runner
+    abstract class RunnerBase
     {
         #region Fields
 
         private readonly Verbosity verbosity;
-        private readonly string timeFormat;
-        private readonly string durationFormat;
-        private readonly string stepPrologueFormat;
-        private readonly string stepEpilogueFormat;
+        private readonly Formats formats;
         private readonly CancellationToken cancellationToken;
         private readonly TextWriter writer;
-        private readonly string[] titles;
-        private readonly int maxLength;
-        private int index;
-        private readonly SemaphoreSlim _semaphore;
+        private readonly Progress<Indicator> progress;
+        private readonly EventHandler<Indicator> handler;
+        private readonly SemaphoreSlim semaphore;
 
         #endregion Fields
 
-        #region Constructor
+        #region Constructors
 
-        public Runner(Parameters parameters, CancellationToken cancellationToken, TextWriter writer, string[] titles)
+        protected RunnerBase(Parameters parameters, TextWriter writer, CancellationToken cancellationToken)
+            : this(parameters.Verbosity, GetFormats(parameters), writer, cancellationToken, new Progress<Indicator>(), new SemaphoreSlim(1))
         {
-            this.verbosity = parameters.Verbosity;
-            this.timeFormat = GetTimeFormat(parameters);
-            this.durationFormat = GetDurationFormat(parameters);
-            this.stepPrologueFormat = GetStepPrologueFormat(parameters);
-            this.stepEpilogueFormat = GetStepEpilogueFormat(parameters);
-            this.cancellationToken = cancellationToken;
-            this.writer = writer;
-            this.titles = titles;
-            this.maxLength = titles.Max(s => s.Length);
-            this.index = 0;
-            this._semaphore = new SemaphoreSlim(1);
         }
 
-        #endregion Constructor
+        public RunnerBase(Verbosity verbosity, Formats formats, TextWriter writer, CancellationToken cancellationToken, Progress<Indicator> progress, SemaphoreSlim semaphore)
+        {
+            this.verbosity = verbosity;
+            this.formats = formats;
+            this.cancellationToken = cancellationToken;
+            this.writer = writer;
+            this.progress = progress;
+            this.handler = new EventHandler<Indicator>((_, v) => WriteProgress(v));
+            this.semaphore = semaphore;
+        }
+
+        #endregion Constructors
 
         #region Properties
 
-        private Verbosity Verbosity
+        protected Verbosity Verbosity
         {
             get { return verbosity; }
         }
 
-        private string TimeFormat
+        protected Formats Formats
         {
-            get { return timeFormat; }
+            get { return formats; }
         }
 
-        private string DurationFormat
+        protected string TimeFormat
         {
-            get { return durationFormat; }
+            get { return Formats.Time; }
         }
 
-        private string StepPrologueFormat
+        protected string DurationFormat
         {
-            get { return stepPrologueFormat; }
+            get { return Formats.Duration; }
         }
 
-        private string StepEpilogueFormat
+        protected TextWriter Writer
         {
-            get { return stepEpilogueFormat; }
+            get { return writer; }
+        }
+
+        protected CancellationToken CancellationToken
+        {
+            get { return cancellationToken; }
+        }
+
+        protected Progress<Indicator> Progress
+        {
+            get { return progress; }
+        }
+
+        protected EventHandler<Indicator> Handler
+        {
+            get { return handler; }
+        }
+
+        protected SemaphoreSlim Semaphore
+        {
+            get { return semaphore; }
         }
 
         #endregion Properties
 
-        #region RunAsync
+        #region Methods
 
-        public async Task<TResult> RunAsync<TResult>(Func<CancellationToken, IProgress<Indicator>, Task<TResult>> taskFactory)
+        protected abstract Task WriteProgressAsync(Indicator value);
+
+        protected Task WaitAsync()
         {
-            var title = titles[index++];
-            var indent = GetIndent(title);
-            var titleUpper = title.ToUpperInvariant() + indent;
-
-            var stepStartTime = DateTime.Now;
-
-            await WriteStepPrologueAsync(titleUpper, index, titles.Length, stepStartTime);
-
-            Progress<Indicator> progress;
-            EventHandler<Indicator> handler;
-            StartProgress(title + indent, out progress, out handler);
-
-            var result = await taskFactory(cancellationToken, progress);
-
-            var stepEndTime = DateTime.Now;
-
-            StopProgress(progress, handler);
-
-            await WriteStepEpilogueAsync(titleUpper, stepStartTime, stepEndTime);
-
-            return result;
+            return semaphore.WaitAsync(cancellationToken);
         }
 
-        #endregion RunAsync
-
-        #region Progress
-
-        private void StartProgress(string title, out Progress<Indicator> progress, out EventHandler<Indicator> handler)
+        protected int Release()
         {
-            if (Verbosity < Verbosity.Detailed)
-            {
-                handler = null;
-                progress = null;
-                return;
-            }
-            handler = new EventHandler<Indicator>((_, value) => WriteProgress(title, value));
-            progress = new Progress<Indicator>();
-            progress.ProgressChanged += handler;
+            return semaphore.Release();
         }
 
-        private void StopProgress(Progress<Indicator> progress, EventHandler<Indicator> handler)
-        {
-            if (progress != null)
-                progress.ProgressChanged -= handler;
-        }
-
-        private void WriteProgress(string title, Indicator value)
-        {
-            if (value.Index == 0)
-                return;
-            var time = DateTime.Now;
-            _semaphore.Wait(cancellationToken);
-            if (Verbosity == Verbosity.Insane)
-                Write("{0}  {1:000.00}%  ", time, 100.0 * value.Index / value.Count);
-            else
-                Write("{0}  ", time);
-            Write(title);
-            Write(value.Name);
-            WriteLine();
-            _semaphore.Release();
-        }
-
-        private string GetIndent(string title)
-        {
-            return new string(Enumerable.Repeat(' ', maxLength - title.Length + 1).ToArray());
-        }
-
-        #endregion Progress
-
-        #region Prologue/Epilogue
-
-        private const string PrologueFormat = " STARTED";
-
-        public async Task WritePrologueAsync(DateTime startTime)
-        {
-            if (Verbosity < Verbosity.Minimal)
-                return;
-            await _semaphore.WaitAsync(cancellationToken);
-            await WriteLineAsync();
-            await WriteAsync(startTime);
-            await WriteLineAsync(PrologueFormat);
-            _semaphore.Release();
-        }
-
-        private const string EpilogueFormat = " TOTAL    {0}";
-
-        public async Task WriteEpilogueAsync(DateTime startTime, DateTime endTime)
-        {
-            if (Verbosity < Verbosity.Minimal)
-                return;
-            await _semaphore.WaitAsync(cancellationToken);
-            await WriteAsync(endTime);
-            await WriteLineAsync(EpilogueFormat, endTime - startTime);
-            _semaphore.Release();
-        }
-
-        #endregion Prologue/Epilogue
-
-        #region Step
-
-        private const string StepPrologueFormat1 = " STEP {1}/{2} {0}";
-        private const string StepPrologueFormat2 = " {0}";
-
-        private async Task WriteStepPrologueAsync(string title, int index, int count, DateTime stepStartTime)
-        {
-            if (Verbosity < Verbosity.Normal)
-                return;
-            await _semaphore.WaitAsync(cancellationToken);
-            await WriteAsync(stepStartTime);
-            await WriteLineAsync(string.Format(StepPrologueFormat, title, index, count));
-            _semaphore.Release();
-        }
-
-        private const string StepEpilogueFormat1 = " FINISHED {1}IN {0}";
-        private const string StepEpilogueFormat2 = " {1}FINISHED IN {0}";
-
-        private async Task WriteStepEpilogueAsync(string title, DateTime stepStartTime, DateTime stepEndTime)
-        {
-            if (Verbosity < Verbosity.Normal)
-                return;
-            await _semaphore.WaitAsync(cancellationToken);
-            await WriteAsync(stepEndTime);
-            await WriteLineAsync(StepEpilogueFormat, stepEndTime - stepStartTime, title);
-            await WriteLineAsync();
-            _semaphore.Release();
-        }
-
-        #endregion Step
-
-        #region Write
-
-        private void Write(string format, params object[] args)
-        {
-            Write(format, TimeFormat, writer.Write, args);
-        }
-
-        private void Write(string value)
-        {
-            writer.Write(value);
-        }
-
-        private void WriteLine()
-        {
-            writer.WriteLine();
-        }
-
-        #endregion Write
-
-        #region WriteAsync
-
-        private Task WriteAsync(DateTime time)
+        protected Task WriteAsync(DateTime time)
         {
             return WriteAsync("{0} ", TimeFormat, writer.WriteAsync, time);
         }
 
-        private Task WriteLineAsync(string format, params object[] args)
+        protected Task WriteAsync(string format, params object[] args)
+        {
+            return WriteAsync(format, TimeFormat, writer.WriteAsync, args);
+        }
+
+        protected Task WriteLineAsync(string format, params object[] args)
         {
             return WriteAsync(format, DurationFormat, writer.WriteLineAsync, args);
         }
 
-        private Task WriteLineAsync(string value)
-        {
-            return writer.WriteLineAsync(value);
-        }
-
-        private Task WriteLineAsync()
+        protected Task WriteLineAsync()
         {
             return writer.WriteLineAsync();
         }
 
-        #endregion WriteAsync
+        private void WriteProgress(Indicator value)
+        {
+            Task.Run(() => WriteProgressAsync(value));
+        }
+
+        #endregion Methods
 
         #region Static Helpers
+
+        private static Formats GetFormats(Parameters parameters)
+        {
+            return new Formats
+            {
+                Time = GetTimeFormat(parameters),
+                Duration = GetDurationFormat(parameters),
+                StepPrologue = GetStepPrologueFormat(parameters),
+                StepEpilogue = GetStepEpilogueFormat(parameters),
+                StepProgress = GetStepProgressFormat(parameters),
+            };
+        }
+
+        private static string GetStepPrologueFormat(Parameters parameters)
+        {
+            return parameters.Verbosity == Verbosity.Insane
+                ? " STEP {1}/{2} {0}"
+                : " {0}";
+        }
+
+        private static string GetStepEpilogueFormat(Parameters parameters)
+        {
+            return parameters.Verbosity == Verbosity.Insane
+                ? " FINISHED {1}IN {0}"
+                : " {1}FINISHED IN {0}";
+        }
+
+        private static string GetStepProgressFormat(Parameters parameters)
+        {
+            return parameters.Verbosity == Verbosity.Insane
+                ? "{0}  {1:000.00}%  "
+                : "{0}  ";
+        }
 
         private static string GetTimeFormat(Parameters parameters)
         {
@@ -440,25 +358,6 @@ namespace Amdl.Maml.Converter.Console
             return durationFormat;
         }
 
-        private static string GetStepPrologueFormat(Parameters parameters)
-        {
-            return parameters.Verbosity == Verbosity.Insane
-                ? StepPrologueFormat1
-                : StepPrologueFormat2;
-        }
-
-        private static string GetStepEpilogueFormat(Parameters parameters)
-        {
-            return parameters.Verbosity == Verbosity.Insane
-                ? StepEpilogueFormat1
-                : StepEpilogueFormat2;
-        }
-
-        private static void Write(string format, string reFormat, Action<string> write, params object[] args)
-        {
-            write(Format(format, reFormat, args));
-        }
-
         private static Task WriteAsync(string format, string reFormat, Func<string, Task> write, params object[] args)
         {
             return write(Format(format, reFormat, args));
@@ -475,6 +374,223 @@ namespace Amdl.Maml.Converter.Console
             return string.Format("{{0:{0}}}", s);
         }
 
+        #endregion Static Helpers
+    }
+
+    sealed class Runner : RunnerBase
+    {
+        #region Fields
+
+        private readonly Progress<Indicator> stepProgress;
+        private StepRunner stepRunner;
+
+        #endregion Fields
+
+        #region Constructor
+
+        public Runner(Parameters parameters, CancellationToken cancellationToken, TextWriter writer)
+            : base(parameters, writer, cancellationToken)
+        {
+            this.stepProgress = new Progress<Indicator>();
+        }
+
+        #endregion Constructor
+
+        #region Properties
+
+        private Progress<Indicator> StepProgress
+        {
+            get { return stepProgress; }
+        }
+
         #endregion
+
+        #region RunAsync
+
+        public async Task RunAsync(Func<CancellationToken, IProgress<Indicator>, IProgress<Indicator>, Task> taskFactory)
+        {
+            var startTime = DateTime.Now;
+
+            await WritePrologueAsync(startTime);
+
+            await taskFactory(CancellationToken, Progress, StepProgress);
+
+            var endTime = DateTime.Now;
+
+            await WriteEpilogueAsync(startTime, endTime);
+        }
+
+        #endregion RunAsync
+
+        #region Prologue
+
+        private const string PrologueFormat = " STARTED";
+
+        private async Task WritePrologueAsync(DateTime startTime)
+        {
+            if (Verbosity < Verbosity.Minimal)
+                return;
+
+            await WaitAsync();
+            await WriteLineAsync();
+            await WriteAsync(startTime);
+            await WriteLineAsync(PrologueFormat);
+            Release();
+
+            if (Verbosity >= Verbosity.Normal)
+                Progress.ProgressChanged += Handler;
+        }
+
+        private const string EpilogueFormat = " TOTAL    {0}";
+
+        #endregion Prologue
+
+        #region Epilogue
+
+        private async Task WriteEpilogueAsync(DateTime startTime, DateTime endTime)
+        {
+            if (Verbosity < Verbosity.Minimal)
+                return;
+
+            Progress.ProgressChanged -= Handler;
+
+            await WaitAsync();
+            await WriteAsync(endTime);
+            await WriteLineAsync(EpilogueFormat, endTime - startTime);
+            Release();
+        }
+
+        #endregion Epilogue
+
+        #region Progress
+
+        protected override async Task WriteProgressAsync(Indicator value)
+        {
+            if (stepRunner != null)
+            {
+                var endTime = DateTime.Now;
+                await stepRunner.WriteEpilogueAsync(endTime);
+            }
+
+            var startTime = DateTime.Now;
+            stepRunner = new StepRunner(value, Verbosity, this.Formats, Writer, CancellationToken, StepProgress, Semaphore);
+            await stepRunner.WritePrologueAsync(startTime);
+        }
+
+        #endregion Progress
+    }
+
+    sealed class StepRunner : RunnerBase
+    {
+        #region Fields
+
+        private readonly Indicator indicator;
+        private readonly string title;
+        private DateTime startTime;
+
+        #endregion Fields
+
+        #region Constructor
+
+        public StepRunner(Indicator indicator, Verbosity verbosity, Formats formats, TextWriter writer, CancellationToken cancellationToken, Progress<Indicator> progress, SemaphoreSlim semaphore)
+            : base(verbosity, formats, writer, cancellationToken, progress, semaphore)
+        {
+            this.indicator = indicator;
+            this.title = indicator.Name + GetIndent(indicator.Name);
+        }
+
+        #endregion Constructor
+
+        #region Properties
+
+        private string Title
+        {
+            get { return title; }
+        }
+
+        private int Index
+        {
+            get { return indicator.Index; }
+        }
+
+        private int Count
+        {
+            get { return indicator.Count; }
+        }
+
+        private string PrologueFormat
+        {
+            get { return Formats.StepPrologue; }
+        }
+
+        private string EpilogueFormat
+        {
+            get { return Formats.StepEpilogue; }
+        }
+
+        private string ProgressFormat
+        {
+            get { return Formats.StepProgress; }
+        }
+
+        #endregion Properties
+
+        #region Prologue
+
+        public async Task WritePrologueAsync(DateTime startTime)
+        {
+            this.startTime = startTime;
+
+            await WaitAsync();
+            await WriteAsync(startTime);
+            await WriteLineAsync(string.Format(PrologueFormat, Title.ToUpperInvariant(), Index + 1, Count));
+            Release();
+
+            if (Verbosity >= Verbosity.Detailed)
+                Progress.ProgressChanged += Handler;
+        }
+
+        #endregion Prologue
+
+        #region Epilogue
+
+        public async Task WriteEpilogueAsync(DateTime endTime)
+        {
+            Progress.ProgressChanged -= Handler;
+
+            await WaitAsync();
+            await WriteAsync(endTime);
+            await WriteLineAsync(EpilogueFormat, endTime - startTime, Title.ToUpperInvariant());
+            await WriteLineAsync();
+            Release();
+        }
+
+        #endregion Epilogue
+
+        #region Progress
+
+        protected override async Task WriteProgressAsync(Indicator value)
+        {
+            if (value.Index == 0)
+                return;
+
+            var time = DateTime.Now;
+
+            await WaitAsync();
+            await WriteAsync(ProgressFormat, time, 100.0 * value.Index / value.Count);
+            await WriteAsync(Title);
+            await WriteAsync(value.Name);
+            await WriteLineAsync();
+            Release();
+        }
+
+        private string GetIndent(string title)
+        {
+            return new string(Enumerable.Repeat(' ', MaxLength - title.Length + 1).ToArray());
+        }
+
+        private const int MaxLength = 8;
+
+        #endregion Progress
     }
 }
