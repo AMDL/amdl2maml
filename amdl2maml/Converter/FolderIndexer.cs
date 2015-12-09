@@ -32,8 +32,7 @@ namespace Amdl.Maml.Converter
 
         private static Task<IEnumerable<TopicData>> IndexAsync(string path, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
-            var converter = new FolderIndexer(path, relativePath);
-            return converter.IndexAsync(cancellationToken, progress);
+            return new FolderIndexer(path, relativePath, cancellationToken, progress).IndexAsync();
         }
 
         private static bool IsTopic(IFolder folder)
@@ -54,44 +53,48 @@ namespace Amdl.Maml.Converter
         private readonly string path;
         private readonly string relativePath;
         private readonly string folderName;
+        private readonly CancellationToken cancellationToken;
+        private readonly IProgress<Indicator> progress;
 
-        private FolderIndexer(string path, string relativePath)
+        private FolderIndexer(string path, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress)
         {
             this.path = path;
             this.relativePath = relativePath;
             if (relativePath != null)
                 this.folderName = Path.GetFileName(relativePath);
+            this.cancellationToken = cancellationToken;
+            this.progress = progress;
         }
 
-        private async Task<IEnumerable<TopicData>> IndexAsync(CancellationToken cancellationToken, IProgress<Indicator> progress)
+        private async Task<IEnumerable<TopicData>> IndexAsync()
         {
             var folder = await FileSystem.Current.GetFolderFromPathAsync(this.path, cancellationToken)
                 .ConfigureAwait(false);
-            var topics = await IndexFilesAsync(folder, cancellationToken);
-            var subfolderTopics = await IndexFoldersAsync(folder, cancellationToken, progress);
+            var topics = await IndexFilesAsync(folder);
+            var subfolderTopics = await IndexFoldersAsync(folder);
             return topics.Concat(subfolderTopics);
         }
 
-        private async Task<IEnumerable<TopicData>> IndexFoldersAsync(IFolder folder, CancellationToken cancellationToken, IProgress<Indicator> progress)
+        private async Task<IEnumerable<TopicData>> IndexFoldersAsync(IFolder folder)
         {
             var folders = await folder.GetFoldersAsync(cancellationToken);
             var foldersArray = folders.Where(IsTopic).ToArray();
             var count = foldersArray.Count();
             Indicator.Report(progress, count);
             var folderTopics = Enumerable.Range(0, count).Select(index =>
-                IndexFolderAsync(foldersArray[index], relativePath, cancellationToken, progress, index, count));
+                IndexFolderAsync(foldersArray[index], relativePath, index, count));
             var topicsMany = await Task.WhenAll(folderTopics);
             return topicsMany.SelectMany(t => t);
         }
 
-        private static Task<IEnumerable<TopicData>> IndexFolderAsync(IFolder folder, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress, int index, int count)
+        private Task<IEnumerable<TopicData>> IndexFolderAsync(IFolder folder, string relativePath, int index, int count)
         {
             relativePath = Path.Combine(relativePath, folder.Name);
             Indicator.Report(progress, count, index + 1, relativePath);
             return IndexAsync(folder.Path, relativePath, cancellationToken, null);
         }
 
-        private async Task<IEnumerable<TopicData>> IndexFilesAsync(IFolder folder, CancellationToken cancellationToken)
+        private async Task<IEnumerable<TopicData>> IndexFilesAsync(IFolder folder)
         {
             var files = await folder.GetFilesAsync(cancellationToken);
             return files.Where(IsTopic)
@@ -121,6 +124,9 @@ namespace Amdl.Maml.Converter
 
                 if (split.Last().Equals("Glossary", StringComparison.OrdinalIgnoreCase)) //TODO
                     return TopicType.Glossary;
+
+                if (split.Last().Equals("Orientation", StringComparison.OrdinalIgnoreCase)) //TODO
+                    return TopicType.Orientation;
             }
             
             return TopicType.General;
