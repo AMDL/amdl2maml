@@ -5,8 +5,8 @@ namespace Amdl.Maml.Converter.Writers
 {
     class OrientationTopicWriter : TopicWriter
     {
-        public OrientationTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
-            : base(topic, name2topic, writer)
+        public OrientationTopicWriter(TopicData topic, TopicParserResult parserResult, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+            : base(topic, parserResult, name2topic, writer)
         {
         }
 

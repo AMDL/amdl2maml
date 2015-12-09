@@ -82,14 +82,13 @@ namespace Amdl.Maml.Converter.Writers
         /// <summary>
         /// Writes the topic as MAML.
         /// </summary>
-        /// <param name="reader">Reader.</param>
         /// <param name="writer">Writer.</param>
         /// <param name="topic">The topic.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="paths">Paths.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer, Paths paths, CancellationToken cancellationToken)
+        public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamWriter writer, Paths paths, CancellationToken cancellationToken)
         {
             var parserResult = topic.ParserResult;
             if (parserResult == null)
@@ -105,25 +104,25 @@ namespace Amdl.Maml.Converter.Writers
 
             using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
             {
-                var topicWriter = TopicWriter.Create(topic, name2topic, xmlWriter);
-                await topicWriter.WriteAsync(parserResult, reader);
+                var topicWriter = TopicWriter.Create(topic, parserResult, name2topic, xmlWriter);
+                await topicWriter.WriteAsync();
             }
         }
 
-        private static TopicWriter Create(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+        private static TopicWriter Create(TopicData topic, TopicParserResult parserResult, IDictionary<string, TopicData> name2topic, XmlWriter writer)
         {
             switch (topic.Type)
             {
                 case TopicType.Empty:
-                    return new EmptyTopicWriter(topic, name2topic, writer);
+                    return new EmptyTopicWriter(topic, parserResult, name2topic, writer);
                 case TopicType.General:
-                    return new GeneralTopicWriter(topic, name2topic, writer);
+                    return new GeneralTopicWriter(topic, parserResult, name2topic, writer);
                 case TopicType.Glossary:
-                    return new GlossaryTopicWriter(topic, name2topic, writer);
+                    return new GlossaryTopicWriter(topic, parserResult, name2topic, writer);
                 case TopicType.HowTo:
-                    return new HowToTopicWriter(topic, name2topic, writer);
+                    return new HowToTopicWriter(topic, parserResult, name2topic, writer);
                 case TopicType.Orientation:
-                    return new OrientationTopicWriter(topic, name2topic, writer);
+                    return new OrientationTopicWriter(topic, parserResult, name2topic, writer);
                 default:
                     throw new InvalidOperationException("Unexpected topic type: " + topic.Type);
             }
@@ -134,9 +133,9 @@ namespace Amdl.Maml.Converter.Writers
         #region Fields
 
         private readonly TopicData topic;
+        private readonly Block document;
         private readonly IDictionary<string, TopicData> name2topic;
         private readonly WriterState state;
-        private bool includeSeeAlso;
 
         #endregion
 
@@ -146,16 +145,19 @@ namespace Amdl.Maml.Converter.Writers
         /// Initializes a new instance of the <see cref="TopicWriter"/> class.
         /// </summary>
         /// <param name="topic">Current topic.</param>
+        /// <param name="parserResult">Parser result.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
         /// <param name="writer">XML writer.</param>
-        protected TopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+        protected TopicWriter(TopicData topic, TopicParserResult parserResult, IDictionary<string, TopicData> name2topic, XmlWriter writer)
             : base(writer)
         {
             this.topic = topic;
+            this.document = parserResult.Document;
             this.name2topic = name2topic;
             this.state = new WriterState();
             this.commandWriter = new Lazy<Writers.CommandWriter>(CreateCommandWriter);
             this.containerElementNames = new Lazy<IEnumerable<string>>(GetContainerElementNames);
+            this.includeSeeAlso = new Lazy<bool>(GetIncludeSeeAlso);
         }
 
         #endregion
@@ -165,12 +167,10 @@ namespace Amdl.Maml.Converter.Writers
         /// <summary>
         /// Writes the topic as MAML.
         /// </summary>
-        /// <param name="parserResult">Parser result.</param>
-        /// <param name="reader">Reader.</param>
         /// <returns>Asynchronous task.</returns>
-        public virtual async Task WriteAsync(TopicParserResult parserResult, TextReader reader)
+        public virtual async Task WriteAsync()
         {
-            await WriteDocumentAsync(parserResult.Document);
+            await WriteDocumentAsync();
         }
 
         #endregion
@@ -188,7 +188,7 @@ namespace Amdl.Maml.Converter.Writers
 
         #region Document
 
-        private async Task WriteDocumentAsync(Block block)
+        private async Task WriteDocumentAsync()
         {
             await WriteStartDocumentAsync()
                 .ConfigureAwait(false);
@@ -209,14 +209,12 @@ namespace Amdl.Maml.Converter.Writers
 
             await WriteStartSummaryAsync();
 
-            includeSeeAlso = GetIncludeSeeAlso(block);
-
-            await WriteChildBlocksAsync(block);
+            await WriteChildBlocksAsync(document);
 
             await WriteEndSectionsAsync(2);
             await WriteEndSummaryAsync();
             await WriteEndIntroductionAsync();
-            await WriteRelatedTopicsAsync(block);
+            await WriteRelatedTopicsAsync(document);
 
             await WriteEndElementAsync(); //developer<TopicType>Document
             await WriteEndElementAsync(); //topic
@@ -1227,9 +1225,10 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
+        private Lazy<bool> includeSeeAlso;
         private bool IncludeSeeAlso
         {
-            get { return includeSeeAlso; }
+            get { return includeSeeAlso.Value; }
         }
 
         private Lazy<IEnumerable<string>> containerElementNames;
@@ -1254,7 +1253,7 @@ namespace Amdl.Maml.Converter.Writers
             return new CommandWriter(writer);
         }
 
-        private static bool GetIncludeSeeAlso(Block document)
+        private bool GetIncludeSeeAlso()
         {
             for (var block = document.FirstChild; block != null; block = block.NextSibling)
                 if (block.Tag == BlockTag.SETextHeader && block.HeaderLevel == 2 && GetTitle(block).Equals(Properties.Resources.SeeAlsoTitle))

@@ -45,37 +45,31 @@ namespace Amdl.Maml.Converter
         public static async Task ConvertAsync(TopicData topic, Paths paths, IDictionary<string, TopicData> name2topic,
             CancellationToken cancellationToken, IProgress<Indicator> progress = null, int index = 0, int count = 0)
         {
-            var srcFilePath = Path.Combine(paths.Source, topic.RelativePath, topic.FileName);
-            var name = Path.GetFileNameWithoutExtension(srcFilePath);
             var destDir = Path.Combine(paths.Destination, topic.RelativePath);
-            var fileName = Path.GetFileName(srcFilePath);
+            var fileName = Path.GetFileName(topic.FileName);
             var destName = Path.ChangeExtension(fileName, ".aml");
 
-            var srcFile = await FileSystem.Current.GetFileFromPathAsync(srcFilePath, cancellationToken)
-                .ConfigureAwait(false);
             var destFolder = await FileSystem.Current.LocalStorage.CreateFolderAsync(destDir, CreationCollisionOption.OpenIfExists, cancellationToken);
             var destFile = await destFolder.CreateFileAsync(destName, CreationCollisionOption.ReplaceExisting, cancellationToken);
 
-            await ConvertAsync(topic, name2topic, paths, srcFile, destFile, cancellationToken);
+            await ConvertAsync(topic, name2topic, paths, destFile, cancellationToken);
 
             Indicator.Report(progress, count, index + 1, () => Path.Combine(topic.RelativePath, topic.Name));
         }
 
-        private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, Paths paths, IFile srcFile, IFile destFile, CancellationToken cancellationToken)
+        private static async Task ConvertAsync(TopicData topic, IDictionary<string, TopicData> name2topic, Paths paths, IFile destFile, CancellationToken cancellationToken)
         {
-            using (var srcStream = await srcFile.OpenAsync(FileAccess.Read, cancellationToken))
             using (var destStream = await destFile.OpenAsync(FileAccess.ReadAndWrite, cancellationToken))
             {
-                await ConvertAsync(topic, srcStream, destStream, name2topic, paths, cancellationToken);
+                await ConvertAsync(topic, destStream, name2topic, paths, cancellationToken);
             }
         }
 
-        private static async Task ConvertAsync(TopicData topic, Stream srcStream, Stream destStream, IDictionary<string, TopicData> name2topic, Paths paths, CancellationToken cancellationToken)
+        private static async Task ConvertAsync(TopicData topic, Stream destStream, IDictionary<string, TopicData> name2topic, Paths paths, CancellationToken cancellationToken)
         {
-            using (var reader = new StreamReader(srcStream))
             using (var writer = new StreamWriter(destStream))
             {
-                await Writers.TopicWriter.WriteAsync(topic, name2topic, reader, writer, paths, cancellationToken);
+                await Writers.TopicWriter.WriteAsync(topic, name2topic, writer, paths, cancellationToken);
             }
         }
     }

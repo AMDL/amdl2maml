@@ -7,8 +7,8 @@ namespace Amdl.Maml.Converter.Writers
 {
     class HowToTopicWriter : TopicWriter
     {
-        public HowToTopicWriter(TopicData topic, IDictionary<string, TopicData> name2topic, XmlWriter writer)
-            : base(topic, name2topic, writer)
+        public HowToTopicWriter(TopicData topic, TopicParserResult parserResult, IDictionary<string, TopicData> name2topic, XmlWriter writer)
+            : base(topic, parserResult, name2topic, writer)
         {
         }
 
