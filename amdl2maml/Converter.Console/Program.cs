@@ -1,6 +1,5 @@
 ﻿using Ditto.CommandLine;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -8,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace Amdl.Maml.Converter.Console
 {
-    struct Paths
-    {
-        public string Source;
-        public string Destination;
-        public string ContentLayout;
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -110,59 +102,9 @@ namespace Amdl.Maml.Converter.Console
             using (var writer = new StreamWriter(stream))
             {
                 var runner = new Runner(parameters, cancellationToken, writer);
-                await runner.RunAsync((t, p1, p2) => ConvertAsync(paths, t, p1, p2));
+                await runner.RunAsync((t, p1, p2) => TreeConverter.ConvertAsync(paths, t, p1, p2));
             }
             return cancellationToken;
-        }
-
-        private const int StepCount = 6;
-        private static int stepIndex = 0;
-
-        private static async Task ConvertAsync(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> progress, IProgress<Indicator> stepProgress)
-        {
-            var srcPath = paths.Source;
-            var destPath = paths.Destination;
-            var layoutPath = paths.ContentLayout;
-
-            Report(progress, "Reading");
-            var title2id = await LayoutIndexer.IndexAsync(layoutPath, cancellationToken);
-
-            Report(progress, "Indexing");
-            var topics = await FolderIndexer.IndexAsync(srcPath, cancellationToken, stepProgress);
-
-            Report(progress, "Parsing");
-            topics = await TopicParser.ParseAsync(topics, srcPath, cancellationToken, stepProgress);
-
-            Report(progress, "Updating");
-            topics = await UpdateAsync(srcPath, title2id, topics);
-
-            Report(progress, "Mapping");
-            var name2topic = await MapAsync(topics);
-
-            Report(progress, "Writing");
-            await ConvertAsync(srcPath, destPath, topics, name2topic, cancellationToken, stepProgress);
-        }
-
-        private static void Report(IProgress<Indicator> progress, string title)
-        {
-            Indicator.Report(progress, StepCount, stepIndex++, title);
-        }
-
-        private static Task<IEnumerable<TopicData>> UpdateAsync(string srcPath, IDictionary<string, Guid> title2id, IEnumerable<TopicData> topics)
-        {
-            return Task.Factory.StartNew(() => TopicUpdater.Update(topics, srcPath, title2id));
-        }
-
-        private static Task<Dictionary<string, TopicData>> MapAsync(IEnumerable<TopicData> topics)
-        {
-            return Task.Factory.StartNew(() => topics.ToDictionary(topic => topic.Name, topic => topic));
-        }
-
-        private static async Task<object> ConvertAsync(string srcPath, string destPath, IEnumerable<TopicData> topics, Dictionary<string, TopicData> name2topic,
-            CancellationToken cancellationToken, IProgress<Indicator> progress)
-        {
-            await TopicConverter.ConvertAsync(topics, srcPath, destPath, name2topic, cancellationToken, progress);
-            return null;
         }
     }
 }

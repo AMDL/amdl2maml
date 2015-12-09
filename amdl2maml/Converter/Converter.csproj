@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Indicator.cs" />
+    <Compile Include="TreeConverter.cs" />
     <Compile Include="Writers\WriterBase.cs" />
     <Compile Include="Writers\CommandWriter.cs" />
     <Compile Include="Writers\GeneralTopicWriter.cs" />
