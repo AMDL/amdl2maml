@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,43 +41,64 @@ namespace Amdl.Maml.Converter
         /// <returns>Asynchronous task.</returns>
         public static Task ConvertAsync(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> progress, IProgress<Indicator> stepProgress)
         {
-            return new TreeConverter(paths, cancellationToken, progress, stepProgress).ConvertAsync();
+            return new TreeConverter(paths, cancellationToken, stepProgress).ConvertAsync(progress);
         }
 
         private readonly Paths paths;
         private readonly CancellationToken cancellationToken;
-        private readonly IProgress<Indicator> progress;
         private readonly IProgress<Indicator> stepProgress;
-        private int index;
+        private readonly IEnumerable<Step<Data>> steps;
 
-        private TreeConverter(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> progress, IProgress<Indicator> stepProgress)
+        private TreeConverter(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> stepProgress)
         {
             this.paths = paths;
             this.cancellationToken = cancellationToken;
-            this.progress = progress;
             this.stepProgress = stepProgress;
+            this.steps = CreateSteps();
         }
 
-        private const int StepCount = 4;
-
-        private async Task ConvertAsync()
+        private Task ConvertAsync(IProgress<Indicator> progress)
         {
-            Report("Reading");
-            var title2id = await LayoutIndexer.IndexAsync(paths, cancellationToken);
-
-            Report("Indexing");
-            var topics = await FolderIndexer.IndexAsync(paths, cancellationToken, stepProgress);
-
-            Report("Matching");
-            var name2topic = await TopicMatcher.MatchAsync(topics, paths, title2id, cancellationToken, stepProgress);
-
-            Report("Writing");
-            await TopicConverter.ConvertAsync(paths, name2topic, cancellationToken, stepProgress);
+            return Step<Data>.RunAllAsync(new Data(), steps, progress);
         }
 
-        private void Report(string title)
+        private IEnumerable<Step<Data>> CreateSteps()
         {
-            Indicator.Report(progress, StepCount, index++, title);
+            yield return new Step<Data>("Scanning", ScanAsync);
+            yield return new Step<Data>("Indexing", IndexAsync);
+            yield return new Step<Data>("Reading", ReadAsync);
+            yield return new Step<Data>("Writing", WriteAsync);
+        }
+
+        struct Data
+        {
+            public IEnumerable<TopicData> Topics;
+            public IDictionary<string, Guid> Title2Id;
+            public IDictionary<string, TopicData> Name2Topic;
+        }
+
+        private async Task<Data> ScanAsync(Data data)
+        {
+            data.Title2Id = await LayoutIndexer.IndexAsync(paths, cancellationToken);
+            return data;
+        }
+
+        private async Task<Data> IndexAsync(Data data)
+        {
+            data.Topics = await FolderIndexer.IndexAsync(paths, cancellationToken, stepProgress);
+            return data;
+        }
+
+        private async Task<Data> ReadAsync(Data data)
+        {
+            data.Name2Topic = await TopicMatcher.MatchAsync(data.Topics, paths, data.Title2Id, cancellationToken, stepProgress);
+            return data;
+        }
+
+        private async Task<Data> WriteAsync(Data data)
+        {
+            await TopicConverter.ConvertAsync(paths, data.Name2Topic, cancellationToken, stepProgress);
+            return data;
         }
     }
 }
