@@ -26,7 +26,7 @@
             <list class="ordered">
               <listItem>
                 <para>
-                  <legacyItalic>n</legacyItalic> colons (<codeInline>:</codeInline>) where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
+                  <legacyItalic>n</legacyItalic>&#160;<codeInline>:</codeInline> (<legacyItalic>colon</legacyItalic>) characters, where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
               </listItem>
               <listItem>
                 <para>optionally, a <legacyItalic>class</legacyItalic> attribute value;</para>
@@ -38,12 +38,12 @@
               <legacyItalic>alert contents</legacyItalic>, consisting of any number of lines, where each line</para>
             <list class="ordered">
               <listItem>
-                <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic> colons where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
+                <para>does <legacyItalic>not</legacyItalic> start with <legacyItalic>l</legacyItalic>&#160;<codeInline>:</codeInline> characters where <legacyItalic>l</legacyItalic> ≥ <legacyItalic>n</legacyItalic>;</para>
               </listItem>
             </list>
           </listItem>
           <listItem>
-            <para>a line starting with <legacyItalic>m</legacyItalic> colons characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
+            <para>a line starting with <legacyItalic>m</legacyItalic>&#160;<codeInline>:</codeInline> characters where <legacyItalic>m</legacyItalic> ≥ <legacyItalic>n</legacyItalic>.</para>
           </listItem>
         </list>
       </content>

@@ -63,7 +63,7 @@
                       <para>zero to three space characters, followed by,</para>
                     </listItem>
                     <listItem>
-                      <para>one or more <codeInline>-</codeInline> characters, followed by,</para>
+                      <para>one or more <codeInline>-</codeInline> (<legacyItalic>hyphen</legacyItalic>) characters, followed by,</para>
                     </listItem>
                     <listItem>
                       <para>optionally, any number of space characters.</para>
@@ -86,7 +86,7 @@
                       <para>optionally, up to three space characters, followed by</para>
                     </listItem>
                     <listItem>
-                      <para>two to six <codeInline>#</codeInline> characters, followed by</para>
+                      <para>two to six <codeInline>#</codeInline> (<legacyItalic>hash</legacyItalic>) characters, followed by</para>
                     </listItem>
                     <listItem>
                       <para>one or more space characters, followed by</para>
@@ -161,7 +161,8 @@ Examples
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>Sections may be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <para>
+          <legacyItalic>Section attributes</legacyItalic> may be specified using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>

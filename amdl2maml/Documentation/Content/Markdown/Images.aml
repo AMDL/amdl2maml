@@ -20,7 +20,7 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>A link preceded by a <codeInline>!</codeInline> character, optionally followed by an attribute enclosure.</para>
+        <para>A link preceded by a <codeInline>!</codeInline> (<legacyItalic>bang</legacyItalic>) character, optionally followed by an attribute enclosure.</para>
         <para>An image occurring by itself in a paragraph will be rendered as a <newTerm>block image</newTerm>; otherwise, it will be rendered as an <newTerm>inline image</newTerm>.</para>
         <para>The link text of a block image will be interpreted as the image's caption.
 If no link text is specified, a captionless image will be generated.</para>
@@ -99,7 +99,7 @@ is also an inline image.</para>
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>Images may be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <para>_Image <legacyItalic>attributes</legacyItalic> may be specified using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>

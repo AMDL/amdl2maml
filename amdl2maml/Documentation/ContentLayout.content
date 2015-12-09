@@ -54,7 +54,7 @@
   <Topic id="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" visible="True" isExpanded="true" title="Markdown">
     <Topic id="c7cd0e90-2bec-4560-931b-db492b7c7358" visible="True" isExpanded="true" title="Block Elements">
       <Topic id="172094ac-632c-41d2-89a5-9b4263932d8c" visible="True" title="Alert" />
-      <Topic id="fce8ac26-02b3-434f-9376-c9fb0192da5f" visible="True" isSelected="true" title="Container" />
+      <Topic id="fce8ac26-02b3-434f-9376-c9fb0192da5f" visible="True" title="Container" />
       <Topic id="9dca27b6-77af-4749-a4be-e1b4767467b3" visible="True" title="Definition List" />
       <Topic id="9d0d5628-0c3f-4774-957c-101597bb8245" visible="True" title="Fenced Code" />
       <Topic id="c620a7ed-7c50-4eab-864e-aaefe7725a6c" visible="True" title="Indented Code" />
@@ -90,6 +90,7 @@
   </Topic>
   <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
     <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" isExpanded="true" apiParentMode="InsertAsChild" title="AMDL to MAML Converter">
+      <Topic id="d5905730-7893-4505-b64d-b0af278664a3" visible="True" isSelected="true" title="amdl2maml: Usage" tocTitle="Usage" linkText="Usage" />
       <Topic id="b5a804b7-2daa-42a5-b578-c604cc17f3a2" visible="True" title="Apache License, Version 2.0" tocTitle="License" />
     </Topic>
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />

@@ -33,7 +33,7 @@
                   <list class="ordered">
                     <listItem>
                       <para>
-                        <legacyItalic>n</legacyItalic> backticks (<codeInline>`</codeInline>) where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
+                        <legacyItalic>n</legacyItalic>&#160;<codeInline>`</codeInline> (<legacyItalic>backtick</legacyItalic>) characters, where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
                     </listItem>
                     <listItem>
                       <para>optionally, a <legacyItalic>language</legacyItalic> value, followed by,</para>
@@ -69,7 +69,7 @@
                   <list class="ordered">
                     <listItem>
                       <para>
-                        <legacyItalic>n</legacyItalic> tildes (<codeInline>~</codeInline>) where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
+                        <legacyItalic>n</legacyItalic>&#160;<codeInline>~</codeInline> (<legacyItalic>tilde</legacyItalic>) characters, where <legacyItalic>n</legacyItalic> ≥ 3, followed by,</para>
                     </listItem>
                     <listItem>
                       <para>optionally, a <legacyItalic>language</legacyItalic> value, followed by,</para>
@@ -137,7 +137,8 @@ Tilde code block
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>Fenced code blocks may be assigned attributes through <legacyItalic>attribute enclosures</legacyItalic> using the following syntax:</para>
+        <para>
+          <legacyItalic>Fenced code attributes</legacyItalic> maybe specified using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>

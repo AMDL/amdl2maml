@@ -23,10 +23,10 @@
       <title>Examples</title>
       <content>
         <code title="AMDL" language="none">
-[F:Amdl.Maml.Converter.TopicType.General]
+[F:System.Threading.Tasks.TaskCreationOptions.LongRunning]
 </code>
         <code title="AMDL" language="none">
-[General topic](F:Amdl.Maml.Converter.TopicType.General)
+[A long-running task](F:System.Threading.Tasks.TaskCreationOptions.LongRunning)
 </code>
       </content>
     </section>
@@ -34,10 +34,10 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">F:Amdl.Maml.Converter.TopicType.General</codeEntityReference>
+          <codeEntityReference linkText="">F:System.Threading.Tasks.TaskCreationOptions.LongRunning</codeEntityReference>
         </para>
         <para>
-          <codeEntityReference linkText="General topic">F:Amdl.Maml.Converter.TopicType.General</codeEntityReference>
+          <codeEntityReference linkText="A long-running task">F:System.Threading.Tasks.TaskCreationOptions.LongRunning</codeEntityReference>
         </para>
       </content>
     </section>

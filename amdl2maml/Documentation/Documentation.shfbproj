@@ -47,13 +47,15 @@
     <HelpTitle>AMDL: Human-Writable Documentation</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceTitle>Reference</RootNamespaceTitle>
-    <FooterText>Documented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>
+    <FooterText>&amp;lt%3ba rel=&amp;quot%3blicense&amp;quot%3b href=&amp;quot%3bhttp://creativecommons.org/licenses/by-sa/4.0/&amp;quot%3b&amp;gt%3b&amp;lt%3bimg alt=&amp;quot%3bCreative Commons BY-SA&amp;quot%3b style=&amp;quot%3bborder-width:0&amp;quot%3b src=&amp;quot%3bhttps://i.creativecommons.org/l/by-sa/4.0/80x15.png&amp;quot%3b /&amp;gt%3b&amp;lt%3b/a&amp;gt%3b&amp;lt%3bbr/&amp;gt%3bDocumented with &amp;lt%3ba href=&amp;quot%3bhttps://amdl.github.io&amp;quot%3b&amp;gt%3bAMDL&amp;lt%3b/a&amp;gt%3b.</FooterText>
     <PlugInConfigurations>
       <PlugInConfig id="Additional Content Only" enabled="False">
         <configuration />
       </PlugInConfig>
     </PlugInConfigurations>
     <CopyrightText>Copyright &amp;#169%3b Dmitry Shechtman 2015</CopyrightText>
+    <HeaderText>
+    </HeaderText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
@@ -96,6 +98,7 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Tools\amdl2maml-Usage.aml" />
     <None Include="Content\Markdown\Block-Elements\Container.aml" />
     <None Include="Content\Markdown\Images.aml" />
     <None Include="Content\MAML\MAML-File-Types\MAML-Topic-File.aml" />

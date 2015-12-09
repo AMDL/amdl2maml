@@ -23,10 +23,10 @@
       <title>Examples</title>
       <content>
         <code title="AMDL" language="none">
-[M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)]
+[M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)]
 </code>
         <code title="AMDL" language="none">
-[Indexes the input folder](M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken))
+[Indexes the content layout](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
 </code>
       </content>
     </section>
@@ -34,10 +34,10 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)</codeEntityReference>
+          <codeEntityReference linkText="">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
         </para>
         <para>
-          <codeEntityReference linkText="Indexes the input folder">M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken)</codeEntityReference>
+          <codeEntityReference linkText="Indexes the content layout">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
         </para>
       </content>
     </section>
@@ -149,7 +149,7 @@ If no value is specified or no overloads exist, the link target will be set to t
           <title>Current Workaround</title>
           <content>
             <code title="AMDL" language="none">
-[](M:Amdl.Maml.Converter.FolderIndexer.IndexAsync(System.String,System.Threading.CancellationToken))
+[](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
 </code>
           </content>
         </section>
