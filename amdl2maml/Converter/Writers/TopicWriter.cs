@@ -136,6 +136,7 @@ namespace Amdl.Maml.Converter.Writers
         private readonly TopicData topic;
         private readonly IDictionary<string, TopicData> name2topic;
         private readonly WriterState state;
+        private bool includeSeeAlso;
 
         #endregion
 
@@ -207,6 +208,8 @@ namespace Amdl.Maml.Converter.Writers
             await WriteAttributeStringAsync("xmlns", "xlink", null, "http://www.w3.org/1999/xlink");
 
             await WriteStartSummaryAsync();
+
+            includeSeeAlso = GetIncludeSeeAlso(block);
 
             await WriteChildBlocksAsync(block);
 
@@ -679,7 +682,8 @@ namespace Amdl.Maml.Converter.Writers
             {
                 await WriteStartElementAsync("autoOutline");
                 await WriteAttributeStringAsync("lead", "none");
-                await WriteAttributeStringAsync("excludeRelatedTopics", "true");
+                if (!IncludeSeeAlso)
+                    await WriteAttributeStringAsync("excludeRelatedTopics", "true");
                 await WriteEndElementAsync(); //autoOutline
             }
         }
@@ -1223,6 +1227,11 @@ namespace Amdl.Maml.Converter.Writers
             }
         }
 
+        private bool IncludeSeeAlso
+        {
+            get { return includeSeeAlso; }
+        }
+
         private Lazy<IEnumerable<string>> containerElementNames;
         private IEnumerable<string> ContainerElementNames
         {
@@ -1243,6 +1252,14 @@ namespace Amdl.Maml.Converter.Writers
         private Writers.CommandWriter CreateCommandWriter()
         {
             return new CommandWriter(writer);
+        }
+
+        private static bool GetIncludeSeeAlso(Block document)
+        {
+            for (var block = document.FirstChild; block != null; block = block.NextSibling)
+                if (block.Tag == BlockTag.SETextHeader && block.HeaderLevel == 2 && GetTitle(block).Equals(Properties.Resources.SeeAlsoTitle))
+                    return true;
+            return false;
         }
 
         #endregion
