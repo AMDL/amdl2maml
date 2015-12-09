@@ -38,7 +38,8 @@ namespace Amdl.Maml.Converter
             Indicator.Report(progress, count);
             var tasks = Enumerable.Range(0, count).Select(index =>
                 ParseAsync(topicsArray[index], srcPath, cancellationToken, progress, index, count));
-            return await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
+            return topics;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace Amdl.Maml.Converter
         /// <param name="index">Index.</param>
         /// <param name="count">Count.</param>
         /// <returns>Parsed topic.</returns>
-        public static async Task<TopicData> ParseAsync(TopicData topic, string srcPath, CancellationToken cancellationToken,
+        public static async Task<TopicParserResult> ParseAsync(TopicData topic, string srcPath, CancellationToken cancellationToken,
             IProgress<Indicator> progress = null, int index = 0, int count = 0)
         {
             var srcFilePath = Path.Combine(srcPath, topic.RelativePath, topic.FileName);
@@ -60,9 +61,9 @@ namespace Amdl.Maml.Converter
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))
             {
-                topic.ParserResult = TopicParser.Parse(reader);
+                var parserResult = topic.ParserResult = TopicParser.Parse(reader);
                 Indicator.Report(progress, count, index + 1, () => Path.Combine(topic.RelativePath, topic.Name));
-                return topic;
+                return parserResult;
             }
         }
 

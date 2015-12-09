@@ -35,7 +35,7 @@ namespace Amdl.Maml.Converter
         private static async Task<TopicData> MatchAsync(TopicData topic, string srcPath, IDictionary<string, Guid> title2id, CancellationToken cancellationToken,
             IProgress<Indicator> progress, int count, int index)
         {
-            topic = await TopicParser.ParseAsync(topic, srcPath, cancellationToken, progress, index, count);
+            await TopicParser.ParseAsync(topic, srcPath, cancellationToken, progress, index, count);
             return TopicUpdater.Update(topic, title2id);
         }
     }

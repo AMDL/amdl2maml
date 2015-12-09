@@ -13,7 +13,7 @@ namespace Amdl.Maml.Converter.Writers
         {
         }
 
-        public override Task WriteAsync(TextReader reader)
+        public override Task WriteAsync(TopicParserResult parserResult, TextReader reader)
         {
             var source = new TaskCompletionSource<object>();
             return source.Task;

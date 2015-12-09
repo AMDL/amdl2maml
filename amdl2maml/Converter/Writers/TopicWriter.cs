@@ -91,9 +91,10 @@ namespace Amdl.Maml.Converter.Writers
         /// <returns>Asynchronous task.</returns>
         public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer, string srcPath, CancellationToken cancellationToken)
         {
-            if (topic.ParserResult == null)
+            var parserResult = topic.ParserResult;
+            if (parserResult == null)
             {
-                topic = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
+                parserResult = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
             }
 
             var xmlSettings = new XmlWriterSettings
@@ -105,7 +106,7 @@ namespace Amdl.Maml.Converter.Writers
             using (var xmlWriter = XmlWriter.Create(writer, xmlSettings))
             {
                 var topicWriter = TopicWriter.Create(topic, name2topic, xmlWriter);
-                await topicWriter.WriteAsync(reader);
+                await topicWriter.WriteAsync(parserResult, reader);
             }
         }
 
@@ -163,11 +164,12 @@ namespace Amdl.Maml.Converter.Writers
         /// <summary>
         /// Writes the topic as MAML.
         /// </summary>
+        /// <param name="parserResult">Parser result.</param>
         /// <param name="reader">Reader.</param>
         /// <returns>Asynchronous task.</returns>
-        public virtual async Task WriteAsync(TextReader reader)
+        public virtual async Task WriteAsync(TopicParserResult parserResult, TextReader reader)
         {
-            await WriteDocumentAsync(topic.ParserResult.Document);
+            await WriteDocumentAsync(parserResult.Document);
         }
 
         #endregion
