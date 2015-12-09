@@ -23,9 +23,10 @@ namespace Amdl.Maml.Converter
         /// <returns>Mapping from topic title to its ID.</returns>
         public static async Task<IDictionary<string, Guid>> IndexAsync(Paths paths, CancellationToken cancellationToken)
         {
+            var title2id = new Dictionary<string, Guid>();
             var layoutPath = paths.ContentLayout;
             if (layoutPath == null)
-                return null;
+                return title2id;
             ContentLayout layout;
             var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken)
                 .ConfigureAwait(false);
@@ -35,7 +36,7 @@ namespace Amdl.Maml.Converter
                 var serializer = new XmlSerializer(typeof(ContentLayout));
                 layout = (ContentLayout)serializer.Deserialize(reader);
             }
-            return Index(new Dictionary<string, Guid>(), layout.Topics);
+            return Index(title2id, layout.Topics);
         }
 
         private static IDictionary<string, Guid> Index(IDictionary<string, Guid> title2id, Topic[] topics)

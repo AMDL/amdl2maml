@@ -20,8 +20,11 @@ namespace Amdl.Maml.Converter
             var block = GetHeaderBlock(topic.ParserResult);
             topic.Title = GetTitle(topic, block);
             Guid id;
-            if (title2id == null || !title2id.TryGetValue(topic.Title, out id))
+            if (!title2id.TryGetValue(topic.Title, out id))
+            {
                 id = Guid.NewGuid();
+                title2id.Add(topic.Title, id);
+            }
             topic.Id = id;
             return topic;
         }
