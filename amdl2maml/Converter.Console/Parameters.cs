@@ -29,7 +29,6 @@ namespace Amdl.Maml.Converter.Console
             set;
         }
 
-        [Required]
         [Option]
         [Option("l")]
         [DisplayName("contentLayoutPath")]
@@ -44,7 +43,7 @@ namespace Amdl.Maml.Converter.Console
         [Option("v")]
         [DefaultValue(Verbosity.Normal)]
         [Description("Verbosity")]
-        [Category("Output options")]
+        [Category("Output")]
         public Verbosity Verbosity
         {
             get;
@@ -55,7 +54,7 @@ namespace Amdl.Maml.Converter.Console
         [Option("tf")]
         [DefaultValue("yyyy-MM-dd HH:mm:ss.fff")]
         [Description("Time format")]
-        [Category("Output options")]
+        [Category("Output")]
         public string TimeFormat
         {
             get;
@@ -66,7 +65,7 @@ namespace Amdl.Maml.Converter.Console
         [Option("df")]
         [DefaultValue("hh:mm:ss.fff")]
         [Description("Duration format")]
-        [Category("Output options")]
+        [Category("Output")]
         public string DurationFormat
         {
             get;
@@ -76,6 +75,7 @@ namespace Amdl.Maml.Converter.Console
         [Option]
         [Option("?")]
         [Description("Display this help")]
+        [Category("Miscellaneous")]
         public bool Help
         {
             get;

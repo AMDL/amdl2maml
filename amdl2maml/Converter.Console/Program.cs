@@ -83,6 +83,8 @@ namespace Amdl.Maml.Converter.Console
 
         private static string GetPath(string rawPath, bool isDirectory)
         {
+            if (rawPath == null)
+                return null;
             var dest = isDirectory
                 ? new DirectoryInfo(rawPath)
                 : (FileSystemInfo)new FileInfo(rawPath);

@@ -23,8 +23,11 @@ namespace Amdl.Maml.Converter
         /// <returns>Mapping from topic title to its ID.</returns>
         public static async Task<IDictionary<string, Guid>> IndexAsync(Paths paths, CancellationToken cancellationToken)
         {
+            var layoutPath = paths.ContentLayout;
+            if (layoutPath == null)
+                return null;
             ContentLayout layout;
-            var file = await FileSystem.Current.GetFileFromPathAsync(paths.ContentLayout, cancellationToken)
+            var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken)
                 .ConfigureAwait(false);
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))
