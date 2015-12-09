@@ -68,7 +68,7 @@ namespace Amdl.Maml.Converter.Writers
         Tasks,
     }
 
-    class WriterState
+    sealed class WriterState
     {
         private readonly Stack<SectionState> sectionStates;
 
