@@ -18,13 +18,13 @@ namespace Amdl.Maml.Converter
         /// <summary>
         /// Indexes the content layout.
         /// </summary>
-        /// <param name="layoutPath">Layout path.</param>
+        /// <param name="paths">Paths.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Mapping from topic title to its ID.</returns>
-        public static async Task<IDictionary<string, Guid>> IndexAsync(string layoutPath, CancellationToken cancellationToken)
+        public static async Task<IDictionary<string, Guid>> IndexAsync(Paths paths, CancellationToken cancellationToken)
         {
             ContentLayout layout;
-            var file = await FileSystem.Current.GetFileFromPathAsync(layoutPath, cancellationToken)
+            var file = await FileSystem.Current.GetFileFromPathAsync(paths.ContentLayout, cancellationToken)
                 .ConfigureAwait(false);
             using (var stream = await file.OpenAsync(FileAccess.Read, cancellationToken))
             using (var reader = new StreamReader(stream))

@@ -86,15 +86,15 @@ namespace Amdl.Maml.Converter.Writers
         /// <param name="writer">Writer.</param>
         /// <param name="topic">The topic.</param>
         /// <param name="name2topic">Mapping from topic name to data.</param>
-        /// <param name="srcPath">Source path.</param>
+        /// <param name="paths">Paths.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>Asynchronous task.</returns>
-        public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer, string srcPath, CancellationToken cancellationToken)
+        public static async Task WriteAsync(TopicData topic, IDictionary<string, TopicData> name2topic, StreamReader reader, StreamWriter writer, Paths paths, CancellationToken cancellationToken)
         {
             var parserResult = topic.ParserResult;
             if (parserResult == null)
             {
-                parserResult = await TopicParser.ParseAsync(topic, srcPath, cancellationToken);
+                parserResult = await TopicParser.ParseAsync(topic, paths, cancellationToken);
             }
 
             var xmlSettings = new XmlWriterSettings

@@ -61,21 +61,17 @@ namespace Amdl.Maml.Converter
 
         private async Task ConvertAsync()
         {
-            var srcPath = paths.Source;
-            var destPath = paths.Destination;
-            var layoutPath = paths.ContentLayout;
-
             Report("Reading");
-            var title2id = await LayoutIndexer.IndexAsync(layoutPath, cancellationToken);
+            var title2id = await LayoutIndexer.IndexAsync(paths, cancellationToken);
 
             Report("Indexing");
-            var topics = await FolderIndexer.IndexAsync(srcPath, cancellationToken, stepProgress);
+            var topics = await FolderIndexer.IndexAsync(paths, cancellationToken, stepProgress);
 
             Report("Matching");
-            var name2topic = await TopicMatcher.MatchAsync(topics, srcPath, title2id, cancellationToken, stepProgress);
+            var name2topic = await TopicMatcher.MatchAsync(topics, paths, title2id, cancellationToken, stepProgress);
 
             Report("Writing");
-            await TopicConverter.ConvertAsync(srcPath, destPath, name2topic, cancellationToken, stepProgress);
+            await TopicConverter.ConvertAsync(paths, name2topic, cancellationToken, stepProgress);
         }
 
         private void Report(string title)

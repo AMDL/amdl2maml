@@ -21,13 +21,13 @@ namespace Amdl.Maml.Converter
         /// <summary>
         /// Indexes the input folder.
         /// </summary>
-        /// <param name="path">Base path.</param>
+        /// <param name="paths">Paths.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <param name="progress">Progress indicator.</param>
         /// <returns>Topic data.</returns>
-        public static async Task<IEnumerable<TopicData>> IndexAsync(string path, CancellationToken cancellationToken, IProgress<Indicator> progress = null)
+        public static async Task<IEnumerable<TopicData>> IndexAsync(Paths paths, CancellationToken cancellationToken, IProgress<Indicator> progress = null)
         {
-            return await IndexAsync(path, string.Empty, cancellationToken, progress);
+            return await IndexAsync(paths.Source, string.Empty, cancellationToken, progress);
         }
 
         private static Task<IEnumerable<TopicData>> IndexAsync(string path, string relativePath, CancellationToken cancellationToken, IProgress<Indicator> progress)
