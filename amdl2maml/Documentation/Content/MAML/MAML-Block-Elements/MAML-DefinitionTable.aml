@@ -7,12 +7,20 @@
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="AMDL Counterpart">
-      <title>AMDL Counterpart</title>
+    <section address="AMDL Mapping">
+      <title>AMDL Mapping</title>
       <content>
-        <para>
-          <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3">Definition List</link>
-        </para>
+        <list class="ordered">
+          <listItem>
+            <para>The <codeInline>&lt;definitionTable&gt;</codeInline> element maps to <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3">Definition List</link>.</para>
+          </listItem>
+          <listItem>
+            <para>The <codeInline>&lt;definedTerm&gt;</codeInline> element maps to <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3#term">term</link>.</para>
+          </listItem>
+          <listItem>
+            <para>The <codeInline>&lt;definition&gt;</codeInline> element maps to <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3#definition">definition</link>.</para>
+          </listItem>
+        </list>
       </content>
     </section>
     <section address="Example">
@@ -33,19 +41,19 @@ Term
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
       <content>
-        <para>Far away. Pending signifact parser modification.</para>
+        <para>Absent, pending parser modification.</para>
       </content>
-    </section>
-    <section address="Current Workaround">
-      <title>Current Workaround</title>
-      <content>
-        <code language="HTML">
-	&lt;dl&gt;
-		&lt;dt&gt;Term&lt;/dt&gt;
-		&lt;dd&gt;Definition&lt;/dd&gt;
-	&lt;/dl&gt;
+      <sections>
+        <section address="Current Workaround:">
+          <title>Current Workaround:</title>
+          <content>
+            <code title="AMDL" language="none">
+### Term
+- Definition
 </code>
-      </content>
+          </content>
+        </section>
+      </sections>
     </section>
     <relatedTopics>
       <link xlink:href="9dca27b6-77af-4749-a4be-e1b4767467b3" topicType_id="4a273212-0ac8-4d72-8349-ec11cd2ff8cd" />

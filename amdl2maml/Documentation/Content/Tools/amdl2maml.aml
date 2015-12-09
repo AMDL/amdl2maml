@@ -149,7 +149,8 @@
                   <para>Inline URI and email links.</para>
                 </listItem>
                 <listItem>
-                  <para>Block and inline <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf">images</link>.</para>
+                  <para>
+                    <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157">Block</link> and <link xlink:href="4e623dcd-0446-4408-a5b3-26a75da50a36">inline</link> images.</para>
                 </listItem>
                 <listItem>
                   <para>Ordinary <link xlink:href="9bd38298-3699-4415-9853-dd58f9b5a5a3">weak</link> and <link xlink:href="ae554dc8-9444-4d91-a205-333b799a6939">strong</link> emphases.</para>

@@ -3,11 +3,11 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="35365556-1d87-4621-bad3-ff5309b10cc2" revisionNumber="1">
+<topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
       <para>
-        <newTerm>Property links</newTerm> are used for referencing member properties of managed types.</para>
+        <newTerm>Method links</newTerm> are used for referencing member methods of managed types.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -23,10 +23,10 @@
       <title>Examples</title>
       <content>
         <code title="AMDL" language="none">
-[P:Amdl.Maml.Converter.TopicData.Type]
+[M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)]
 </code>
         <code title="AMDL" language="none">
-[Topic type](P:Amdl.Maml.Converter.TopicData.Type)
+[Indexes the content layout](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
 </code>
       </content>
     </section>
@@ -34,17 +34,17 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">P:Amdl.Maml.Converter.TopicData.Type</codeEntityReference>
+          <codeEntityReference linkText="">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
         </para>
         <para>
-          <codeEntityReference linkText="Topic type">P:Amdl.Maml.Converter.TopicData.Type</codeEntityReference>
+          <codeEntityReference linkText="Indexes the content layout">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
         </para>
       </content>
     </section>
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>A property link may be assigned attributes through an <legacyItalic>attribute enclosure</legacyItalic> using the following syntax:</para>
+        <para>An event link may be assigned attributes through an <legacyItalic>attribute enclosure</legacyItalic> using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>
@@ -78,7 +78,11 @@
                 <list class="bullet">
                   <listItem>
                     <para>
-                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <codeInline>qualifyHint</codeInline>.</para>
+                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>qualifyHint="true"</codeInline>.</para>
+                  </listItem>
+                  <listItem>
+                    <para>
+                      <codeInline>autoUpgrade</codeInline> - equivalent to specifying <codeInline>autoUpgrade="true"</codeInline>.</para>
                   </listItem>
                 </list>
               </listItem>
@@ -94,6 +98,19 @@
               <listItem>
                 <para>a Boolean value indicating whether the name of the defining type will be included in the link text.
 If no value is specified, the type name will be excluded.</para>
+              </listItem>
+            </list>
+          </content>
+        </section>
+        <section address="autoUpgrade">
+          <title>
+            <codeInline>autoUpgrade</codeInline>
+          </title>
+          <content>
+            <list class="nobullet">
+              <listItem>
+                <para>a Boolean value indicating whether the link target will be set to the topic that list the method's overloads.
+If no value is specified or no overloads exist, the link target will be set to the specific method's topic.</para>
               </listItem>
             </list>
           </content>
@@ -132,7 +149,7 @@ If no value is specified, the type name will be excluded.</para>
           <title>Current Workaround</title>
           <content>
             <code title="AMDL" language="none">
-[](P:Amdl.Maml.Converter.TopicData.Type)
+[](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
 </code>
           </content>
         </section>

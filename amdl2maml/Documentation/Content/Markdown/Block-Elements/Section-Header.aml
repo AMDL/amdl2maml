@@ -158,6 +158,46 @@ Examples
         </list>
       </content>
     </section>
+    <section address=" Sections">
+      <title>
+        <legacyItalic>See Also</legacyItalic> Sections</title>
+      <content>
+        <para>If a top-level section is titled <legacyItalic>See Also</legacyItalic> (case-sensitive), its contents shall be interpreted differently, i.e.</para>
+        <list class="ordered">
+          <listItem>
+            <para>all elements other than links and sub-sections shall be ignored, and</para>
+          </listItem>
+          <listItem>
+            <para>all formatting shall be ignored.</para>
+          </listItem>
+        </list>
+        <para>The following sub-section titles are recognized (case-sensitive):</para>
+        <list class="ordered">
+          <listItem>
+            <para>
+              <legacyItalic>Concepts</legacyItalic>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <legacyItalic>Other Resources</legacyItalic>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <legacyItalic>Tasks</legacyItalic>
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <legacyItalic>Reference</legacyItalic>
+            </para>
+          </listItem>
+        </list>
+        <para>Links contained directly in the <legacyItalic>See Also</legacyItalic> section, or in an unrecognized sub-section thereof, shall be placed in the <legacyItalic>Other Resources</legacyItalic> sub-section.</para>
+        <para>External links shall be placed in the <legacyItalic>Other Resources</legacyItalic> sub-section.</para>
+      </content>
+    </section>
     <section address="Attributes">
       <title>Attributes</title>
       <content>
@@ -178,7 +218,7 @@ Examples
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a string value used for resolving local links to the section.
+                <para>a string value to be used for resolving local links to the section.
 If no value is specified, a unique identifier will be assigned based on the header text; detailed algorithm TBD.</para>
               </listItem>
             </list>
@@ -193,7 +233,13 @@ If no value is specified, a unique identifier will be assigned based on the head
           <content>
             <list class="nobullet">
               <listItem>
-                <para>Ignored.</para>
+                <para>any of the following:</para>
+                <list class="bullet">
+                  <listItem>
+                    <para>
+                      <codeInline>autoOutline</codeInline> - equivalent to specifying <codeInline>autoOutline="true"</codeInline>.</para>
+                  </listItem>
+                </list>
               </listItem>
             </list>
           </content>
@@ -206,8 +252,8 @@ If no value is specified, a unique identifier will be assigned based on the head
             <list class="nobullet">
               <listItem>
                 <para>a Boolean value indicating whether an automatic section outline should be generated.
-If no attribute value is specified, a section outline <legacyItalic>should</legacyItalic> be generated for a section with an setex-style header,
-and <legacyItalic>should not</legacyItalic> be generated for a section with an ATX-style header.</para>
+If no attribute value is specified, a section outline shall be generated for a section with a <legacyItalic>setex-style header</legacyItalic>,
+and shall not be generated for a section with an <legacyItalic>ATX-style header</legacyItalic>.</para>
               </listItem>
             </list>
           </content>
@@ -220,7 +266,7 @@ and <legacyItalic>should not</legacyItalic> be generated for a section with an A
             <list class="nobullet">
               <listItem>
                 <para>an integer value indicating the maximum depth of the automatic section outline, if one is generated.
-If no attribute value is specified, a zero-depth outline <legacyItalic>should</legacyItalic> be generated.</para>
+If no attribute value is specified, a zero-depth outline shall be generated.</para>
               </listItem>
             </list>
           </content>
@@ -232,23 +278,9 @@ If no attribute value is specified, a zero-depth outline <legacyItalic>should</l
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a string value that will be used as the lead-in text rendered before the automatic outline, if one is generated.
-If an empty string is specified, the lead-in text <legacyItalic>should</legacyItalic> be omitted.
-If no attribute value is specified, a default lead-in text <legacyItalic>may</legacyItalic> be used.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="noSeeAlso">
-          <title>
-            <codeInline>noSeeAlso</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a Boolean value indicating whether the <legacyItalic>See Also</legacyItalic> sub-section will be excluded from the automatic section outline, if both are generated.
-If no attribute value is specified, the <legacyItalic>See Also</legacyItalic> sub-section <legacyItalic>should</legacyItalic> be excluded if it has an ATX-style header,
-and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style header.</para>
+                <para>a string value to be used as the lead-in text rendered before the automatic outline, if one is generated.
+If an empty string is specified, the lead-in text shall be omitted.
+If no attribute value is specified, a default lead-in text shall be rendered.</para>
               </listItem>
             </list>
           </content>
@@ -258,11 +290,7 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
     <section address="Differences from PM">
       <title>Differences from PM</title>
       <content>
-        <list class="ordered">
-          <listItem>
-            <para>Class specifications are ignored.</para>
-          </listItem>
-        </list>
+        <para>N/A.</para>
       </content>
     </section>
     <section address="amdl2maml Support">
@@ -271,13 +299,25 @@ and <legacyItalic>shoud not</legacyItalic> be excluded if it has a setext-style 
         <para>Partial, pending parser modification.</para>
       </content>
       <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
+        <section address="Limitations:">
+          <title>Limitations:</title>
           <content>
             <para>
               <list class="ordered">
                 <listItem>
                   <para>Attributes are unsupported.</para>
+                </listItem>
+              </list>
+            </para>
+          </content>
+        </section>
+        <section address="Current Workarounds:">
+          <title>Current Workarounds:</title>
+          <content>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Use different header syntaxes to affect automatic outline rendering.</para>
                 </listItem>
               </list>
             </para>

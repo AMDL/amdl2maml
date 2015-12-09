@@ -3,11 +3,11 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="d38f5687-e8c7-4035-9e3f-28e9f7b569ec" revisionNumber="1">
+<topic id="35365556-1d87-4621-bad3-ff5309b10cc2" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
       <para>
-        <newTerm>Type links</newTerm> are used for referencing managed types.</para>
+        <newTerm>Property links</newTerm> are used for referencing member properties of managed types.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -23,10 +23,10 @@
       <title>Examples</title>
       <content>
         <code title="AMDL" language="none">
-[T:Amdl.Maml.Converter.TopicConverter]
+[P:Amdl.Maml.Converter.TopicData.Type]
 </code>
         <code title="AMDL" language="none">
-[AMDL topic converter](T:Amdl.Maml.Converter.TopicConverter)
+[Topic type](P:Amdl.Maml.Converter.TopicData.Type)
 </code>
       </content>
     </section>
@@ -34,17 +34,17 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">T:Amdl.Maml.Converter.TopicConverter</codeEntityReference>
+          <codeEntityReference linkText="">P:Amdl.Maml.Converter.TopicData.Type</codeEntityReference>
         </para>
         <para>
-          <codeEntityReference linkText="AMDL topic converter">T:Amdl.Maml.Converter.TopicConverter</codeEntityReference>
+          <codeEntityReference linkText="Topic type">P:Amdl.Maml.Converter.TopicData.Type</codeEntityReference>
         </para>
       </content>
     </section>
     <section address="Attributes">
       <title>Attributes</title>
       <content>
-        <para>A type link may be assigned attributes through an <legacyItalic>attribute enclosure</legacyItalic> using the following syntax:</para>
+        <para>A property link may be assigned attributes through an <legacyItalic>attribute enclosure</legacyItalic> using the following syntax:</para>
         <para>
           <command>{#<replaceable>identifier</replaceable> .<replaceable>class1</replaceable> .<replaceable>class2</replaceable>&#160;<replaceable>name1</replaceable>="<replaceable>value1</replaceable>" <replaceable>name2</replaceable>="<replaceable>value2</replaceable>" ...}</command>
         </para>
@@ -78,7 +78,7 @@
                 <list class="bullet">
                   <listItem>
                     <para>
-                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <codeInline>qualifyHint</codeInline>.</para>
+                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>qualifyHint="true"</codeInline>.</para>
                   </listItem>
                 </list>
               </listItem>
@@ -92,8 +92,8 @@
           <content>
             <list class="nobullet">
               <listItem>
-                <para>a Boolean value indicating whether the namespace will be included in the link text.
-If no value is specified, the namespace will be excluded.</para>
+                <para>a Boolean value indicating whether the name of the defining type will be included in the link text.
+If no value is specified, the type name will be excluded.</para>
               </listItem>
             </list>
           </content>
@@ -132,7 +132,7 @@ If no value is specified, the namespace will be excluded.</para>
           <title>Current Workaround</title>
           <content>
             <code title="AMDL" language="none">
-[](T:Amdl.Maml.Converter.TopicConverter)
+[](P:Amdl.Maml.Converter.TopicData.Type)
 </code>
           </content>
         </section>

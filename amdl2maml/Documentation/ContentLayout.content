@@ -34,7 +34,7 @@
       <Topic id="11204e44-240f-4ea3-8348-dd22ceec41ae" visible="True" title="&lt;system&gt;" />
       <Topic id="69590c8c-f7e2-4e3e-8456-4ac38517c894" visible="True" title="&lt;unmanagedCodeEntityReference&gt;" />
     </Topic>
-    <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" title="MAML Media Elements" tocTitle="Media Elements" linkText="MAML Media Elements">
+    <Topic id="f436a412-378a-43ec-b798-24be086ceba7" visible="True" isExpanded="true" title="MAML Media Elements" tocTitle="Media Elements" linkText="MAML Media Elements">
       <Topic id="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" visible="True" title="&lt;mediaLink&gt;" />
       <Topic id="522d44b1-5cd7-4403-987a-6f097fdc56ff" visible="True" title="&lt;mediaLinkInline&gt;" />
     </Topic>
@@ -74,23 +74,26 @@
     </Topic>
     <Topic id="4650d9b1-92cc-46dc-88ee-4b234fd1af78" visible="True" isExpanded="true" title="Link Elements">
       <Topic id="36f3beb8-5259-44e2-a41e-43080fdf28b9" visible="True" isExpanded="true" title="Code Links">
-        <Topic id="1e88e196-f485-4b80-b559-0499e03dec54" visible="True" title="Namespace Link" />
-        <Topic id="d38f5687-e8c7-4035-9e3f-28e9f7b569ec" visible="True" title="Type Link" />
-        <Topic id="02e3c06a-c7b6-43df-aece-af9ccc5dac39" visible="True" title="Field Link" />
         <Topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" visible="True" title="Event Link" />
-        <Topic id="35365556-1d87-4621-bad3-ff5309b10cc2" visible="True" title="Property Link" />
+        <Topic id="02e3c06a-c7b6-43df-aece-af9ccc5dac39" visible="True" title="Field Link" />
         <Topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" visible="True" title="Method Link" />
+        <Topic id="1e88e196-f485-4b80-b559-0499e03dec54" visible="True" title="Namespace Link" />
+        <Topic id="35365556-1d87-4621-bad3-ff5309b10cc2" visible="True" title="Property Link" />
+        <Topic id="d38f5687-e8c7-4035-9e3f-28e9f7b569ec" visible="True" isSelected="true" title="Type Link" />
         <Topic id="cc445173-77d6-4367-b061-643eff15caa6" visible="True" title="Unmanaged Link" />
       </Topic>
     </Topic>
-    <Topic id="904e67be-229f-41b6-b66d-04da156f6ecf" visible="True" title="Images" />
+    <Topic id="4b496691-3953-498d-b0b5-d65a754bc56e" visible="True" isExpanded="true" title="Image Elements">
+      <Topic id="6ca84d07-2ee5-42f5-a8e1-29e50e828157" visible="True" title="Block Image" />
+      <Topic id="4e623dcd-0446-4408-a5b3-26a75da50a36" visible="True" title="Inline Image" />
+    </Topic>
     <Topic id="886b4047-c78d-48b5-9be2-07f8a222c7ae" visible="False" title="PM Elements that are Absent from AMDL" tocTitle="Absent Elements" linkText="PM Elements that are Absent from AMDL">
       <Topic id="ea7640a4-5d11-494c-b307-d2dc9af2d5d0" visible="True" title="Strikeout" />
     </Topic>
   </Topic>
   <Topic id="f05b62e4-4805-491a-ad2a-85545efbf6b9" visible="True" isExpanded="true" title="AMDL Tools" tocTitle="Tools">
     <Topic id="fc3d4a3c-76b2-487d-ba22-21f5aa07afde" visible="True" isExpanded="true" apiParentMode="InsertAsChild" title="AMDL to MAML Converter">
-      <Topic id="d5905730-7893-4505-b64d-b0af278664a3" visible="True" isSelected="true" title="amdl2maml: Usage" tocTitle="Usage" linkText="Usage" />
+      <Topic id="d5905730-7893-4505-b64d-b0af278664a3" visible="True" title="amdl2maml: Usage" tocTitle="Usage" linkText="Usage" />
       <Topic id="b5a804b7-2daa-42a5-b578-c604cc17f3a2" visible="True" title="Apache License, Version 2.0" tocTitle="License" />
     </Topic>
     <Topic id="3aa7d932-6348-4151-80fa-f0df28976ae9" visible="True" title="MAML to AMDL Converter" />

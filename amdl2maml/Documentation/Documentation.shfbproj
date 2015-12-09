@@ -83,12 +83,13 @@
     <Folder Include="Content\MAML\MAML-File-Types" />
     <Folder Include="Content\MAML\MAML-Media-Elements" />
     <Folder Include="Content\Markdown" />
+    <Folder Include="Content\Markdown\Image-Elements\" />
     <Folder Include="Content\Markdown\Inline-Elements" />
     <Folder Include="Content\Markdown\Block-Elements" />
     <Folder Include="Content\Markdown\Absent-Elements" />
     <Folder Include="Content\HowTo" />
-    <Folder Include="Content\Markdown\Links" />
-    <Folder Include="Content\Markdown\Links\Code-Links" />
+    <Folder Include="Content\Markdown\Link-Elements\" />
+    <Folder Include="Content\Markdown\Link-Elements\Code-Links\" />
     <Folder Include="Content\Structure" />
     <Folder Include="Content\Structure\Metadata" />
     <Folder Include="Content\Structure\Topic-Types" />
@@ -98,6 +99,18 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Unmanaged-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Type-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Property-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Namespace-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Method-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Field-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Event-Link.aml" />
+    <None Include="Content\Markdown\Link-Elements\Code-Links\Code-Links.aml" />
+    <None Include="Content\Markdown\Link-Elements\Link-Elements.aml" />
+    <None Include="Content\Markdown\Image-Elements\Inline-Image.aml" />
+    <None Include="Content\Markdown\Image-Elements\Image-Elements.aml" />
+    <None Include="Content\Markdown\Image-Elements\Block-Image.aml" />
     <None Include="Content\Tools\amdl2maml-Usage.aml" />
     <None Include="Content\Markdown\Block-Elements\Container.aml" />
     <None Include="Content\Markdown\Images.aml" />
@@ -110,7 +123,6 @@
     <None Include="Content\Markdown\Inline-Elements\Math.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-Math.aml" />
     <None Include="Content\MAML\MAML-Inline-Elements\MAML-UnmanagedCodeEntityReference.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Unmanaged-Link.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Title.aml" />
     <None Include="Content\MAML\MAML-Block-Elements\MAML-Alert.aml" />
     <None Include="Content\Markdown\Block-Elements\Alert.aml" />
@@ -167,14 +179,6 @@
     <None Include="Content\Markdown\Inline-Elements\Ordinary-Strong-Emphasis.aml" />
     <None Include="Content\Markdown\Inline-Elements\Subscript.aml" />
     <None Include="Content\Markdown\Inline-Elements\Superscript.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Code-Links.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Event-Link.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Field-Link.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Method-Link.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Namespace-Link.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Property-Link.aml" />
-    <None Include="Content\Markdown\Links\Code-Links\Type-Link.aml" />
-    <None Include="Content\Markdown\Links\Links.aml" />
     <None Include="Content\Markdown\Markdown.aml" />
     <None Include="Content\Tools\amdl2maml-License.aml" />
     <None Include="Content\Tools\amdl2maml.aml" />

@@ -3,10 +3,10 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="904e67be-229f-41b6-b66d-04da156f6ecf" revisionNumber="1">
+<topic id="4e623dcd-0446-4408-a5b3-26a75da50a36" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
-      <para>This topic details the AMDL syntax and semantics of <newTerm>images</newTerm>.</para>
+      <para>The <newTerm>inline image</newTerm> allows embedding an image inline.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -14,55 +14,40 @@
     <section address="Syntax">
       <title>Syntax</title>
       <content>
-        <para>A link preceded by a <codeInline>!</codeInline> (<legacyItalic>bang</legacyItalic>) character, optionally followed by an attribute enclosure.</para>
+        <para>A link preceded by a <codeInline>!</codeInline> (<legacyItalic>bang</legacyItalic>) character.</para>
+        <alert>An image occurring by itself in a paragraph will be rendered as a <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157">block image</link>.</alert>
+        <alert class="tip">Inserting a nonbreaking space after a lone image will cause it to be rendered as an inline image.</alert>
       </content>
     </section>
-    <section address="Examples">
-      <title>Examples</title>
-      <content />
-      <sections>
-        <section address="1. Inline image 1:">
-          <title>1. Inline image 1:</title>
-          <content>
-            <code title="AMDL" language="none">
+    <section address="Example">
+      <title>Example</title>
+      <content>
+        <code title="AMDL" language="none">
 This is an inline image:
 ![](Castle.png "Pirate Sandcastle")
-</code>
-          </content>
-        </section>
-        <section address="2. Inline image 2:">
-          <title>2. Inline image 2:</title>
-          <content>
-            <code title="AMDL" language="none">
+
 ![](Castle.png "Pirate Sandcastle")
 is also an inline image.
 </code>
-          </content>
-        </section>
-      </sections>
+      </content>
     </section>
     <section address="Example Output">
       <title>Example Output</title>
-      <content />
-      <sections>
-        <section address="1. Inline image 1:">
-          <title>1. Inline image 1:</title>
-          <content>
-            <para>This is an inline image:
+      <content>
+        <para>This is an inline image:
 <mediaLinkInline><image xlink:href="Castle.png" /></mediaLinkInline></para>
-          </content>
-        </section>
-        <section address="2. Inline image 2:">
-          <title>2. Inline image 2:</title>
-          <content>
-            <para>
-              <mediaLinkInline>
-                <image xlink:href="Castle.png" />
-              </mediaLinkInline>
+        <para>
+          <mediaLinkInline>
+            <image xlink:href="Castle.png" />
+          </mediaLinkInline>
 is also an inline image.</para>
-          </content>
-        </section>
-      </sections>
+      </content>
+    </section>
+    <section address="Differences from PM">
+      <title>Differences from PM</title>
+      <content>
+        <para>N/A.</para>
+      </content>
     </section>
     <section address="amdl2maml Support">
       <title>amdl2maml Support</title>
@@ -70,8 +55,8 @@ is also an inline image.</para>
         <para>Partial, pending parser modification.</para>
       </content>
       <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
+        <section address="Limitations:">
+          <title>Limitations:</title>
           <content>
             <para>
               <list class="ordered">
@@ -82,8 +67,8 @@ is also an inline image.</para>
             </para>
           </content>
         </section>
-        <section address="Current Workaround">
-          <title>Current Workaround</title>
+        <section address="Current Workarounds:">
+          <title>Current Workarounds:</title>
           <content>
             <para>
               <list class="ordered">
@@ -98,7 +83,7 @@ is also an inline image.</para>
     </section>
     <relatedTopics>
       <link xlink:href="522d44b1-5cd7-4403-987a-6f097fdc56ff" />
-      <link xlink:href="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" />
+      <link xlink:href="4b496691-3953-498d-b0b5-d65a754bc56e" />
       <externalLink>
         <linkUri>http://pandoc.org/README.html#images</linkUri>
         <linkText>Pandoc's Markdown: Images</linkText>

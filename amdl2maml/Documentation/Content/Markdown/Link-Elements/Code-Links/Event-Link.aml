@@ -3,11 +3,11 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="5c5214c5-e1ce-482f-ba4d-87f4db8f0516" revisionNumber="1">
+<topic id="7636267d-0ad2-43da-ae0d-035fb3a16887" revisionNumber="1">
   <developerConceptualDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary>
       <para>
-        <newTerm>Method links</newTerm> are used for referencing member methods of managed types.</para>
+        <newTerm>Event links</newTerm> are used for referencing member events of managed types.</para>
     </summary>
     <introduction>
       <autoOutline lead="none" excludeRelatedTopics="true" />
@@ -23,10 +23,10 @@
       <title>Examples</title>
       <content>
         <code title="AMDL" language="none">
-[M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)]
+[E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged]
 </code>
         <code title="AMDL" language="none">
-[Indexes the content layout](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
+[Property value changed](E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged)
 </code>
       </content>
     </section>
@@ -34,10 +34,10 @@
       <title>Example Output</title>
       <content>
         <para>
-          <codeEntityReference linkText="">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
+          <codeEntityReference linkText="">E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged</codeEntityReference>
         </para>
         <para>
-          <codeEntityReference linkText="Indexes the content layout">M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken)</codeEntityReference>
+          <codeEntityReference linkText="Property value changed">E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged</codeEntityReference>
         </para>
       </content>
     </section>
@@ -78,11 +78,7 @@
                 <list class="bullet">
                   <listItem>
                     <para>
-                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <codeInline>qualifyHint</codeInline>.</para>
-                  </listItem>
-                  <listItem>
-                    <para>
-                      <codeInline>autoUpgrade</codeInline> - equivalent to specifying <codeInline>true</codeInline> as the value of <codeInline>autoUpgrade</codeInline>.</para>
+                      <codeInline>qualifyHint</codeInline> - equivalent to specifying <codeInline>qualifyHint="true"</codeInline>.</para>
                   </listItem>
                 </list>
               </listItem>
@@ -98,19 +94,6 @@
               <listItem>
                 <para>a Boolean value indicating whether the name of the defining type will be included in the link text.
 If no value is specified, the type name will be excluded.</para>
-              </listItem>
-            </list>
-          </content>
-        </section>
-        <section address="autoUpgrade">
-          <title>
-            <codeInline>autoUpgrade</codeInline>
-          </title>
-          <content>
-            <list class="nobullet">
-              <listItem>
-                <para>a Boolean value indicating whether the link target will be set to the topic that list the method's overloads.
-If no value is specified or no overloads exist, the link target will be set to the specific method's topic.</para>
               </listItem>
             </list>
           </content>
@@ -149,7 +132,7 @@ If no value is specified or no overloads exist, the link target will be set to t
           <title>Current Workaround</title>
           <content>
             <code title="AMDL" language="none">
-[](M:Amdl.Maml.Converter.LayoutIndexer.IndexAsync(Amdl.Maml.Converter.Paths,System.Threading.CancellationToken))
+[](E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged)
 </code>
           </content>
         </section>

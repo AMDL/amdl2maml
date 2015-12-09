@@ -21,13 +21,19 @@
       <title>Syntax</title>
       <content>
         <para>A definition list consists of a sequence of <legacyItalic>definition list items</legacyItalic>.
-A <legacyItalic>definition list item</legacyItalic> consists of</para>
+A <newTerm>definition list item</newTerm> consists of</para>
         <list class="ordered">
           <listItem>
-            <para>a line of text, followed by</para>
+            <para>one or more <legacyItalic>terms</legacyItalic>, where each <newTerm>term</newTerm> consists of</para>
+            <list class="ordered">
+              <listItem>
+                <para>a line of text,</para>
+              </listItem>
+            </list>
+            <para>followed by</para>
           </listItem>
           <listItem>
-            <para>one or more <legacyItalic>definitions</legacyItalic>. A <legacyItalic>definition</legacyItalic> consists of</para>
+            <para>one or more <legacyItalic>definitions</legacyItalic>, where each <newTerm>definition</newTerm> consists of</para>
             <list class="ordered">
               <listItem>
                 <para>optionally, a blank line, followed by,</para>
@@ -39,7 +45,7 @@ A <legacyItalic>definition list item</legacyItalic> consists of</para>
                 <para>a colon, followed by</para>
               </listItem>
               <listItem>
-                <para>four space characters or one tab stop, followed by</para>
+                <para>one or more space or tab characters, followed by</para>
               </listItem>
               <listItem>
                 <para>any inline elements.</para>

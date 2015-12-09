@@ -12,19 +12,19 @@
       <content>
         <list class="ordered">
           <listItem>
-            <para>The <codeInline>&lt;mediaLink&gt;</codeInline> element maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#block-image">block image</link>.</para>
+            <para>The <codeInline>&lt;mediaLink&gt;</codeInline> element directly maps to <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157" />.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>placement</codeInline> attribute of the <codeInline>&lt;image&gt;</codeInline> element maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#placement">placement</link>.</para>
+            <para>The <codeInline>placement</codeInline> attribute of the <codeInline>&lt;image&gt;</codeInline> element maps to <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157#placement"><codeInline>placement</codeInline></link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>&lt;caption&gt;</codeInline> element text maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#caption">caption</link>.</para>
+            <para>The <codeInline>&lt;caption&gt;</codeInline> element text maps to <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157#caption"><codeInline>caption</codeInline></link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>placement</codeInline> attribute of the <codeInline>&lt;caption&gt;</codeInline> element maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#captionPlacement">captionPlacement</link>.</para>
+            <para>The <codeInline>placement</codeInline> attribute of the <codeInline>&lt;caption&gt;</codeInline> element maps to <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157#captionPlacement"><codeInline>captionPlacement</codeInline></link>.</para>
           </listItem>
           <listItem>
-            <para>The <codeInline>lead</codeInline> attribute of the <codeInline>&lt;caption&gt;</codeInline> element maps to <link xlink:href="904e67be-229f-41b6-b66d-04da156f6ecf#captionLead">captionLead</link>.</para>
+            <para>The <codeInline>lead</codeInline> attribute of the <codeInline>&lt;caption&gt;</codeInline> element maps to <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157#captionLead"><codeInline>captionLead</codeInline></link>.</para>
           </listItem>
         </list>
       </content>
@@ -49,8 +49,8 @@ This is a block image:
         <para>Partial, pending parser modification.</para>
       </content>
       <sections>
-        <section address="Limitations">
-          <title>Limitations</title>
+        <section address="Limitations:">
+          <title>Limitations:</title>
           <content>
             <para>
               <list class="ordered">
@@ -64,10 +64,19 @@ This is a block image:
             </para>
           </content>
         </section>
-        <section address="Current Workaround">
-          <title>Current Workaround</title>
+        <section address="Current Workarounds:">
+          <title>Current Workarounds:</title>
           <content>
-            <para>Manually edit the image properties in the SHFB project.</para>
+            <para>
+              <list class="ordered">
+                <listItem>
+                  <para>Manually edit the image properties in the SHFB project.</para>
+                </listItem>
+                <listItem>
+                  <para>N/A.</para>
+                </listItem>
+              </list>
+            </para>
           </content>
         </section>
       </sections>

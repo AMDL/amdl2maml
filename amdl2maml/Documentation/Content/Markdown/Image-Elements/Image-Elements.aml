@@ -3,31 +3,30 @@
 <!-- Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. -->
 <!-- amdl2maml Version 1.0                  -->
 <!-- Copyright © Dmitry Shechtman 2015      -->
-<topic id="f436a412-378a-43ec-b798-24be086ceba7" revisionNumber="1">
+<topic id="4b496691-3953-498d-b0b5-d65a754bc56e" revisionNumber="1">
   <developerOrientationDocument xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
     <summary />
     <introduction />
-    <section address="Media Elements">
-      <title>Media Elements</title>
+    <section address="Image Elements">
+      <title>Image Elements</title>
       <content>
-        <para>Select one of the topics below to learn more about a particular media element.</para>
         <list class="bullet">
           <listItem>
             <para>
-              <link xlink:href="d3932f90-c4b6-405b-8b6a-5b0d40f534d7" />
+              <link xlink:href="6ca84d07-2ee5-42f5-a8e1-29e50e828157" />
             </para>
           </listItem>
           <listItem>
             <para>
-              <link xlink:href="522d44b1-5cd7-4403-987a-6f097fdc56ff" />
+              <link xlink:href="4e623dcd-0446-4408-a5b3-26a75da50a36" />
             </para>
           </listItem>
         </list>
       </content>
     </section>
     <relatedTopics>
-      <link xlink:href="4b496691-3953-498d-b0b5-d65a754bc56e" />
-      <link xlink:href="580efa0a-5f59-441d-9def-b2de59d71159" />
+      <link xlink:href="f436a412-378a-43ec-b798-24be086ceba7" />
+      <link xlink:href="a8e7fa0d-1cde-4d54-8999-90674b26f8d8" />
     </relatedTopics>
   </developerOrientationDocument>
 </topic>
